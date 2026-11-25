@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta name="theme-color" content="#060a13" />
-  <title>JÓVENES EN ACCIÓN — Grupos y Control de 80 Asistencias | MIT</title>
+  <title>JÓVENES EN ACCIÓN — Grupos y Asistencias Noviembre (Lun–Vie) | MIT</title>
 
   <!-- Google Fonts: Plus Jakarta Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -136,21 +136,11 @@
       font-weight: 700;
     }
 
-    /* Cuadrícula de 80 vistos */
+    /* Calendario de Noviembre (5 columnas: Lunes a Viernes, sin fines de semana) */
     .att-grid-80 {
       display: grid;
       grid-template-columns: repeat(5, minmax(0, 1fr));
-      gap: 0.4rem;
-    }
-    @media (min-width: 480px) {
-      .att-grid-80 {
-        grid-template-columns: repeat(8, minmax(0, 1fr));
-      }
-    }
-    @media (min-width: 768px) {
-      .att-grid-80 {
-        grid-template-columns: repeat(10, minmax(0, 1fr));
-      }
+      gap: 0.45rem;
     }
 
     /* Slider esmeralda para vistos */
@@ -222,7 +212,7 @@
               JÓVENES EN ACCIÓN
             </h1>
             <p class="text-slate-300/85 text-xs sm:text-sm font-medium mt-0.5">
-              Sistema de Consulta Rápida, Distribución de Grupos y Control de 80 Asistencias
+              Sistema de Consulta Rápida, Distribución de Grupos y Asistencias Noviembre (Lun–Vie)
             </p>
           </div>
         </div>
@@ -278,7 +268,7 @@
         <div class="min-w-0 pl-2.5 sm:pl-5 border-l border-slate-200/80">
           <p class="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-emerald-700 truncate">Asistencias</p>
           <p id="metricAttendanceAvg" class="font-display text-xl sm:text-3xl font-extrabold tracking-tight text-emerald-700 tabular-nums mt-0.5 leading-none">0%</p>
-          <p id="metricAttendanceSub" class="text-[10px] sm:text-[11px] text-slate-500 mt-1 truncate">0 / 80 vistos</p>
+          <p id="metricAttendanceSub" class="text-[10px] sm:text-[11px] text-slate-500 mt-1 truncate">0 / 21 días</p>
         </div>
       </div>
 
@@ -325,7 +315,7 @@
         <button id="tabModeAttendance" type="button"
                 class="min-h-[40px] px-4 py-1.5 rounded-xl text-xs sm:text-sm font-extrabold transition-colors cursor-pointer inline-flex items-center gap-2 text-slate-700 hover:text-slate-900">
           <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600"></i>
-          <span>Control de Asistencias (80 Vistos)</span>
+          <span>Asistencias Noviembre (Lun–Vie)</span>
         </button>
       </div>
 
@@ -468,10 +458,10 @@
         <div>
           <h2 class="font-display text-base sm:text-lg font-extrabold tracking-tight text-slate-900 flex items-center gap-2">
             <span class="w-7 h-7 rounded-xl bg-emerald-500 text-white flex items-center justify-center text-sm font-black shadow-sm">✓</span>
-            <span>Control de 80 Vistos de Asistencia</span>
+            <span>Calendario de Asistencias — Noviembre (Lunes a Viernes)</span>
           </h2>
           <p class="text-xs text-slate-500 mt-0.5">
-            Pon un visto rápido con <strong>+ Visto</strong> o abre la hoja de <strong>80 vistos</strong> de cualquier integrante.
+            Solo días entre semana de <strong>Noviembre (Lunes a Viernes, 21 días)</strong> · Sin fines de semana.
           </p>
         </div>
 
@@ -493,13 +483,7 @@
             </button>
           </div>
 
-          <!-- Selector de Fecha Real para la Jornada Activa (#3) -->
-          <div class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-2xl bg-white/90 border border-white shadow-sm">
-            <i data-lucide="calendar-days" class="w-3.5 h-3.5 text-emerald-600"></i>
-            <input id="sessionDateInput" type="date"
-                   title="Fecha de esta jornada de asistencia"
-                   class="bg-transparent text-xs font-extrabold text-slate-800 tabular-nums outline-none cursor-pointer" />
-          </div>
+
 
           <button id="btnMarkSessionAllVisible" type="button"
                   class="min-h-[38px] px-3.5 py-1.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white text-xs font-extrabold transition cursor-pointer inline-flex items-center gap-1.5 shadow-sm shadow-emerald-600/20">
@@ -512,7 +496,7 @@
       <!-- Cuadrícula desplegable custom para elegir cualquiera de las 80 jornadas -->
       <div id="sessionPickerGrid" class="hidden pt-3 border-t border-white/80 space-y-2">
         <div class="flex items-center justify-between">
-          <span class="text-[11px] font-bold uppercase tracking-wider text-slate-500">Elige la jornada activa (1 a 80):</span>
+          <span class="text-[11px] font-bold uppercase tracking-wider text-slate-500">Elige el día hábil de Noviembre (Lunes a Viernes):</span>
           <button id="btnCloseSessionPicker" type="button" class="text-xs font-bold text-slate-500 hover:text-slate-800 cursor-pointer">Cerrar</button>
         </div>
         <div id="sessionPickerButtons" class="att-grid-80"></div>
@@ -555,8 +539,32 @@
     'use strict';
 
     const STORAGE_KEY = 'jea_mit_liquid_focused_v6';
-    const ATT_STORAGE_KEY = 'jea_mit_attendances_80_v1';
-    const TOTAL_SESSIONS = 80;
+    const ATT_STORAGE_KEY = 'jea_mit_attendances_nov_v2';
+    const NOV_WEEKDAYS = [
+      { idx: 1,  day: 2,  dow: 'Lun', short: 'Lun 02', label: 'Lun 02 Nov', excel: 'Lun 02/11' },
+      { idx: 2,  day: 3,  dow: 'Mar', short: 'Mar 03', label: 'Mar 03 Nov', excel: 'Mar 03/11' },
+      { idx: 3,  day: 4,  dow: 'Mié', short: 'Mié 04', label: 'Mié 04 Nov', excel: 'Mié 04/11' },
+      { idx: 4,  day: 5,  dow: 'Jue', short: 'Jue 05', label: 'Jue 05 Nov', excel: 'Jue 05/11' },
+      { idx: 5,  day: 6,  dow: 'Vie', short: 'Vie 06', label: 'Vie 06 Nov', excel: 'Vie 06/11' },
+      { idx: 6,  day: 9,  dow: 'Lun', short: 'Lun 09', label: 'Lun 09 Nov', excel: 'Lun 09/11' },
+      { idx: 7,  day: 10, dow: 'Mar', short: 'Mar 10', label: 'Mar 10 Nov', excel: 'Mar 10/11' },
+      { idx: 8,  day: 11, dow: 'Mié', short: 'Mié 11', label: 'Mié 11 Nov', excel: 'Mié 11/11' },
+      { idx: 9,  day: 12, dow: 'Jue', short: 'Jue 12', label: 'Jue 12 Nov', excel: 'Jue 12/11' },
+      { idx: 10, day: 13, dow: 'Vie', short: 'Vie 13', label: 'Vie 13 Nov', excel: 'Vie 13/11' },
+      { idx: 11, day: 16, dow: 'Lun', short: 'Lun 16', label: 'Lun 16 Nov', excel: 'Lun 16/11' },
+      { idx: 12, day: 17, dow: 'Mar', short: 'Mar 17', label: 'Mar 17 Nov', excel: 'Mar 17/11' },
+      { idx: 13, day: 18, dow: 'Mié', short: 'Mié 18', label: 'Mié 18 Nov', excel: 'Mié 18/11' },
+      { idx: 14, day: 19, dow: 'Jue', short: 'Jue 19', label: 'Jue 19 Nov', excel: 'Jue 19/11' },
+      { idx: 15, day: 20, dow: 'Vie', short: 'Vie 20', label: 'Vie 20 Nov', excel: 'Vie 20/11' },
+      { idx: 16, day: 23, dow: 'Lun', short: 'Lun 23', label: 'Lun 23 Nov', excel: 'Lun 23/11' },
+      { idx: 17, day: 24, dow: 'Mar', short: 'Mar 24', label: 'Mar 24 Nov', excel: 'Mar 24/11' },
+      { idx: 18, day: 25, dow: 'Mié', short: 'Mié 25', label: 'Mié 25 Nov', excel: 'Mié 25/11' },
+      { idx: 19, day: 26, dow: 'Jue', short: 'Jue 26', label: 'Jue 26 Nov', excel: 'Jue 26/11' },
+      { idx: 20, day: 27, dow: 'Vie', short: 'Vie 27', label: 'Vie 27 Nov', excel: 'Vie 27/11' },
+      { idx: 21, day: 30, dow: 'Lun', short: 'Lun 30', label: 'Lun 30 Nov', excel: 'Lun 30/11' }
+    ];
+    const TOTAL_SESSIONS = NOV_WEEKDAYS.length; // 21 días hábiles de Noviembre
+    const getNovDay = (idx) => NOV_WEEKDAYS[idx - 1] || NOV_WEEKDAYS[0];
     const UNASSIGNED = 'Sin grupo';
     const ORIGINAL_NAME = 'JEA GRUPO 4.xls OFFICIAL EXCEL.xls';
     const INITIAL_EXCEL_ROWS = [{"name": "ACAN PALAG ERICK ABRAHAM", "id": "0605336775", "groupRaw": "Grupo 6"}, {"name": "AGUA FERNANDES BRYAN STALYN", "id": "0250064177", "groupRaw": ""}, {"name": "AGUALONGO ESTRADA NAJERLY FERNANDA", "id": "0250203577", "groupRaw": ""}, {"name": "AGUAS ZAMBRANO EMERSON SAMUEL", "id": "1729915510", "groupRaw": ""}, {"name": "AGUILAR BAYAS WILSON ENRIQUE", "id": "0202464160", "groupRaw": "Grupo 5"}, {"name": "AGUILAR GALLO OSCAR MAURICIO", "id": "0250305927", "groupRaw": ""}, {"name": "AGUIRRE ESPIN FANNY MAGALY", "id": "0250030780", "groupRaw": "Grupo 4"}, {"name": "ALBAN MENDOZA GEOCONDA LORENA", "id": "1250553201", "groupRaw": ""}, {"name": "ALBARACIN MOLINA ALISSON NOELIA", "id": "1755448550", "groupRaw": "Grupo 2"}, {"name": "AMANGANDI SIMALIZA TANYA PAMELA", "id": "0202701785", "groupRaw": "Grupo 3"}, {"name": "ANANCOLLA PILLA MANUELA DEL ROCIO", "id": "1805672506", "groupRaw": "Grupo 5"}, {"name": "ANDACHI OROZCO SHEYLA NICOLE", "id": "0250256427", "groupRaw": ""}, {"name": "ANDRADE PACHERRIS KEVIN ANDRES", "id": "1250181607", "groupRaw": "Grupo 6"}, {"name": "ANGULO SOLANO RONNY SEBASTIAN", "id": "1208450328", "groupRaw": ""}, {"name": "AREVALO PACHALA ALEXANDER RAUL", "id": "0250231032", "groupRaw": ""}, {"name": "AREVALO TENELEMA WASHINGTON JOSUE", "id": "0202513073", "groupRaw": "Grupo 4"}, {"name": "ASITUMBAY MANOBANDA CRISTHIAN OSWALDO", "id": "0250072329", "groupRaw": "Grupo 1"}, {"name": "ATACHE TAPUY DANA VERENICE", "id": "1500848252", "groupRaw": "Grupo 2"}, {"name": "BARRAGAN NARANJO MARILYN PAULETTE", "id": "0250066016", "groupRaw": "Grupo 2"}, {"name": "BARRAGAN POVEDA LORENA MARIUXY", "id": "0250148475", "groupRaw": ""}, {"name": "BARRAGAN VASCONES WIDINSON ISRAEL", "id": "0250252988", "groupRaw": "Grupo 2"}, {"name": "BARRAGAN ZURITA ARIANA SOFIA", "id": "1727734871", "groupRaw": ""}, {"name": "BAYAS BAYAS LISETH CAROLINA", "id": "0250282100", "groupRaw": "Grupo 3"}, {"name": "BAYAS QUINGAGUANO CAROLINA JENNIFER", "id": "0250355484", "groupRaw": "Grupo 1"}, {"name": "BONILLA ARGUELLO MELANY CRISTINA", "id": "0250040078", "groupRaw": ""}, {"name": "BRONCANO LLUMIGUANO JEAMPIER ALEXANDER", "id": "0250144409", "groupRaw": "Grupo 1"}, {"name": "CAIZA CASTILLO NATALY MISHELL", "id": "0605828599", "groupRaw": "Grupo 3"}, {"name": "CANDO TENEMAZA JEFERSON ALEXANDER", "id": "0604879734", "groupRaw": ""}, {"name": "CASPI HURTADO MAYERLY ABIGAIL", "id": "0202398079", "groupRaw": ""}, {"name": "CASTILLO CADENA YARLI YANI", "id": "2101319636", "groupRaw": "Grupo 6"}, {"name": "CASTRO MORA EDUARDO DOMINGO", "id": "1727117325", "groupRaw": ""}, {"name": "CAYAMBE LATA OMAR JAVIER", "id": "0605522283", "groupRaw": "Grupo 6"}, {"name": "CEFLA YAMASCA DANIELA LISBETH", "id": "1757210909", "groupRaw": "Grupo 4"}, {"name": "CHACHA AGUALONGO DARWIN SEBASTIAN", "id": "1754927844", "groupRaw": "Grupo 5"}, {"name": "CHACHA CHIMBO LEONEL FABRICIO", "id": "0250178530", "groupRaw": "Grupo 5"}, {"name": "CHACHA GAVILAN JESSICA PIEDAD", "id": "0202666723", "groupRaw": "Grupo 4"}, {"name": "CHACHA GAVILAN WILLIAN FABIAN", "id": "0202684882", "groupRaw": "Grupo 6"}, {"name": "CHACHA PATIN INES NATALY", "id": "0250115565", "groupRaw": ""}, {"name": "CHACON HERRERA NOE SEBASTIAN", "id": "0504870320", "groupRaw": ""}, {"name": "CHAMORRO AGUILAR EVELYN KARINA", "id": "0250068939", "groupRaw": ""}, {"name": "CHARCO PACA DINA LIZBETH", "id": "0605996420", "groupRaw": "Grupo 6"}, {"name": "CHAVEZ AGUACHELA EMELY JAMILETH", "id": "0250062031", "groupRaw": "Grupo 4"}, {"name": "CHELA CHIMBO JAIME GUSTAVO", "id": "0202667010", "groupRaw": "Grupo 3"}, {"name": "CHIMBO CHIMBORAZO JENYFFER VANESA", "id": "0202655783", "groupRaw": "Grupo 2"}, {"name": "CHIMBO PASTO RAUL OSWALDO", "id": "0202579256", "groupRaw": "Grupo 3"}, {"name": "CHIMBO PATIN JESSENIA MARILU", "id": "0250281367", "groupRaw": "Grupo 3"}, {"name": "CHIMBOLEMA AGUALSACA MARIO DAVID", "id": "0250308517", "groupRaw": "Grupo 3"}, {"name": "CHIMBOLEMA MUYULEMA MONICA MARGOTH", "id": "0250302353", "groupRaw": ""}, {"name": "CHIMBORAZO GUTIERREZ WELINGTON JHOEL", "id": "0250155413", "groupRaw": ""}, {"name": "CHIMBORAZO PUNINA ZOILA MARIELA", "id": "0250365103", "groupRaw": "Grupo 4"}, {"name": "CHIMBORAZO QUISHPE HENRY RAMIRO", "id": "0503926800", "groupRaw": "Grupo 2"}, {"name": "CHULCO LLUMITAXI ERIKA JIMENA", "id": "0250162781", "groupRaw": "Grupo 2"}, {"name": "COLES PATIN CRISTHIAN WILFRIDO", "id": "0250313772", "groupRaw": ""}, {"name": "CONDEMAITA PACHUCHO KEVIN ARIEL", "id": "0202700241", "groupRaw": "Grupo 6"}, {"name": "CORAIZACA AMANGANDI ADAMARIS NOEMI", "id": "1752542900", "groupRaw": "Grupo 6"}, {"name": "CORDOVILLA CAMPOVERDE XIOMARA ESTEFANIA", "id": "0250358116", "groupRaw": ""}, {"name": "CURAY IZA ALISON NICOLE", "id": "1805768890", "groupRaw": ""}, {"name": "ENCALADA GUAMAN JOSE ANDRES", "id": "0202472270", "groupRaw": "Grupo 1"}, {"name": "FIGUEROA MACIAS AXEL DYLAN", "id": "0952371367", "groupRaw": ""}, {"name": "FOGACHO GUINGLA ELVA DE LOURDDES", "id": "0202404505", "groupRaw": "Grupo 5"}, {"name": "FOGACHO GUINGLA MIRIAM ALEXANDRA", "id": "0202405494", "groupRaw": ""}, {"name": "FOGACHO GUINGLA NELSON MAURICIO", "id": "0202404497", "groupRaw": "Grupo 5"}, {"name": "GAGLAY CHARIGUAMAN EDDY ARIEL", "id": "0250058666", "groupRaw": ""}, {"name": "GAGLAY GAGLAY LENIN DANIEL", "id": "0202667903", "groupRaw": ""}, {"name": "GAIBOR GUEVARA LIZETH KATHERINE", "id": "0202432696", "groupRaw": ""}, {"name": "GAIBOR NARANJO RICHARD ALEXANDER", "id": "1752651420", "groupRaw": ""}, {"name": "GARCES FONSECA DAYANA MISCHELL", "id": "0250285434", "groupRaw": ""}, {"name": "GARCIA CRUZ JULY TATIANA", "id": "2300136559", "groupRaw": ""}, {"name": "GAVILANEZ CHILENO CRISTHIAN MAURICIO", "id": "0202465688", "groupRaw": ""}, {"name": "GIRALDO REYES MATIAS DANIEL", "id": "1251258057", "groupRaw": "Grupo 1"}, {"name": "GUACHI GUANIN OLGA JACQUELINE", "id": "1850677491", "groupRaw": ""}, {"name": "GUAMAN CHIMBORAZO MARIO JESUS", "id": "0250087871", "groupRaw": "Grupo 6"}, {"name": "GUAMAN CHORA MAYRA CRISTINA", "id": "0250096401", "groupRaw": "Grupo 4"}, {"name": "GUAMAN SALTOS FIORELA JAMILEX", "id": "0250303179", "groupRaw": "Grupo 5"}, {"name": "GUAMAN SALTOS LUIS ARMANDO", "id": "0250307485", "groupRaw": ""}, {"name": "GUAMBUGUETE GUAMBUGUETE JUAN BLADIMIR", "id": "1751335249", "groupRaw": ""}, {"name": "GUANIN ESPIN DIANA GISSEL", "id": "1850507300", "groupRaw": ""}, {"name": "GUAQUIPANA PATIN DIOCELINA MARIBEL", "id": "0250042017", "groupRaw": ""}, {"name": "INTRIAGO CASTRO MELL MARILIN", "id": "1754933156", "groupRaw": ""}, {"name": "JAMA YAMUCA LINDSAY YUMSUN", "id": "1208047967", "groupRaw": "Grupo 1"}, {"name": "LARA PLAZA MISHELLE ESTHEFANIA", "id": "0250143500", "groupRaw": "Grupo 3"}, {"name": "LARA VASCONEZ IRMA EUGENIA", "id": "0202474748", "groupRaw": "Grupo 5"}, {"name": "LEMA TIBANLOMBO LIZANDRO ALCEU", "id": "0202685079", "groupRaw": "Grupo 1"}, {"name": "LLUMITAXI QUINATOA KAROLINA SAMANTHA", "id": "0250283223", "groupRaw": "Grupo 3"}, {"name": "LOPEZ TORRES DIANA ELIZABETH", "id": "0250173150", "groupRaw": "Grupo 2"}, {"name": "LUMBI SANTILLAN CRISTHIAN ADRIAN", "id": "0202686010", "groupRaw": "Grupo 4"}, {"name": "MALAN YANEZ ERIK ALEXANDER", "id": "0250198017", "groupRaw": "Grupo 6"}, {"name": "MALIZA CALUÑA ERIK ISMAEL", "id": "0250004256", "groupRaw": "Grupo 3"}, {"name": "MALIZA CALUÑA ISAAC ALEJANDRO", "id": "0250157252", "groupRaw": "Grupo 3"}, {"name": "MANOBANDA CANDO JONNATHAN RIQUELME", "id": "0250344868", "groupRaw": ""}, {"name": "MANOBANDA QUINALOA NATHALI TATIANA", "id": "0202664009", "groupRaw": ""}, {"name": "MANOBANDA VILLALVA ANA GRACIELA", "id": "0250341336", "groupRaw": ""}, {"name": "MARIN QUINTANILLA CARLOS MESIAS", "id": "1851031599", "groupRaw": "Grupo 6"}, {"name": "MARTINEZ CHICO LUIS MIGUEL", "id": "0202291209", "groupRaw": "Grupo 2"}, {"name": "MASABANDA PAREDES MARIA EMILIA", "id": "1805063706", "groupRaw": "Grupo 1"}, {"name": "MELO NARANJO NEYSER PABEL", "id": "1805450333", "groupRaw": "Grupo 3"}, {"name": "MONTOYA AGUILAR EDWIN FREDDY", "id": "0250001401", "groupRaw": ""}, {"name": "MOPOSITA CHELA MAURICIO DANIEL", "id": "0250260254", "groupRaw": "Grupo 5"}, {"name": "MOPOSITA TARIS LUIS MEDARDO", "id": "0202292371", "groupRaw": "Grupo 6"}, {"name": "MOREIRA GUARANGA CHRIS MAIBET", "id": "2351099573", "groupRaw": "Grupo 6"}, {"name": "MOYA ESPIN ANDERSON LENIN", "id": "0250229887", "groupRaw": ""}, {"name": "MUESES SILVA FERNANDA CAMILA", "id": "1756150395", "groupRaw": "Grupo 6"}, {"name": "MULLO CHIMBO SARA INES", "id": "0250294386", "groupRaw": ""}, {"name": "NUÑEZ AGUIAR MISHEL ESTEFANIA", "id": "0202420899", "groupRaw": "Grupo 6"}, {"name": "OCHOA ROSERO EVELIN MADELEINE", "id": "2101072557", "groupRaw": ""}, {"name": "ORDOÑEZ CORONEL JESSICA DE LOS ANGELES", "id": "1106244823", "groupRaw": ""}, {"name": "ORTA CADENA CHRISTOPHER JOEL", "id": "2250040165", "groupRaw": "Grupo 6"}, {"name": "ORTIZ AUCATOMA ALEX ISAAC", "id": "0250054616", "groupRaw": "Grupo 6"}, {"name": "OYAGUE MONAR KATIUSCA ELIZABETH", "id": "0202493540", "groupRaw": ""}, {"name": "PACA OCHOG DEISY ALICIA", "id": "0605036607", "groupRaw": ""}, {"name": "PACHA REMACHE JONATHAN ROBERTO", "id": "0202670949", "groupRaw": "Grupo 5"}, {"name": "PARRAGA BARZALLO ANTHONY FRANCISCO", "id": "0706755733", "groupRaw": ""}, {"name": "PASTO PATIN JUAN DAVID", "id": "0202699575", "groupRaw": "Grupo 5"}, {"name": "PATI UNKUCH MAYORIN JULIANA", "id": "1400990683", "groupRaw": ""}, {"name": "PATIN ESTRELLA CLELIA ROMELIA", "id": "0250012788", "groupRaw": ""}, {"name": "PATIN GUARANDA PEDRO ENRIQUE", "id": "0250245685", "groupRaw": ""}, {"name": "PATIN PASTO MARIA ESTHELA", "id": "0250257367", "groupRaw": "Grupo 5"}, {"name": "PEREZ PASTO ANDREA KAROLINA", "id": "0250160744", "groupRaw": "Grupo 6"}, {"name": "PEREZ PASTO JENIFER STEFANIA", "id": "0250180908", "groupRaw": "Grupo 6"}, {"name": "POMA PASTO ANDDY JHOSUE", "id": "0202706081", "groupRaw": "Grupo 1"}, {"name": "PONCE CHILENO DANY WIDISON", "id": "0202669586", "groupRaw": "Marcado como \"no grupo\""}, {"name": "PUMA LAZO GALO ISMAEL", "id": "0250228517", "groupRaw": ""}, {"name": "PUNGAÑA LLUMITAXI ROLANDO REMIGIO", "id": "0202362133", "groupRaw": "Grupo 5"}, {"name": "PUNINA ESPIN MARIA DE LOS ANGELES", "id": "0250069093", "groupRaw": ""}, {"name": "QUINATOA HURTADO ERICK RENATO", "id": "0202702999", "groupRaw": "Grupo 1"}, {"name": "QUINATOA QUINATOA GABRIEL ORLANDO", "id": "1850417484", "groupRaw": "Grupo 6"}, {"name": "RAMIREZ CAMBO JEFFERSON DANIEL", "id": "0250325321", "groupRaw": ""}, {"name": "RAMIREZ POMA THALIA CRISTEL", "id": "0202495198", "groupRaw": ""}, {"name": "RAMOS JIMENEZ MERCEDES GUADALUPE", "id": "1850457357", "groupRaw": "Grupo 6"}, {"name": "REA GAVILAN VILMA JANNETH", "id": "0202665477", "groupRaw": "Grupo 6"}, {"name": "REA LUMBI NEYSSER FABIAN", "id": "0250140779", "groupRaw": "Grupo 6"}, {"name": "REA POMA CRISTHIAN FERNANDO", "id": "0250055084", "groupRaw": ""}, {"name": "REA PUNINA MISHEL MICAELA", "id": "0202365953", "groupRaw": ""}, {"name": "REA REA LORENA ESTEFANIA", "id": "0250229721", "groupRaw": "Grupo 6"}, {"name": "REA SANTILLAN STALYN MAURICIO", "id": "0202688420", "groupRaw": "Grupo 4"}, {"name": "RECALDE IMBAQUINGO BYRON JAVIER", "id": "1550191579", "groupRaw": ""}, {"name": "ROCHINA REA OLIVER ALEXANDER", "id": "2150214662", "groupRaw": "Grupo 1"}, {"name": "RUIZ PADILLA MARLON EDUARDO", "id": "0202341434", "groupRaw": "Grupo 3"}, {"name": "RUMITAXI GAVILAN ELISA LISSETH", "id": "0250148715", "groupRaw": "Grupo 3"}, {"name": "SANCHEZ LLANOS MELANY FERNANDA", "id": "1752973121", "groupRaw": ""}, {"name": "SEGOVIA RUBIO TATIANA PAULINA", "id": "0504139718", "groupRaw": "Grupo 1"}, {"name": "SISA HURTADO CARLOS ALEJANDRO", "id": "0250143153", "groupRaw": ""}, {"name": "SISA LUMBI LEYDI BELEN", "id": "0202174413", "groupRaw": "Grupo 6"}, {"name": "SISA MICHUY STALYN MATEO", "id": "0202523957", "groupRaw": ""}, {"name": "SISA REA FANNY NATALY", "id": "0202678330", "groupRaw": "Grupo 3"}, {"name": "SISA SANTILLAN ALEXANDER XAVIER", "id": "0250311636", "groupRaw": "Grupo 5"}, {"name": "SOLANO GARCIA KEVIN DAVID", "id": "0250145919", "groupRaw": ""}, {"name": "SOTO JARA IVY JACKYE", "id": "0958008815", "groupRaw": "Grupo 4"}, {"name": "SUAREZ GUALINGA FRIXON JAIR", "id": "1650152604", "groupRaw": "Grupo 1"}, {"name": "TANDAPILCO MATAVACA EDGAR ROLANDO", "id": "0202370250", "groupRaw": "Grupo 1"}, {"name": "TAPUY ALVARADO VALERY DAMARIS", "id": "1550255754", "groupRaw": "Grupo 2"}, {"name": "TAPUY TAPUY JORGE SALVADOR", "id": "1501194706", "groupRaw": "Grupo 6"}, {"name": "TARIS MUGUICHA ANDREA PAULETH", "id": "0250261138", "groupRaw": "Grupo 4"}, {"name": "TENELEMA AREVALO NIDIA ELIZABETH", "id": "0250099959", "groupRaw": ""}, {"name": "TENELEMA TENELEMA JEFFERSON DARIO", "id": "0250085255", "groupRaw": "Marcado como \"no grupo\""}, {"name": "TOAPANTA GARCIA SHIRLEY ANAI", "id": "0250149846", "groupRaw": ""}, {"name": "TUALOMBO TARIS SEGUNDO MANUEL", "id": "0202495297", "groupRaw": ""}, {"name": "VALLE SOLARTE FRANCIS CAMILA", "id": "0250128741", "groupRaw": "Grupo 2"}, {"name": "VALVERDE VALVERDE JORGE ALEXANDER", "id": "0250147956", "groupRaw": "Grupo 1"}, {"name": "VALVERDE VALVERDE LUIS EDUARDO", "id": "0202662185", "groupRaw": "Grupo 1"}, {"name": "VELOZ SILVA JESSICA ROXANA", "id": "0202525242", "groupRaw": "Grupo 4"}, {"name": "VELOZ SOLIS JOSELYN MABEL", "id": "0250147337", "groupRaw": "Grupo 2"}, {"name": "YAGUACHE CASTILLO LESLIE DANIELA", "id": "0504074352", "groupRaw": "Grupo 6"}, {"name": "YAUQUI USHCA ALEX REMIGIO", "id": "0250187291", "groupRaw": "Grupo 6"}, {"name": "YUMBAY REMACHE ANDY FABRICIO", "id": "0250352499", "groupRaw": "Grupo 4"}, {"name": "YUMBAY REMACHE EDISON WILFRIDO", "id": "0250326923", "groupRaw": "Grupo 1"}, {"name": "ZARUMA NINABANDA CRISTHOFER JHAIR", "id": "0202337226", "groupRaw": "Grupo 1"}, {"name": "ZARUMA NINABANDA MARJORIE ANABEL", "id": "0250015815", "groupRaw": "Grupo 1"}];
@@ -828,22 +836,21 @@
     }
 
     function updateSessionUI() {
-      const dateInput = document.getElementById('sessionDateInput');
-      const curDate = state.sessionDates[state.activeSession] || todayIso();
-      if (dateInput) dateInput.value = curDate;
-      els.activeSessionLabel.textContent = `Jornada #${state.activeSession} (${formatShortDate(curDate)})`;
-      els.btnMarkSessionLabel.textContent = `Poner visto #${state.activeSession} a visibles`;
+      const d = getNovDay(state.activeSession);
+      els.activeSessionLabel.textContent = `${d.label}`;
+      els.btnMarkSessionLabel.textContent = `Poner visto (${d.short}) a visibles`;
       let btns = '';
-      for (let i = 1; i <= TOTAL_SESSIONS; i++) {
-        const active = i === state.activeSession;
+      for (const w of NOV_WEEKDAYS) {
+        const active = w.idx === state.activeSession;
         btns += `
-          <button type="button" onclick="window.__selectActiveSession(${i})"
-                  class="h-8 rounded-xl text-xs font-extrabold tabular-nums transition cursor-pointer ${
+          <button type="button" onclick="window.__selectActiveSession(${w.idx})"
+                  class="h-10 rounded-xl text-xs font-extrabold tabular-nums transition cursor-pointer flex flex-col items-center justify-center leading-tight ${
                     active
                       ? 'bg-emerald-600 text-white shadow-sm'
                       : 'bg-white/90 hover:bg-slate-200/80 text-slate-700 border border-slate-200'
                   }">
-            #${i}
+            <span class="text-[10px] opacity-75">${w.dow}</span>
+            <span>${w.day} Nov</span>
           </button>
         `;
       }
@@ -995,15 +1002,15 @@
           'Vistos_Asistencia': `${count}/${TOTAL_SESSIONS}`,
           'Porcentaje_Asistencia': `${pct}%`
         };
-        for (let s = 1; s <= TOTAL_SESSIONS; s++) {
-          row[`A${s}`] = set.has(s) ? '✓' : '';
+        for (const w of NOV_WEEKDAYS) {
+          row[w.excel] = set.has(w.idx) ? '✓' : '';
         }
         return row;
       });
       const ws = XLSX.utils.json_to_sheet(exportRows);
       const wb = XLSX.utils.book_new();
       XLSX.utils.book_append_sheet(wb, ws, 'Asistencias_y_Grupos');
-      XLSX.writeFile(wb, 'JOVENES_EN_ACCION_GRUPOS_Y_80_VISTOS.xlsx');
+      XLSX.writeFile(wb, 'JOVENES_EN_ACCION_NOVIEMBRE_ASISTENCIAS.xlsx');
       showToast('Excel con grupos y 80 vistos descargado');
     }
 
@@ -1013,7 +1020,7 @@
       const totalPeople = groupedPeople.length;
       if (!totalPeople) {
         els.attAvg.textContent = '0%';
-        els.attSub.textContent = '0 / 80 vistos';
+        els.attSub.textContent = '0 / 21 días';
         return;
       }
       let totalMarks = 0;
@@ -1023,7 +1030,7 @@
       const avgCount = (totalMarks / totalPeople).toFixed(1).replace(/\.0$/, '');
       const avgPct = Math.round((totalMarks / (totalPeople * TOTAL_SESSIONS)) * 100);
       els.attAvg.textContent = `${avgPct}%`;
-      els.attSub.textContent = `${avgCount} / ${TOTAL_SESSIONS} vistos`;
+      els.attSub.textContent = `${avgCount} / ${TOTAL_SESSIONS} días Nov.`;
     }
 
     // Actualiza en el DOM únicamente la fila y hoja de 80 vistos del integrante modificado (CERO parpadeo)
@@ -1272,26 +1279,24 @@
       `;
     }
 
-    // ---------- Hoja Elegante de 80 Vistos (Checkmarks ✓) ----------
+    // ---------- Calendario Elegante de Noviembre (Lunes a Viernes · 21 días hábiles) ----------
     function buildPerson80GridInnerHtml(p, set, count, pct) {
       let boxesHtml = '';
-      const sem = getSemaforoInfo(count, pct);
-      for (let s = 1; s <= TOTAL_SESSIONS; s++) {
-        const checked = set.has(s);
-        const isCurrentSession = s === state.activeSession;
-        const sDate = state.sessionDates[s] ? formatShortDate(state.sessionDates[s]) : '';
+      for (const w of NOV_WEEKDAYS) {
+        const checked = set.has(w.idx);
+        const isCurrentSession = w.idx === state.activeSession;
         boxesHtml += `
           <button type="button"
-                  onclick="window.__toggleSingleAtt(${p.uid}, ${s})"
-                  title="Jornada #${s}${state.sessionDates[s] ? ' · Fecha: ' + state.sessionDates[s] : ''} (${checked ? 'Visto marcado ✓' : 'Pendiente'})"
-                  class="h-11 rounded-xl border text-xs font-extrabold tabular-nums transition-all cursor-pointer flex flex-col items-center justify-center leading-none select-none ${
+                  onclick="window.__toggleSingleAtt(${p.uid}, ${w.idx})"
+                  title="${w.label} (${checked ? 'Asistió ✓' : 'Pendiente'})"
+                  class="h-12 rounded-xl border text-xs font-extrabold tabular-nums transition-all cursor-pointer flex flex-col items-center justify-center leading-tight select-none ${
                     checked ? 'visto-active' : 'visto-pending'
                   } ${isCurrentSession ? 'ring-2 ring-blue-500 ring-offset-1' : ''}">
-            <span class="flex items-center gap-0.5">
-              <span class="text-[11px] font-black">${checked ? '✓' : '○'}</span>
-              <span>${s}</span>
+            <span class="text-[10px] font-bold uppercase tracking-wider ${checked ? 'text-emerald-100' : 'text-slate-400'}">${w.dow}</span>
+            <span class="flex items-center gap-1 mt-0.5">
+              <span class="text-xs font-black">${checked ? '✓' : '○'}</span>
+              <span class="text-xs font-extrabold">${w.day} Nov</span>
             </span>
-            ${checked && sDate ? `<span class="text-[9px] font-bold opacity-85 mt-0.5">${esc(sDate)}</span>` : ''}
           </button>
         `;
       }
@@ -1319,7 +1324,7 @@
               <div class="flex flex-wrap items-center gap-1.5">
                 <button type="button" onclick="window.__stepAtt(${p.uid}, 5)"
                         class="h-8 px-2.5 rounded-xl bg-emerald-100/80 hover:bg-emerald-200/80 text-emerald-900 text-[11px] font-extrabold transition cursor-pointer">
-                  +5 vistos
+                  +1 Semana (5d)
                 </button>
                 <button type="button" onclick="window.__stepAtt(${p.uid}, 10)"
                         class="h-8 px-2.5 rounded-xl bg-emerald-100/80 hover:bg-emerald-200/80 text-emerald-900 text-[11px] font-extrabold transition cursor-pointer">
@@ -1327,7 +1332,7 @@
                 </button>
                 <button type="button" onclick="window.__fillAllAtt(${p.uid}, true)"
                         class="h-8 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-[11px] font-extrabold transition cursor-pointer shadow-sm">
-                  ✓ Marcar los 80
+                  ✓ Todo Noviembre (21d)
                 </button>
                 <button type="button" onclick="window.__fillAllAtt(${p.uid}, false)"
                         class="h-8 px-2.5 rounded-xl bg-white hover:bg-rose-50 border border-slate-200 text-rose-700 text-[11px] font-extrabold transition cursor-pointer">
@@ -1366,7 +1371,15 @@
             </div>
           </div>
 
-          <!-- Cuadrícula de las 80 casillas de Visto (✓ 1 .. ✓ 80) -->
+          <!-- Encabezado de columnas Lunes a Viernes (Sin fines de semana) -->
+          <div class="grid grid-cols-5 gap-1.5 text-center text-[10px] font-extrabold uppercase tracking-wider text-slate-400 px-0.5">
+            <span>Lunes</span>
+            <span>Martes</span>
+            <span>Miércoles</span>
+            <span>Jueves</span>
+            <span>Viernes</span>
+          </div>
+          <!-- Cuadrícula de los 21 días entre semana de Noviembre -->
           <div class="att-grid-80">
             ${boxesHtml}
           </div>
@@ -1586,7 +1599,7 @@
                         title="Poner visto en Jornada #${state.activeSession} a todo ${esc(groupName)}"
                         class="hidden sm:inline-flex min-h-[38px] px-3 py-1.5 rounded-2xl bg-emerald-50 hover:bg-emerald-100 border border-emerald-300/80 text-xs font-extrabold text-emerald-900 items-center gap-1.5 transition cursor-pointer shadow-sm">
                   <span class="text-emerald-600 font-black">✓</span>
-                  <span>Visto #${state.activeSession}</span>
+                  <span>Visto (${getNovDay(state.activeSession).short})</span>
                 </button>
                 <button type="button" onclick="window.__printGroupSheet(${jsArg(groupName)})"
                         title="Imprimir Acta y Hoja de Firmas de ${esc(groupName)}"
@@ -1864,7 +1877,7 @@
         const all = [];
         for (let s = 1; s <= TOTAL_SESSIONS; s++) all.push(s);
         state.attendances[key] = all;
-        showToast(`✓ 80/80 vistos marcados para ${person.name}`);
+        showToast(`✓ 21/21 días de Noviembre marcados para ${person.name}`);
       } else {
         state.attendances[key] = [];
         showToast(`Vistos reiniciados (0/80) para ${person.name}`);
@@ -1884,7 +1897,7 @@
         updateParticipantAttendanceDOM(p.uid);
       });
       saveAttendances();
-      showToast(`✓ Visto #${s} marcado para los ${list.length} integrantes de ${groupName}`);
+      showToast(`✓ Visto (${getNovDay(s).label}) marcado para los ${list.length} integrantes de ${groupName}`);
     };
 
     // ---------- Acciones de Grupos (Acordeón directo en el DOM sin parpadeo) ----------
@@ -2011,7 +2024,7 @@
         updateParticipantAttendanceDOM(p.uid);
       });
       saveAttendances();
-      showToast(`✓ Visto #${s} puesto a ${targetList.length} integrantes`);
+      showToast(`✓ Visto (${getNovDay(s).label}) puesto a ${targetList.length} integrantes`);
     });
 
     let searchTimer;
@@ -2248,7 +2261,7 @@
             <div>
               <div class="inst">Ministerio de Infraestructura y Transporte</div>
               <h1>JÓVENES EN ACCIÓN — ${esc(groupName.toUpperCase())}</h1>
-              <div class="sub">Acta Oficial de Control de Asistencia (80 Jornadas) y Registro de Firmas</div>
+              <div class="sub">Acta Oficial de Control de Asistencia — Noviembre (Lunes a Viernes · 21 Días) y Firmas</div>
             </div>
             <div class="meta">
               <div><strong>Fecha de emisión:</strong> ${esc(today)}</div>
@@ -2261,7 +2274,7 @@
                 <th style="width:36px;">N°</th>
                 <th>Apellidos y Nombres (Orden A–Z)</th>
                 <th style="width:110px;">Cédula (C.I.)</th>
-                <th style="width:110px;">Vistos (80)</th>
+                <th style="width:115px;">Noviembre (21d)</th>
                 <th style="width:95px;">Estado</th>
                 <th style="width:190px;">Firma del Integrante</th>
               </tr>
