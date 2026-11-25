@@ -186,6 +186,11 @@
 
         <!-- Indicador de Sincronización en la Nube + Botones superiores -->
         <div class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-0.5 no-print">
+          <button id="btnAuthHeader" type="button"
+                  class="shrink-0 min-h-[38px] px-3.5 py-1.5 rounded-full bg-amber-500/20 hover:bg-amber-500/30 border border-amber-400/40 text-amber-200 text-xs font-extrabold transition cursor-pointer inline-flex items-center gap-1.5">
+            <span id="authHeaderIcon">🔒</span>
+            <span id="authHeaderText">Admin</span>
+          </button>
           <button id="btnCloudSyncStatus" type="button" title="Toca para sincronizar ahora con la nube"
                   class="shrink-0 min-h-[38px] px-3.5 py-1.5 rounded-full bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-400/35 text-emerald-200 text-xs font-bold transition cursor-pointer inline-flex items-center gap-2">
             <span id="cloudSyncDot" class="w-2 h-2 rounded-full bg-emerald-400"></span>
@@ -275,6 +280,25 @@
 
   <!-- Contenido Principal -->
   <main class="flex-1 max-w-4xl w-full mx-auto px-3.5 sm:px-6 pt-3.5 pb-16 space-y-4">
+
+    <!-- Banner de Bienvenida Dinámico (Modo Administrador vs Modo Consulta) -->
+    <div id="welcomeRoleBanner" class="liquid-glass rounded-2xl px-4 py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 no-print">
+      <div class="flex items-center gap-3 min-w-0">
+        <span id="welcomeRoleBadgeIcon" class="w-9 h-9 rounded-xl bg-slate-900 text-white flex items-center justify-center text-base shrink-0 shadow-xs">👋</span>
+        <div class="min-w-0">
+          <p id="welcomeRoleTitle" class="text-xs sm:text-sm font-extrabold text-slate-900 truncate">
+            ¡Bienvenido al Sistema JÓVENES EN ACCIÓN!
+          </p>
+          <p id="welcomeRoleDesc" class="text-[11px] sm:text-xs text-slate-500 truncate">
+            Consulta rápida de grupos, horarios y asistencias de Noviembre y Diciembre.
+          </p>
+        </div>
+      </div>
+      <button id="btnBannerSwitchAuth" type="button"
+              class="self-start sm:self-center shrink-0 min-h-[34px] px-3 py-1 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-extrabold transition cursor-pointer">
+        Iniciar sesión Admin
+      </button>
+    </div>
 
     <!-- Selector de Modo Principal + Botón "+ Nuevo integrante" -->
     <section class="flex items-center justify-between gap-2 flex-wrap no-print">
@@ -513,6 +537,75 @@
     </div>
   </div>
 
+  <!-- Portal de Bienvenida Institucional y Login con Usuario y Contraseña -->
+  <div id="welcomeAuthModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 no-print"
+       style="background: radial-gradient(circle at 20% 20%, rgba(15, 23, 42, 0.92) 0%, rgba(6, 10, 19, 0.96) 100%); backdrop-filter: blur(16px);">
+    <div class="w-full max-w-md rounded-3xl bg-white/95 border border-white shadow-2xl overflow-hidden">
+      <!-- Cabecera Institucional de Bienvenida -->
+      <div class="dark-liquid-header text-white p-6 text-center relative overflow-hidden">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 text-[11px] font-semibold text-cyan-200 mb-3">
+          <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+          <span>Ministerio de Infraestructura y Transporte</span>
+        </div>
+        <h2 class="font-display text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
+          ¡Bienvenido!
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-300 font-medium mt-1">
+          Programa <strong class="text-white">JÓVENES EN ACCIÓN</strong> · Control de Grupos y Asistencias
+        </p>
+      </div>
+
+      <!-- Cuerpo del Portal -->
+      <div class="p-5 sm:p-6 space-y-4">
+        <form id="adminLoginForm" class="space-y-3.5" onsubmit="event.preventDefault(); window.__submitAdminLogin();">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-extrabold uppercase tracking-wider text-slate-500">🔐 Acceso Administrador</span>
+            <span class="text-[11px] font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full">Edición habilitada</span>
+          </div>
+
+          <div>
+            <label for="loginUsername" class="block text-xs font-extrabold text-slate-700 mb-1">Usuario</label>
+            <input id="loginUsername" type="text" autocomplete="username" placeholder="Ingresa tu usuario"
+                   class="w-full h-11 px-3.5 rounded-2xl bg-slate-50 focus:bg-white border border-slate-200 focus:border-slate-900 text-base font-semibold text-slate-900 outline-none transition" />
+          </div>
+
+          <div>
+            <label for="loginPassword" class="block text-xs font-extrabold text-slate-700 mb-1">Contraseña</label>
+            <div class="relative flex items-center">
+              <input id="loginPassword" type="password" autocomplete="current-password" placeholder="••••••••"
+                     class="w-full h-11 pl-3.5 pr-11 rounded-2xl bg-slate-50 focus:bg-white border border-slate-200 focus:border-slate-900 text-base font-semibold text-slate-900 outline-none transition" />
+              <button id="btnTogglePwd" type="button" tabindex="-1"
+                      class="absolute right-2 w-8 h-8 rounded-xl text-slate-400 hover:text-slate-700 flex items-center justify-center text-xs font-bold cursor-pointer">
+                👁️
+              </button>
+            </div>
+          </div>
+
+          <p id="loginErrorMsg" class="hidden text-xs font-bold text-rose-600 bg-rose-50 border border-rose-200 rounded-xl px-3 py-2">
+            ⚠️ Usuario o contraseña incorrectos. Intenta nuevamente.
+          </p>
+
+          <button type="submit"
+                  class="w-full min-h-[46px] rounded-2xl bg-slate-900 hover:bg-slate-800 active:scale-[0.99] text-white text-sm font-extrabold shadow-md transition cursor-pointer flex items-center justify-center gap-2">
+            <span>Iniciar sesión para editar</span>
+            <span>→</span>
+          </button>
+        </form>
+
+        <div class="relative flex py-1 items-center">
+          <div class="flex-grow border-t border-slate-200"></div>
+          <span class="flex-shrink mx-3 text-[11px] font-bold uppercase text-slate-400">O si eres participante</span>
+          <div class="flex-grow border-t border-slate-200"></div>
+        </div>
+
+        <button id="btnEnterGuestMode" type="button"
+                class="w-full min-h-[44px] rounded-2xl bg-slate-100 hover:bg-slate-200/80 active:scale-[0.99] text-slate-800 border border-slate-200/90 text-xs sm:text-sm font-extrabold transition cursor-pointer flex items-center justify-center gap-2">
+          <span>👀 Entrar en Modo Consulta (Solo ver)</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- Toast Flotante -->
   <div id="toast"
        class="fixed bottom-4 left-3.5 right-3.5 sm:left-auto sm:right-6 sm:max-w-md z-50 hidden items-center gap-2.5 px-4 py-3 rounded-2xl bg-slate-900 text-white text-xs sm:text-sm font-semibold shadow-xl">
@@ -611,7 +704,13 @@
       return { label: 'Riesgo (<50%)', barCls: 'bg-rose-500', badgeCls: 'bg-rose-50 text-rose-800 border-rose-300' };
     }
 
+    const AUTH_STORAGE_KEY = 'jea_mit_auth_session_v1';
+    const VALID_USERS = new Set(['admin', 'alejandro', 'coordinador', 'jea4']);
+    const VALID_PASSWORDS = new Set(['jea2026', 'admin123', 'mit2026', 'jea4']);
+
     const state = {
+      isAdmin: false,
+      adminUser: '',
       participants: [],
       attendances: {},
       shifts: {},           // { [personKey]: 'manana' | 'tarde' }
@@ -1096,6 +1195,105 @@
       `;
     }
 
+    function requireAdmin() {
+      if (state.isAdmin) return true;
+      showToast('🔒 Modo consulta (solo lectura). Inicia sesión como Admin para editar.');
+      openWelcomeModal();
+      return false;
+    }
+
+    function openWelcomeModal() {
+      const modal = document.getElementById('welcomeAuthModal');
+      const err = document.getElementById('loginErrorMsg');
+      if (err) err.classList.add('hidden');
+      if (modal) {
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        setTimeout(() => {
+          const u = document.getElementById('loginUsername');
+          if (u) u.focus();
+        }, 60);
+      }
+    }
+
+    function closeWelcomeModal() {
+      const modal = document.getElementById('welcomeAuthModal');
+      if (modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }
+    }
+
+    function updateAuthUI() {
+      const hBtn = document.getElementById('btnAuthHeader');
+      const hIcon = document.getElementById('authHeaderIcon');
+      const hText = document.getElementById('authHeaderText');
+      const bIcon = document.getElementById('welcomeRoleBadgeIcon');
+      const bTitle = document.getElementById('welcomeRoleTitle');
+      const bDesc = document.getElementById('welcomeRoleDesc');
+      const bBtn = document.getElementById('btnBannerSwitchAuth');
+      const btnNewM = document.getElementById('btnToggleNewMember');
+      const btnUp = document.getElementById('btnToggleUpload');
+
+      if (state.isAdmin) {
+        if (hBtn) hBtn.className = 'shrink-0 min-h-[38px] px-3.5 py-1.5 rounded-full bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-400/40 text-emerald-200 text-xs font-extrabold transition cursor-pointer inline-flex items-center gap-1.5';
+        if (hIcon) hIcon.textContent = '🔓';
+        if (hText) hText.textContent = `Admin: ${state.adminUser || 'Activo'} (Salir)`;
+        if (bIcon) {
+          bIcon.className = 'w-9 h-9 rounded-xl bg-emerald-600 text-white flex items-center justify-center text-base shrink-0 shadow-xs';
+          bIcon.textContent = '✨';
+        }
+        if (bTitle) bTitle.textContent = `¡Bienvenido, ${titleCase(state.adminUser || 'Administrador')}! (Modo Edición Activo)`;
+        if (bDesc) bDesc.textContent = 'Tienes control total para registrar vistos de asistencia, cambiar horarios y asignar grupos. Todo se guarda en la nube.';
+        if (bBtn) {
+          bBtn.textContent = 'Cerrar sesión';
+          bBtn.className = 'self-start sm:self-center shrink-0 min-h-[34px] px-3 py-1 rounded-xl bg-slate-200 hover:bg-slate-300 text-slate-800 text-xs font-extrabold transition cursor-pointer';
+        }
+        if (btnNewM) btnNewM.classList.remove('hidden');
+        if (btnUp) btnUp.classList.remove('hidden');
+      } else {
+        if (hBtn) hBtn.className = 'shrink-0 min-h-[38px] px-3.5 py-1.5 rounded-full bg-amber-500/20 hover:bg-amber-500/30 border border-amber-400/40 text-amber-200 text-xs font-extrabold transition cursor-pointer inline-flex items-center gap-1.5';
+        if (hIcon) hIcon.textContent = '🔒';
+        if (hText) hText.textContent = 'Iniciar sesión Admin';
+        if (bIcon) {
+          bIcon.className = 'w-9 h-9 rounded-xl bg-slate-900 text-white flex items-center justify-center text-base shrink-0 shadow-xs';
+          bIcon.textContent = '👀';
+        }
+        if (bTitle) bTitle.textContent = '¡Bienvenido a JÓVENES EN ACCIÓN! (Modo Consulta)';
+        if (bDesc) bDesc.textContent = 'Estás en modo lectura: puedes buscar tu nombre, ver tu grupo, horario y asistencias. Inicia sesión para editar.';
+        if (bBtn) {
+          bBtn.textContent = '🔐 Iniciar sesión Admin';
+          bBtn.className = 'self-start sm:self-center shrink-0 min-h-[34px] px-3 py-1 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-extrabold transition cursor-pointer';
+        }
+        if (btnNewM) btnNewM.classList.add('hidden');
+        if (btnUp) btnUp.classList.add('hidden');
+      }
+    }
+
+    window.__submitAdminLogin = () => {
+      const uEl = document.getElementById('loginUsername');
+      const pEl = document.getElementById('loginPassword');
+      const errEl = document.getElementById('loginErrorMsg');
+      const u = norm(uEl ? uEl.value : '');
+      const p = (pEl ? pEl.value : '').trim().toLowerCase();
+
+      if (VALID_USERS.has(u) && VALID_PASSWORDS.has(p)) {
+        state.isAdmin = true;
+        state.adminUser = uEl.value.trim();
+        try {
+          localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify({ isAdmin: true, adminUser: state.adminUser }));
+        } catch {}
+        if (pEl) pEl.value = '';
+        if (errEl) errEl.classList.add('hidden');
+        closeWelcomeModal();
+        updateAuthUI();
+        renderAll();
+        showToast(`✨ ¡Bienvenido, ${titleCase(state.adminUser)}! Edición desbloqueada`);
+      } else {
+        if (errEl) errEl.classList.remove('hidden');
+      }
+    };
+
     function updateSessionUI() {
       const d = getWorkday(state.activeSession);
       els.activeSessionLabel.textContent = d.short;
@@ -1445,6 +1643,7 @@
 
     // Botón ligero para abrir el Modal único de Asignar/Mover grupo (0 nodos ocultos repetidos = rápido en celular)
     function buildAssignButtonHtml(p) {
+      if (!state.isAdmin) return '';
       const isUnassigned = p.group === UNASSIGNED;
       return `
         <button type="button"
@@ -1590,25 +1789,27 @@
       const isComplete = count === TOTAL_SESSIONS;
 
       return `
-        <button type="button"
-                onclick="window.__stepAtt(${p.uid}, 1)"
-                title="Poner siguiente visto de asistencia"
-                class="h-8 px-2.5 sm:px-3 rounded-xl ${
-                  isComplete
-                    ? 'bg-emerald-100 text-emerald-800 border border-emerald-300'
-                    : 'bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white shadow-xs'
-                } text-xs font-extrabold inline-flex items-center gap-1 transition cursor-pointer">
-          <span class="font-black text-xs leading-none">✓</span>
-          <span>${isComplete ? '42/42' : '+ Visto'}</span>
-        </button>
-
-        ${hasCount ? `
+        ${state.isAdmin ? `
           <button type="button"
-                  onclick="window.__stepAtt(${p.uid}, -1)"
-                  title="Quitar último visto"
-                  class="w-8 h-8 rounded-xl bg-white hover:bg-rose-50 active:scale-95 border border-slate-200 text-slate-600 hover:text-rose-600 font-extrabold text-xs flex items-center justify-center transition cursor-pointer">
-            −
+                  onclick="window.__stepAtt(${p.uid}, 1)"
+                  title="Poner siguiente visto de asistencia"
+                  class="h-8 px-2.5 sm:px-3 rounded-xl ${
+                    isComplete
+                      ? 'bg-emerald-100 text-emerald-800 border border-emerald-300'
+                      : 'bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white shadow-xs'
+                  } text-xs font-extrabold inline-flex items-center gap-1 transition cursor-pointer">
+            <span class="font-black text-xs leading-none">✓</span>
+            <span>${isComplete ? '42/42' : '+ Visto'}</span>
           </button>
+
+          ${hasCount ? `
+            <button type="button"
+                    onclick="window.__stepAtt(${p.uid}, -1)"
+                    title="Quitar último visto"
+                    class="w-8 h-8 rounded-xl bg-white hover:bg-rose-50 active:scale-95 border border-slate-200 text-slate-600 hover:text-rose-600 font-extrabold text-xs flex items-center justify-center transition cursor-pointer">
+              −
+            </button>
+          ` : ''}
         ` : ''}
 
         <button type="button"
@@ -1746,6 +1947,15 @@
     function buildShiftToggleBtnHtml(m) {
       const shift = getPersonShift(m);
       const isTarde = shift === 'tarde';
+      if (!state.isAdmin) {
+        return `
+          <span class="h-8 px-2.5 rounded-xl border text-xs font-extrabold inline-flex items-center gap-1 ${
+            isTarde ? 'bg-indigo-50 text-indigo-800 border-indigo-200' : 'bg-sky-50 text-sky-800 border-sky-200'
+          }">
+            <span>${isTarde ? '🌤️ Tarde' : '☀️ Mañana'}</span>
+          </span>
+        `;
+      }
       return `
         <button type="button"
                 onclick="window.__togglePersonShift(${m.uid})"
@@ -2032,6 +2242,7 @@
 
     // ---------- Modal / Bottom-Sheet Único para Asignar o Mover de Grupo ----------
     window.__openAssignModal = (uid) => {
+      if (!requireAdmin()) return;
       const person = state.participants.find(p => p.uid === Number(uid));
       if (!person) return;
       state.assignModalUid = person.uid;
@@ -2101,6 +2312,7 @@
     });
 
     window.__assignMember = (uid, targetGroup) => {
+      if (!requireAdmin()) return;
       if (!targetGroup) return;
       const person = state.participants.find(p => p.uid === Number(uid));
       if (!person) return;
@@ -2129,6 +2341,7 @@
     };
 
     window.__toggleSingleAtt = (uid, sessionNum) => {
+      if (!requireAdmin()) return;
       const person = state.participants.find(p => p.uid === Number(uid));
       if (!person) return;
       const key = personKey(person);
@@ -2145,6 +2358,7 @@
     };
 
     window.__stepAtt = (uid, delta) => {
+      if (!requireAdmin()) return;
       const person = state.participants.find(p => p.uid === Number(uid));
       if (!person) return;
       const key = personKey(person);
@@ -2171,6 +2385,7 @@
     };
 
     window.__markMonthAtt = (uid, monthKey) => {
+      if (!requireAdmin()) return;
       const person = state.participants.find(p => p.uid === Number(uid));
       if (!person) return;
       const set = getAttSet(person);
@@ -2183,6 +2398,7 @@
     };
 
     window.__applyQuickAttCount = (uid) => {
+      if (!requireAdmin()) return;
       const person = state.participants.find(p => p.uid === Number(uid));
       if (!person) return;
       const numEl = document.getElementById(`attNum-${uid}`);
@@ -2196,6 +2412,7 @@
     };
 
     window.__fillAllAtt = (uid, markAll) => {
+      if (!requireAdmin()) return;
       const person = state.participants.find(p => p.uid === Number(uid));
       if (!person) return;
       const key = personKey(person);
@@ -2213,6 +2430,7 @@
     };
 
     window.__markGroupSession = (groupName) => {
+      if (!requireAdmin()) return;
       const list = buildMap().get(groupName) || [];
       if (!list.length) return;
       const s = state.activeSession;
@@ -2269,6 +2487,7 @@
     };
 
     window.__togglePersonShift = (uid) => {
+      if (!requireAdmin()) return;
       const person = state.participants.find(p => p.uid === Number(uid));
       if (!person) return;
       const cur = getPersonShift(person);
@@ -2282,6 +2501,7 @@
     };
 
     window.__setWholeGroupShift = (groupName, shiftKey) => {
+      if (!requireAdmin()) return;
       const list = buildMap().get(groupName) || [];
       if (!list.length) return;
       list.forEach(p => {
@@ -2642,6 +2862,57 @@
       btnCloud.addEventListener('click', () => fetchCloudState(true));
     }
 
+    const handleAuthToggleClick = () => {
+      if (state.isAdmin) {
+        state.isAdmin = false;
+        state.adminUser = '';
+        try { localStorage.removeItem(AUTH_STORAGE_KEY); } catch {}
+        updateAuthUI();
+        renderAll();
+        showToast('🔒 Sesión cerrada. Ahora estás en Modo Consulta.');
+      } else {
+        openWelcomeModal();
+      }
+    };
+
+    const btnAuthHeader = document.getElementById('btnAuthHeader');
+    if (btnAuthHeader) btnAuthHeader.addEventListener('click', handleAuthToggleClick);
+    const btnBannerSwitch = document.getElementById('btnBannerSwitchAuth');
+    if (btnBannerSwitch) btnBannerSwitch.addEventListener('click', handleAuthToggleClick);
+
+    const btnGuest = document.getElementById('btnEnterGuestMode');
+    if (btnGuest) {
+      btnGuest.addEventListener('click', () => {
+        state.isAdmin = false;
+        closeWelcomeModal();
+        updateAuthUI();
+        renderAll();
+        showToast('👀 Bienvenido en Modo Consulta (solo lectura)');
+      });
+    }
+
+    const btnTogglePwd = document.getElementById('btnTogglePwd');
+    if (btnTogglePwd) {
+      btnTogglePwd.addEventListener('click', () => {
+        const pInput = document.getElementById('loginPassword');
+        if (!pInput) return;
+        pInput.type = pInput.type === 'password' ? 'text' : 'password';
+      });
+    }
+
+    try {
+      const savedAuth = JSON.parse(localStorage.getItem(AUTH_STORAGE_KEY) || 'null');
+      if (savedAuth && savedAuth.isAdmin) {
+        state.isAdmin = true;
+        state.adminUser = savedAuth.adminUser || 'Admin';
+      } else {
+        openWelcomeModal();
+      }
+    } catch {
+      openWelcomeModal();
+    }
+
+    updateAuthUI();
     loadInitial();
     fetchCloudState(false);
     startRealtimeCloudListener();
