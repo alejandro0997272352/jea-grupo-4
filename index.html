@@ -1933,54 +1933,62 @@
                 </div>
               </div>
 
-              <div class="flex flex-wrap items-center gap-1.5">
-                <button type="button" onclick="window.__stepAtt(${p.uid}, 5)"
-                        class="h-7 px-2.5 rounded-xl bg-emerald-100 hover:bg-emerald-200 text-emerald-900 text-[11px] font-extrabold transition cursor-pointer">
-                  +1 Sem (5d)
-                </button>
-                <button type="button" onclick="window.__markMonthAtt(${p.uid}, 'nov')"
-                        class="h-7 px-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-[11px] font-extrabold transition cursor-pointer">
-                  ✓ Todo Nov (19)
-                </button>
-                <button type="button" onclick="window.__markMonthAtt(${p.uid}, 'dic')"
-                        class="h-7 px-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-[11px] font-extrabold transition cursor-pointer">
-                  ✓ Todo Dic (23)
-                </button>
-                <button type="button" onclick="window.__fillAllAtt(${p.uid}, true)"
-                        class="h-7 px-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-[11px] font-extrabold transition cursor-pointer">
-                  ✓ Nov+Dic (42)
-                </button>
-                <button type="button" onclick="window.__fillAllAtt(${p.uid}, false)"
-                        class="h-7 px-2.5 rounded-xl bg-white hover:bg-rose-50 border border-slate-200 text-rose-700 text-[11px] font-extrabold transition cursor-pointer">
-                  Reiniciar
-                </button>
-              </div>
+              ${state.isAdmin ? `
+                <div class="flex flex-wrap items-center gap-1.5">
+                  <button type="button" onclick="window.__stepAtt(${p.uid}, 5)"
+                          class="h-7 px-2.5 rounded-xl bg-emerald-100 hover:bg-emerald-200 text-emerald-900 text-[11px] font-extrabold transition cursor-pointer">
+                    +1 Sem (5d)
+                  </button>
+                  <button type="button" onclick="window.__markMonthAtt(${p.uid}, 'nov')"
+                          class="h-7 px-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-[11px] font-extrabold transition cursor-pointer">
+                    ✓ Todo Nov (19)
+                  </button>
+                  <button type="button" onclick="window.__markMonthAtt(${p.uid}, 'dic')"
+                          class="h-7 px-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-[11px] font-extrabold transition cursor-pointer">
+                    ✓ Todo Dic (23)
+                  </button>
+                  <button type="button" onclick="window.__fillAllAtt(${p.uid}, true)"
+                          class="h-7 px-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-[11px] font-extrabold transition cursor-pointer">
+                    ✓ Nov+Dic (42)
+                  </button>
+                  <button type="button" onclick="window.__fillAllAtt(${p.uid}, false)"
+                          class="h-7 px-2.5 rounded-xl bg-white hover:bg-rose-50 border border-slate-200 text-rose-700 text-[11px] font-extrabold transition cursor-pointer">
+                    Reiniciar
+                  </button>
+                </div>
+              ` : `
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-100 border border-slate-200 text-[11px] font-bold text-slate-600">
+                  👀 Vista de consulta (Solo lectura)
+                </span>
+              `}
             </div>
 
-            <!-- Control deslizante rápido (0 a 44 días) -->
-            <div class="flex items-center gap-2 pt-0.5">
-              <span class="text-[11px] font-bold text-slate-500 whitespace-nowrap">Rápido:</span>
-              <input id="attRange-${p.uid}"
-                     type="range"
-                     min="0"
-                     max="${TOTAL_SESSIONS}"
-                     value="${count}"
-                     oninput="document.getElementById('attNum-${p.uid}').value = this.value"
-                     onchange="window.__applyQuickAttCount(${p.uid})"
-                     class="visto-slider flex-1 min-w-0" />
-              <input id="attNum-${p.uid}"
-                     type="number"
-                     min="0"
-                     max="${TOTAL_SESSIONS}"
-                     value="${count}"
-                     onkeydown="if(event.key==='Enter') window.__applyQuickAttCount(${p.uid})"
-                     class="w-12 h-7 rounded-lg bg-white border border-slate-300 text-center text-xs font-extrabold text-slate-900 tabular-nums outline-none" />
-              <button type="button"
-                      onclick="window.__applyQuickAttCount(${p.uid})"
-                      class="h-7 px-2.5 rounded-lg bg-slate-900 text-white text-[11px] font-extrabold cursor-pointer shrink-0">
-                Fijar
-              </button>
-            </div>
+            ${state.isAdmin ? `
+              <!-- Control deslizante rápido (solo visible para Administrador) -->
+              <div class="flex items-center gap-2 pt-0.5">
+                <span class="text-[11px] font-bold text-slate-500 whitespace-nowrap">Rápido:</span>
+                <input id="attRange-${p.uid}"
+                       type="range"
+                       min="0"
+                       max="${TOTAL_SESSIONS}"
+                       value="${count}"
+                       oninput="document.getElementById('attNum-${p.uid}').value = this.value"
+                       onchange="window.__applyQuickAttCount(${p.uid})"
+                       class="visto-slider flex-1 min-w-0" />
+                <input id="attNum-${p.uid}"
+                       type="number"
+                       min="0"
+                       max="${TOTAL_SESSIONS}"
+                       value="${count}"
+                       onkeydown="if(event.key==='Enter') window.__applyQuickAttCount(${p.uid})"
+                       class="w-12 h-7 rounded-lg bg-white border border-slate-300 text-center text-xs font-extrabold text-slate-900 tabular-nums outline-none" />
+                <button type="button"
+                        onclick="window.__applyQuickAttCount(${p.uid})"
+                        class="h-7 px-2.5 rounded-lg bg-slate-900 text-white text-[11px] font-extrabold cursor-pointer shrink-0">
+                  Fijar
+                </button>
+              </div>
+            ` : ''}
           </div>
 
           <!-- Dos bloques de calendario: Noviembre y Diciembre -->
@@ -2328,26 +2336,28 @@
                 const allManana = tCount === 0 && members.length > 0;
                 const allTarde = mCount === 0 && members.length > 0;
                 return `
-                  <div class="inline-flex p-0.5 rounded-xl bg-slate-100 border border-slate-200/80" title="Asignar todo el grupo a Mañana o Tarde">
-                    <button type="button" onclick="window.__setWholeGroupShift(${jsArg(groupName)}, 'manana')"
-                            class="px-2 py-1 rounded-lg text-[11px] font-extrabold transition cursor-pointer ${
-                              allManana ? 'bg-sky-600 text-white shadow-xs' : 'text-slate-600 hover:text-slate-900'
-                            }">
-                      ☀️<span class="hidden sm:inline"> Mañana</span>
+                  ${state.isAdmin ? `
+                    <div class="inline-flex p-0.5 rounded-xl bg-slate-100 border border-slate-200/80" title="Asignar todo el grupo a Mañana o Tarde">
+                      <button type="button" onclick="window.__setWholeGroupShift(${jsArg(groupName)}, 'manana')"
+                              class="px-2 py-1 rounded-lg text-[11px] font-extrabold transition cursor-pointer ${
+                                allManana ? 'bg-sky-600 text-white shadow-xs' : 'text-slate-600 hover:text-slate-900'
+                              }">
+                        ☀️<span class="hidden sm:inline"> Mañana</span>
+                      </button>
+                      <button type="button" onclick="window.__setWholeGroupShift(${jsArg(groupName)}, 'tarde')"
+                              class="px-2 py-1 rounded-lg text-[11px] font-extrabold transition cursor-pointer ${
+                                allTarde ? 'bg-indigo-600 text-white shadow-xs' : 'text-slate-600 hover:text-slate-900'
+                              }">
+                        🌤️<span class="hidden sm:inline"> Tarde</span>
+                      </button>
+                    </div>
+                    <button type="button" onclick="window.__markGroupSession(${jsArg(groupName)})"
+                            title="Poner visto (${getWorkday(state.activeSession).short}) a todo ${esc(groupName)}"
+                            class="hidden md:inline-flex min-h-[36px] px-3 py-1.5 rounded-2xl bg-emerald-50 hover:bg-emerald-100 border border-emerald-300/80 text-xs font-extrabold text-emerald-900 items-center gap-1 transition cursor-pointer">
+                      <span class="text-emerald-600 font-black">✓</span>
+                      <span>Visto (${getWorkday(state.activeSession).short})</span>
                     </button>
-                    <button type="button" onclick="window.__setWholeGroupShift(${jsArg(groupName)}, 'tarde')"
-                            class="px-2 py-1 rounded-lg text-[11px] font-extrabold transition cursor-pointer ${
-                              allTarde ? 'bg-indigo-600 text-white shadow-xs' : 'text-slate-600 hover:text-slate-900'
-                            }">
-                      🌤️<span class="hidden sm:inline"> Tarde</span>
-                    </button>
-                  </div>
-                  <button type="button" onclick="window.__markGroupSession(${jsArg(groupName)})"
-                          title="Poner visto (${getWorkday(state.activeSession).short}) a todo ${esc(groupName)}"
-                          class="hidden md:inline-flex min-h-[36px] px-3 py-1.5 rounded-2xl bg-emerald-50 hover:bg-emerald-100 border border-emerald-300/80 text-xs font-extrabold text-emerald-900 items-center gap-1 transition cursor-pointer">
-                    <span class="text-emerald-600 font-black">✓</span>
-                    <span>Visto (${getWorkday(state.activeSession).short})</span>
-                  </button>
+                  ` : ''}
                   <button type="button" onclick="window.__printGroupSheet(${jsArg(groupName)})"
                           title="Imprimir Acta y Hoja de Firmas de ${esc(groupName)}"
                           class="min-h-[36px] px-2.5 sm:px-3 py-1.5 rounded-2xl bg-white hover:bg-slate-50 border border-slate-200/90 text-xs font-extrabold text-slate-700 inline-flex items-center gap-1 transition cursor-pointer">
