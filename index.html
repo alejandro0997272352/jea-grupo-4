@@ -1386,6 +1386,15 @@
           title.textContent = '¡Bienvenido, Alejandro!';
           subtitle.textContent = 'Control total de grupos, horarios de mañana y tarde, y asistencias sincronizadas en la nube.';
           bar.className = 'h-full rounded-full bg-emerald-600 welcome-bar-5s';
+        } else if (mode === 'logout') {
+          badgeBox.textContent = '👋';
+          badgeBox.className = 'welcome-reveal-1 relative w-20 h-20 rounded-3xl bg-slate-900 text-white flex items-center justify-center text-4xl shadow-xl';
+          halo.className = 'halo-ring absolute w-24 h-24 rounded-full bg-amber-500/25';
+          tag.textContent = '🔒 Sesión de Administrador Cerrada';
+          tag.className = 'welcome-reveal-1 inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-amber-50 border border-amber-200 text-amber-800 text-xs font-extrabold uppercase tracking-wider mb-3';
+          title.textContent = '¡Hasta pronto, Alejandro!';
+          subtitle.textContent = 'Todos tus cambios de grupos, horarios y asistencias quedaron guardados en la nube. Pasando a Modo Lectura…';
+          bar.className = 'h-full rounded-full bg-slate-900 welcome-bar-5s';
         } else {
           badgeBox.textContent = '👀';
           badgeBox.className = 'welcome-reveal-1 relative w-20 h-20 rounded-3xl bg-slate-900 text-white flex items-center justify-center text-4xl shadow-xl';
@@ -1402,11 +1411,12 @@
 
         // Contador visual de los 5 segundos
         let secondsLeft = 5;
-        if (timerText) timerText.textContent = `Ingresando al panel… ${secondsLeft}s`;
+        const actionVerb = mode === 'logout' ? 'Cerrando sesión de administrador' : 'Ingresando al panel';
+        if (timerText) timerText.textContent = `${actionVerb}… ${secondsLeft}s`;
         const countdownInterval = setInterval(() => {
           secondsLeft = Math.max(0, secondsLeft - 1);
           if (timerText) {
-            timerText.textContent = secondsLeft > 0 ? `Ingresando al panel… ${secondsLeft}s` : '¡Listo!';
+            timerText.textContent = secondsLeft > 0 ? `${actionVerb}… ${secondsLeft}s` : '¡Listo!';
           }
           if (secondsLeft <= 0) clearInterval(countdownInterval);
         }, 1000);
@@ -3067,7 +3077,16 @@
         try { localStorage.removeItem(AUTH_STORAGE_KEY); } catch {}
         updateAuthUI();
         renderAll();
-        showToast('🔒 Sesión cerrada. Ahora estás en Modo Consulta.');
+
+        // Mostrar despedida con transición de desvanecido exclusivamente al salir el Administrador
+        const modal = document.getElementById('welcomeAuthModal');
+        const card = document.getElementById('authCardBox');
+        if (modal && card) {
+          card.classList.add('hidden');
+          modal.classList.remove('hidden', 'auth-fade-out');
+          modal.classList.add('flex');
+          playCinematicWelcome('logout');
+        }
       } else {
         openWelcomeModal();
       }
