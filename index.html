@@ -635,7 +635,7 @@
               <span class="absolute left-3.5 text-slate-400 pointer-events-none">
                 <i data-lucide="user" class="w-4 h-4"></i>
               </span>
-              <input id="loginUsername" type="text" autocomplete="username" placeholder="Alejandro"
+              <input id="loginUsername" type="text" autocomplete="username" placeholder="Alejandro o Lorena"
                      class="w-full h-12 pl-10 pr-4 rounded-2xl bg-slate-50/90 focus:bg-white border border-slate-200/90 focus:border-slate-900 focus:ring-4 focus:ring-slate-900/10 text-base font-semibold text-slate-900 placeholder:text-slate-400 outline-none transition" />
             </div>
           </div>
@@ -836,8 +836,14 @@
     }
 
     const AUTH_STORAGE_KEY = 'jea_mit_auth_session_v1';
-    const VALID_USERS = new Set(['alejandro']);
-    const VALID_PASSWORDS = new Set(['jea12282022']);
+    const ADMIN_ACCOUNTS = {
+      'alejandro': { pass: 'jea12282022', displayName: 'Alejandro', welcomeWord: '¡Bienvenido' },
+      'lorena':    { pass: 'jea200311',   displayName: 'Lorena',    welcomeWord: '¡Bienvenida' }
+    };
+    function getAdminProfile(name) {
+      const k = norm(name || 'alejandro');
+      return ADMIN_ACCOUNTS[k] || { displayName: titleCase(name || 'Administrador'), welcomeWord: '¡Bienvenido' };
+    }
 
     const state = {
       isAdmin: false,
@@ -990,6 +996,7 @@
       return {
         ts: Date.now(),
         clientId: CLIENT_ID,
+        updatedBy: state.adminUser || 'Admin',
         attendances: state.attendances,
         shifts: state.shifts,
         groupOverrides,
@@ -1053,7 +1060,7 @@
       renderAll();
       setCloudBadge('ok', '☁️ Nube sincronizada');
       if (showNotification) {
-        showToast('☁️ Datos actualizados desde otro dispositivo');
+        showToast(`☁️ Datos actualizados por ${snap.updatedBy || 'otro dispositivo'}`);
       }
     }
 
@@ -1357,7 +1364,8 @@
       }
     }
 
-    function playCinematicWelcome(mode) {
+    function playCinematicWelcome(mode, userName = '') {
+      const prof = getAdminProfile(userName || state.adminUser || 'Alejandro');
       const modal = document.getElementById('welcomeAuthModal');
       const card = document.getElementById('authCardBox');
       const splash = document.getElementById('cinematicWelcomeSplash');
@@ -1383,7 +1391,7 @@
           halo.className = 'halo-ring absolute w-24 h-24 rounded-full bg-emerald-500/25';
           tag.textContent = '🔓 Modo Administrador Verificado';
           tag.className = 'welcome-reveal-1 inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-extrabold uppercase tracking-wider mb-3';
-          title.textContent = '¡Bienvenido, Alejandro!';
+          title.textContent = `${prof.welcomeWord}, ${prof.displayName}!`;
           subtitle.textContent = 'Control total de grupos, horarios de mañana y tarde, y asistencias sincronizadas en la nube.';
           bar.className = 'h-full rounded-full bg-emerald-600 welcome-bar-5s';
         } else if (mode === 'logout') {
@@ -1392,7 +1400,7 @@
           halo.className = 'halo-ring absolute w-24 h-24 rounded-full bg-amber-500/25';
           tag.textContent = '🔒 Sesión de Administrador Cerrada';
           tag.className = 'welcome-reveal-1 inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-amber-50 border border-amber-200 text-amber-800 text-xs font-extrabold uppercase tracking-wider mb-3';
-          title.textContent = '¡Hasta pronto, Alejandro!';
+          title.textContent = `¡Hasta pronto, ${prof.displayName}!`;
           subtitle.textContent = 'Todos tus cambios de grupos, horarios y asistencias quedaron guardados en la nube. Pasando a Modo Lectura…';
           bar.className = 'h-full rounded-full bg-slate-900 welcome-bar-5s';
         } else {
@@ -1452,7 +1460,10 @@
           bIcon.className = 'w-9 h-9 rounded-xl bg-emerald-600 text-white flex items-center justify-center text-base shrink-0 shadow-xs';
           bIcon.textContent = '✨';
         }
-        if (bTitle) bTitle.textContent = '¡Bienvenido, Alejandro! · Modo Administrador Activo';
+        if (bTitle) {
+          const prof = getAdminProfile(state.adminUser);
+          bTitle.textContent = `${prof.welcomeWord}, ${prof.displayName}! · Modo Administrador Activo`;
+        }
         if (bDesc) bDesc.textContent = 'Tienes control total para registrar vistos de asistencia, cambiar horarios y asignar grupos. Todo se guarda en la nube.';
         if (bBtn) {
           bBtn.textContent = 'Cerrar sesión';
@@ -1485,18 +1496,19 @@
       const errEl = document.getElementById('loginErrorMsg');
       const u = norm(uEl ? uEl.value : '');
       const p = (pEl ? pEl.value : '').trim().toLowerCase();
+      const account = ADMIN_ACCOUNTS[u];
 
-      if (VALID_USERS.has(u) && VALID_PASSWORDS.has(p)) {
+      if (account && account.pass === p) {
         state.isAdmin = true;
-        state.adminUser = 'Alejandro';
+        state.adminUser = account.displayName;
         try {
-          localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify({ isAdmin: true, adminUser: 'Alejandro' }));
+          localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify({ isAdmin: true, adminUser: account.displayName }));
         } catch {}
         if (pEl) pEl.value = '';
         if (errEl) errEl.classList.add('hidden');
         updateAuthUI();
         renderAll();
-        playCinematicWelcome('admin');
+        playCinematicWelcome('admin', account.displayName);
       } else {
         if (errEl) errEl.classList.remove('hidden');
       }
@@ -3082,6 +3094,7 @@
 
     const handleAuthToggleClick = () => {
       if (state.isAdmin) {
+        const outgoingUser = state.adminUser || 'Alejandro';
         state.isAdmin = false;
         state.adminUser = '';
         try { localStorage.removeItem(AUTH_STORAGE_KEY); } catch {}
@@ -3095,7 +3108,7 @@
           card.classList.add('hidden');
           modal.classList.remove('hidden', 'auth-fade-out');
           modal.classList.add('flex');
-          playCinematicWelcome('logout');
+          playCinematicWelcome('logout', outgoingUser);
         }
       } else {
         openWelcomeModal();
