@@ -303,12 +303,26 @@
         </div>
       </div>
 
-      <!-- Barra de progreso minimalista redondeada -->
-      <div class="mt-3 pt-2.5 border-t border-slate-200/70 flex items-center gap-3">
-        <div class="flex-1 h-2 rounded-full bg-slate-200/80 overflow-hidden">
-          <div id="cleanProgressBar" class="h-full rounded-full bg-slate-900 transition-all duration-500 ease-out" style="width: 0%"></div>
+      <!-- Resumen rápido de Cumplimiento (InformeCumplimientoJA4) visible de inmediato en celular -->
+      <div class="mt-3 pt-2.5 border-t border-slate-200/70 flex flex-wrap items-center justify-between gap-2">
+        <div class="flex flex-wrap items-center gap-1.5">
+          <button type="button" onclick="window.__setComplianceFilter('si_cumple')"
+                  class="px-2.5 py-1 rounded-xl bg-emerald-100 hover:bg-emerald-200/80 border border-emerald-300 text-emerald-900 text-xs font-extrabold tabular-nums inline-flex items-center gap-1 cursor-pointer">
+            <span>✅ Sí cumplen:</span>
+            <span id="metricSiCumple">120</span>
+          </button>
+          <button type="button" onclick="window.__setComplianceFilter('no_cumple')"
+                  class="px-2.5 py-1 rounded-xl bg-rose-100 hover:bg-rose-200/80 border border-rose-300 text-rose-800 text-xs font-extrabold tabular-nums inline-flex items-center gap-1 cursor-pointer">
+            <span>❌ No cumplen:</span>
+            <span id="metricNoCumple">48</span>
+          </button>
         </div>
-        <span id="cleanProgressLabel" class="text-xs font-bold text-slate-700 tabular-nums shrink-0">0%</span>
+        <div class="flex items-center gap-2 flex-1 min-w-[120px] justify-end">
+          <div class="w-24 sm:w-36 h-2 rounded-full bg-slate-200/80 overflow-hidden">
+            <div id="cleanProgressBar" class="h-full rounded-full bg-slate-900 transition-all duration-500 ease-out" style="width: 0%"></div>
+          </div>
+          <span id="cleanProgressLabel" class="text-xs font-bold text-slate-700 tabular-nums shrink-0">0%</span>
+        </div>
       </div>
     </div>
   </section>
@@ -1872,6 +1886,10 @@
       els.total.textContent = total;
       els.grouped.textContent = grouped;
       els.unassigned.textContent = unassignedList.length;
+      const siEl = document.getElementById('metricSiCumple');
+      const noEl = document.getElementById('metricNoCumple');
+      if (siEl) siEl.textContent = state.participants.filter(isCumplido).length;
+      if (noEl) noEl.textContent = state.participants.filter(isNoCumplido).length;
       els.progressLabel.textContent = pct + '%';
       els.groupCount.textContent = `en ${names.length} grupo${names.length === 1 ? '' : 's'}`;
       els.progressBar.style.width = `${pct}%`;
@@ -2347,10 +2365,13 @@
                 ${esc(initials(m.name))}
               </span>
               <div class="min-w-0 flex-1">
-                <p class="text-sm font-bold text-slate-900 leading-snug break-words">${highlight(m.name, q)}</p>
-                <div class="flex flex-wrap items-center gap-1.5 mt-1">
-                  ${m.id ? `<span class="text-[11px] font-medium text-slate-500 tabular-nums">C.I. ${highlight(m.id, q)}</span>` : ''}
+                <div class="flex flex-wrap items-center gap-1.5">
+                  <p class="text-sm font-bold text-slate-900 leading-snug break-words">${highlight(m.name, q)}</p>
                   ${buildCumplimientoBadgeHtml(m)}
+                </div>
+                <div class="flex flex-wrap items-center gap-2 mt-1">
+                  ${m.id ? `<span class="text-[11px] font-medium text-slate-500 tabular-nums">C.I. ${highlight(m.id, q)}</span>` : ''}
+                  ${m.com1 ? `<span class="text-[10px] font-bold text-emerald-700">${esc(m.com1)}</span>` : (isNoCumplido(m) ? `<span class="text-[10px] font-bold text-rose-600">1.er Cumplimiento: No Cumplido</span>` : '')}
                   ${!isUnassigned ? `
                     <div class="w-20 sm:w-28 h-1.5 rounded-full bg-slate-200 overflow-hidden">
                       <div data-att-minibar="${m.uid}" class="h-full rounded-full ${sem.barCls}" style="width: ${pct}%"></div>
@@ -2464,9 +2485,25 @@
                     const tCount = members.filter(m => getPersonShift(m) === 'tarde').length;
                     const mCount = members.length - tCount;
                     const shiftInfo = tCount === 0
-                      ? '☀️ Grupo Mañana'
-                      : (mCount === 0 ? '🌤️ Grupo Tarde' : `☀️ ${mCount} Mañana · 🌤️ ${tCount} Tarde`);
+                      ? '☀️ Mañana'
+                      : (mCount === 0 ? '🌤️ Tarde' : `☀️${mCount} · 🌤️${tCount}`);
                     return `${members.length} int. · ${shiftInfo}`;
+                  })()}
+                </span>
+                <span class="flex flex-wrap items-center gap-1.5 mt-1">
+                  ${(() => {
+                    const okC = members.filter(isCumplido).length;
+                    const noC = members.filter(isNoCumplido).length;
+                    return `
+                      <span class="inline-flex items-center px-2 py-0.5 rounded-md bg-emerald-100/90 text-emerald-900 border border-emerald-300/80 text-[10px] font-extrabold tabular-nums">
+                        ✅ ${okC} cumplen
+                      </span>
+                      ${noC > 0 ? `
+                        <span class="inline-flex items-center px-2 py-0.5 rounded-md bg-rose-100/90 text-rose-800 border border-rose-300/80 text-[10px] font-extrabold tabular-nums">
+                          ❌ ${noC} no cumplen
+                        </span>
+                      ` : ''}
+                    `;
                   })()}
                 </span>
               </span>
@@ -2839,6 +2876,12 @@
     };
 
     // ---------- Acordeón con Lazy Render (0 lag en celular) ----------
+    window.__setComplianceFilter = (f) => {
+      state.focusedGroup = null;
+      state.filter = state.filter === f ? 'all' : f;
+      renderAll();
+    };
+
     window.__focusGroup = (groupName) => {
       if (state.focusedGroup === groupName) {
         state.focusedGroup = null;
