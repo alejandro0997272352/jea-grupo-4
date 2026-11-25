@@ -143,6 +143,53 @@
       cursor: pointer;
     }
 
+    /* Portal de Ingreso Liquid Glass Premium y Transición Cinemática de Bienvenida */
+    .auth-backdrop {
+      background:
+        radial-gradient(circle at 18% 18%, rgba(37, 99, 235, 0.28) 0%, transparent 45%),
+        radial-gradient(circle at 82% 80%, rgba(16, 185, 129, 0.22) 0%, transparent 45%),
+        radial-gradient(circle at 50% 50%, #0b1325 0%, #050811 100%);
+      transition: opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1), visibility 0.55s ease;
+    }
+    .auth-backdrop.auth-fade-out {
+      opacity: 0;
+      pointer-events: none;
+    }
+    .auth-glass-card {
+      background: rgba(15, 23, 42, 0.68);
+      backdrop-filter: blur(28px) saturate(190%);
+      -webkit-backdrop-filter: blur(28px) saturate(190%);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      box-shadow:
+        inset 0 1px 1px rgba(255, 255, 255, 0.25),
+        0 25px 60px -15px rgba(0, 0, 0, 0.65);
+      transition: opacity 0.38s cubic-bezier(0.22, 1, 0.36, 1), transform 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .auth-glass-card.card-hide {
+      opacity: 0;
+      transform: scale(0.94) translateY(10px);
+      pointer-events: none;
+    }
+
+    @keyframes welcomeTextReveal {
+      0% { opacity: 0; transform: translateY(14px) scale(0.96); filter: blur(6px); }
+      100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+    }
+    @keyframes haloPulse {
+      0% { transform: scale(0.85); opacity: 0; }
+      50% { opacity: 0.55; }
+      100% { transform: scale(1.55); opacity: 0; }
+    }
+    @keyframes welcomeBarFill {
+      0% { width: 0%; }
+      100% { width: 100%; }
+    }
+    .welcome-reveal-1 { animation: welcomeTextReveal 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.05s both; }
+    .welcome-reveal-2 { animation: welcomeTextReveal 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.18s both; }
+    .welcome-reveal-3 { animation: welcomeTextReveal 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.30s both; }
+    .halo-ring { animation: haloPulse 1.5s cubic-bezier(0.22, 1, 0.36, 1) infinite; }
+    .welcome-bar-anim { animation: welcomeBarFill 1.35s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+
     @media print {
       .no-print { display: none !important; }
       body { background: #fff !important; }
@@ -537,73 +584,134 @@
     </div>
   </div>
 
-  <!-- Portal de Bienvenida Institucional y Login con Usuario y Contraseña -->
-  <div id="welcomeAuthModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 no-print"
-       style="background: radial-gradient(circle at 20% 20%, rgba(15, 23, 42, 0.92) 0%, rgba(6, 10, 19, 0.96) 100%); backdrop-filter: blur(16px);">
-    <div class="w-full max-w-md rounded-3xl bg-white/95 border border-white shadow-2xl overflow-hidden">
-      <!-- Cabecera Institucional de Bienvenida -->
-      <div class="dark-liquid-header text-white p-6 text-center relative overflow-hidden">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 text-[11px] font-semibold text-cyan-200 mb-3">
+  <!-- Portal de Bienvenida Institucional + Transición de Desvanecido Cinemática -->
+  <div id="welcomeAuthModal" class="auth-backdrop fixed inset-0 z-50 hidden items-center justify-center p-4 no-print">
+
+    <!-- TARJETA 1: Formulario de Acceso Liquid Glass -->
+    <div id="authCardBox" class="auth-glass-card w-full max-w-md rounded-[2rem] text-white overflow-hidden relative">
+      <!-- Luz superior decorativa -->
+      <div class="absolute -top-24 left-1/2 -translate-x-1/2 w-72 h-40 rounded-full bg-gradient-to-r from-blue-500/30 via-cyan-400/30 to-emerald-400/30 blur-2xl pointer-events-none"></div>
+
+      <!-- Cabecera del Portal -->
+      <div class="px-6 pt-7 pb-5 text-center relative z-10 border-b border-white/10">
+        <div class="w-16 h-16 mx-auto mb-3.5 rounded-2xl bg-gradient-to-br from-blue-500/25 via-cyan-400/20 to-emerald-400/25 border border-white/25 flex items-center justify-center shadow-lg">
+          <i data-lucide="shield-check" class="w-8 h-8 text-cyan-300"></i>
+        </div>
+
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/15 text-[11px] font-semibold text-cyan-200 mb-2">
           <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
           <span>Ministerio de Infraestructura y Transporte</span>
         </div>
+
         <h2 class="font-display text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
-          ¡Bienvenido!
+          JÓVENES EN ACCIÓN
         </h2>
-        <p class="text-xs sm:text-sm text-slate-300 font-medium mt-1">
-          Programa <strong class="text-white">JÓVENES EN ACCIÓN</strong> · Control de Grupos y Asistencias
+        <p class="text-xs sm:text-sm text-slate-300/90 font-medium mt-1">
+          Portal Oficial de Grupos, Horarios y Asistencias
         </p>
       </div>
 
       <!-- Cuerpo del Portal -->
-      <div class="p-5 sm:p-6 space-y-4">
+      <div class="p-6 space-y-4 relative z-10">
         <form id="adminLoginForm" class="space-y-3.5" onsubmit="event.preventDefault(); window.__submitAdminLogin();">
           <div class="flex items-center justify-between">
-            <span class="text-xs font-extrabold uppercase tracking-wider text-slate-500">🔐 Acceso Administrador</span>
-            <span class="text-[11px] font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full">Edición habilitada</span>
+            <span class="text-[11px] font-extrabold uppercase tracking-wider text-slate-300 flex items-center gap-1.5">
+              <i data-lucide="key-round" class="w-3.5 h-3.5 text-amber-300"></i>
+              <span>Ingreso Administrador</span>
+            </span>
+            <span class="text-[10px] font-bold text-emerald-300 bg-emerald-500/15 border border-emerald-400/30 px-2.5 py-0.5 rounded-full">
+              Control Total
+            </span>
           </div>
 
+          <!-- Input Usuario -->
           <div>
-            <label for="loginUsername" class="block text-xs font-extrabold text-slate-700 mb-1">Usuario</label>
-            <input id="loginUsername" type="text" autocomplete="username" placeholder="Ingresa tu usuario"
-                   class="w-full h-11 px-3.5 rounded-2xl bg-slate-50 focus:bg-white border border-slate-200 focus:border-slate-900 text-base font-semibold text-slate-900 outline-none transition" />
-          </div>
-
-          <div>
-            <label for="loginPassword" class="block text-xs font-extrabold text-slate-700 mb-1">Contraseña</label>
+            <label for="loginUsername" class="block text-xs font-bold text-slate-300 mb-1.5">Usuario</label>
             <div class="relative flex items-center">
+              <span class="absolute left-3.5 text-slate-400 pointer-events-none">
+                <i data-lucide="user" class="w-4 h-4"></i>
+              </span>
+              <input id="loginUsername" type="text" autocomplete="username" placeholder="Ej. alejandro"
+                     class="w-full h-12 pl-10 pr-4 rounded-2xl bg-white/10 focus:bg-white/15 border border-white/15 focus:border-cyan-300/70 focus:ring-4 focus:ring-cyan-400/15 text-base font-semibold text-white placeholder:text-slate-400 outline-none transition" />
+            </div>
+          </div>
+
+          <!-- Input Contraseña -->
+          <div>
+            <label for="loginPassword" class="block text-xs font-bold text-slate-300 mb-1.5">Contraseña</label>
+            <div class="relative flex items-center">
+              <span class="absolute left-3.5 text-slate-400 pointer-events-none">
+                <i data-lucide="lock" class="w-4 h-4"></i>
+              </span>
               <input id="loginPassword" type="password" autocomplete="current-password" placeholder="••••••••"
-                     class="w-full h-11 pl-3.5 pr-11 rounded-2xl bg-slate-50 focus:bg-white border border-slate-200 focus:border-slate-900 text-base font-semibold text-slate-900 outline-none transition" />
-              <button id="btnTogglePwd" type="button" tabindex="-1"
-                      class="absolute right-2 w-8 h-8 rounded-xl text-slate-400 hover:text-slate-700 flex items-center justify-center text-xs font-bold cursor-pointer">
+                     class="w-full h-12 pl-10 pr-12 rounded-2xl bg-white/10 focus:bg-white/15 border border-white/15 focus:border-cyan-300/70 focus:ring-4 focus:ring-cyan-400/15 text-base font-semibold text-white placeholder:text-slate-400 outline-none transition" />
+              <button id="btnTogglePwd" type="button" tabindex="-1" title="Mostrar u ocultar contraseña"
+                      class="absolute right-2.5 w-8 h-8 rounded-xl bg-white/10 hover:bg-white/20 text-slate-300 flex items-center justify-center text-xs font-bold cursor-pointer transition">
                 👁️
               </button>
             </div>
           </div>
 
-          <p id="loginErrorMsg" class="hidden text-xs font-bold text-rose-600 bg-rose-50 border border-rose-200 rounded-xl px-3 py-2">
-            ⚠️ Usuario o contraseña incorrectos. Intenta nuevamente.
+          <p id="loginErrorMsg" class="hidden text-xs font-bold text-rose-200 bg-rose-500/20 border border-rose-400/40 rounded-xl px-3.5 py-2.5">
+            ⚠️ Usuario o contraseña incorrectos. Verifica tus datos.
           </p>
 
           <button type="submit"
-                  class="w-full min-h-[46px] rounded-2xl bg-slate-900 hover:bg-slate-800 active:scale-[0.99] text-white text-sm font-extrabold shadow-md transition cursor-pointer flex items-center justify-center gap-2">
-            <span>Iniciar sesión para editar</span>
+                  class="w-full min-h-[48px] rounded-2xl bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-600 hover:from-emerald-400 hover:to-cyan-500 active:scale-[0.99] text-white text-sm font-extrabold shadow-lg shadow-emerald-950/50 transition cursor-pointer flex items-center justify-center gap-2">
+            <span>Iniciar Sesión como Administrador</span>
             <span>→</span>
           </button>
         </form>
 
-        <div class="relative flex py-1 items-center">
-          <div class="flex-grow border-t border-slate-200"></div>
-          <span class="flex-shrink mx-3 text-[11px] font-bold uppercase text-slate-400">O si eres participante</span>
-          <div class="flex-grow border-t border-slate-200"></div>
+        <div class="relative flex py-1.5 items-center">
+          <div class="flex-grow border-t border-white/10"></div>
+          <span class="flex-shrink mx-3 text-[10px] font-bold uppercase tracking-wider text-slate-400">Acceso para integrantes</span>
+          <div class="flex-grow border-t border-white/10"></div>
         </div>
 
+        <!-- Botón elegante para entrar en Modo Lectura -->
         <button id="btnEnterGuestMode" type="button"
-                class="w-full min-h-[44px] rounded-2xl bg-slate-100 hover:bg-slate-200/80 active:scale-[0.99] text-slate-800 border border-slate-200/90 text-xs sm:text-sm font-extrabold transition cursor-pointer flex items-center justify-center gap-2">
-          <span>👀 Entrar en Modo Consulta (Solo ver)</span>
+                class="w-full p-3.5 rounded-2xl bg-white/8 hover:bg-white/14 active:scale-[0.99] border border-white/15 hover:border-white/30 text-left transition cursor-pointer flex items-center justify-between gap-3 group">
+          <div class="flex items-center gap-3 min-w-0">
+            <span class="w-10 h-10 rounded-xl bg-sky-400/15 border border-sky-300/30 text-sky-300 flex items-center justify-center text-lg shrink-0">
+              👀
+            </span>
+            <div class="min-w-0">
+              <p class="text-xs sm:text-sm font-extrabold text-white truncate">Entrar en Modo Lectura</p>
+              <p class="text-[11px] text-slate-400 truncate">Consultar mi grupo, horario y asistencias</p>
+            </div>
+          </div>
+          <span class="text-slate-400 group-hover:text-white group-hover:translate-x-0.5 transition text-sm font-bold shrink-0">→</span>
         </button>
       </div>
     </div>
+
+    <!-- TARJETA 2: Pantalla Cinemática de Bienvenida con Desvanecido (Admin o Modo Lectura) -->
+    <div id="cinematicWelcomeSplash" class="hidden flex-col items-center justify-center text-center text-white px-6 max-w-lg mx-auto select-none">
+      <div class="relative flex items-center justify-center mb-6">
+        <div id="splashHalo" class="halo-ring absolute w-24 h-24 rounded-full bg-emerald-400/30"></div>
+        <div id="splashBadgeBox" class="welcome-reveal-1 relative w-20 h-20 rounded-3xl bg-gradient-to-br from-emerald-400/25 to-cyan-400/25 border border-white/30 backdrop-blur-xl flex items-center justify-center text-4xl shadow-2xl">
+          ✨
+        </div>
+      </div>
+
+      <p id="splashTag" class="welcome-reveal-1 text-xs font-extrabold uppercase tracking-[0.2em] text-cyan-300 mb-2">
+        JÓVENES EN ACCIÓN · MIT
+      </p>
+
+      <h2 id="splashTitle" class="welcome-reveal-2 font-display text-3xl sm:text-5xl font-extrabold tracking-tight text-white leading-tight">
+        ¡Bienvenido, Alejandro!
+      </h2>
+
+      <p id="splashSubtitle" class="welcome-reveal-3 text-sm sm:text-base text-slate-300 font-medium mt-2.5 max-w-md">
+        Modo Administrador Activado · Control total de grupos, horarios y asistencias.
+      </p>
+
+      <div class="welcome-reveal-3 w-48 h-1.5 rounded-full bg-white/10 overflow-hidden mt-7">
+        <div id="splashProgressBar" class="h-full rounded-full bg-gradient-to-r from-emerald-400 to-cyan-400"></div>
+      </div>
+    </div>
+
   </div>
 
   <!-- Toast Flotante -->
@@ -1204,11 +1312,21 @@
 
     function openWelcomeModal() {
       const modal = document.getElementById('welcomeAuthModal');
+      const card = document.getElementById('authCardBox');
+      const splash = document.getElementById('cinematicWelcomeSplash');
       const err = document.getElementById('loginErrorMsg');
       if (err) err.classList.add('hidden');
+      if (card) {
+        card.classList.remove('hidden', 'card-hide');
+      }
+      if (splash) {
+        splash.classList.add('hidden');
+        splash.classList.remove('flex');
+      }
       if (modal) {
-        modal.classList.remove('hidden');
+        modal.classList.remove('hidden', 'auth-fade-out');
         modal.classList.add('flex');
+        refreshIcons();
         setTimeout(() => {
           const u = document.getElementById('loginUsername');
           if (u) u.focus();
@@ -1216,12 +1334,57 @@
       }
     }
 
-    function closeWelcomeModal() {
+    function playCinematicWelcome(mode) {
       const modal = document.getElementById('welcomeAuthModal');
-      if (modal) {
-        modal.classList.add('hidden');
-        modal.classList.remove('flex');
-      }
+      const card = document.getElementById('authCardBox');
+      const splash = document.getElementById('cinematicWelcomeSplash');
+      const badgeBox = document.getElementById('splashBadgeBox');
+      const halo = document.getElementById('splashHalo');
+      const tag = document.getElementById('splashTag');
+      const title = document.getElementById('splashTitle');
+      const subtitle = document.getElementById('splashSubtitle');
+      const bar = document.getElementById('splashProgressBar');
+
+      if (!modal || !card || !splash) return;
+
+      // 1. Desvanecer la tarjeta de login suavemente
+      card.classList.add('card-hide');
+
+      setTimeout(() => {
+        card.classList.add('hidden');
+
+        if (mode === 'admin') {
+          badgeBox.textContent = '✨';
+          badgeBox.className = 'welcome-reveal-1 relative w-20 h-20 rounded-3xl bg-gradient-to-br from-emerald-400/25 to-cyan-400/25 border border-emerald-300/40 backdrop-blur-xl flex items-center justify-center text-4xl shadow-2xl';
+          halo.className = 'halo-ring absolute w-24 h-24 rounded-full bg-emerald-400/35';
+          tag.textContent = 'ACCESO ADMINISTRADOR VERIFICADO';
+          tag.className = 'welcome-reveal-1 text-xs font-extrabold uppercase tracking-[0.2em] text-emerald-300 mb-2';
+          title.textContent = '¡Bienvenido, Alejandro!';
+          subtitle.textContent = 'Modo Edición Activado · Tus cambios se sincronizan en la nube.';
+          bar.className = 'h-full rounded-full bg-gradient-to-r from-emerald-400 to-cyan-400 welcome-bar-anim';
+        } else {
+          badgeBox.textContent = '👀';
+          badgeBox.className = 'welcome-reveal-1 relative w-20 h-20 rounded-3xl bg-gradient-to-br from-sky-400/25 to-blue-500/25 border border-sky-300/40 backdrop-blur-xl flex items-center justify-center text-4xl shadow-2xl';
+          halo.className = 'halo-ring absolute w-24 h-24 rounded-full bg-sky-400/35';
+          tag.textContent = 'MODO CONSULTA · PARTICIPANTES';
+          tag.className = 'welcome-reveal-1 text-xs font-extrabold uppercase tracking-[0.2em] text-sky-300 mb-2';
+          title.textContent = 'Estás en Modo Lectura';
+          subtitle.textContent = 'Consulta tu grupo, horario y asistencias de Noviembre y Diciembre.';
+          bar.className = 'h-full rounded-full bg-gradient-to-r from-sky-400 to-blue-500 welcome-bar-anim';
+        }
+
+        splash.classList.remove('hidden');
+        splash.classList.add('flex');
+
+        // 2. Tras mostrar el mensaje de bienvenida, desvanecer todo el portal suavemente hacia el dashboard
+        setTimeout(() => {
+          modal.classList.add('auth-fade-out');
+          setTimeout(() => {
+            modal.classList.add('hidden');
+            modal.classList.remove('flex', 'auth-fade-out');
+          }, 560);
+        }, 1450);
+      }, 280);
     }
 
     function updateAuthUI() {
@@ -1243,7 +1406,7 @@
           bIcon.className = 'w-9 h-9 rounded-xl bg-emerald-600 text-white flex items-center justify-center text-base shrink-0 shadow-xs';
           bIcon.textContent = '✨';
         }
-        if (bTitle) bTitle.textContent = `¡Bienvenido, ${titleCase(state.adminUser || 'Administrador')}! (Modo Edición Activo)`;
+        if (bTitle) bTitle.textContent = '¡Bienvenido, Alejandro! · Modo Administrador Activo';
         if (bDesc) bDesc.textContent = 'Tienes control total para registrar vistos de asistencia, cambiar horarios y asignar grupos. Todo se guarda en la nube.';
         if (bBtn) {
           bBtn.textContent = 'Cerrar sesión';
@@ -1259,7 +1422,7 @@
           bIcon.className = 'w-9 h-9 rounded-xl bg-slate-900 text-white flex items-center justify-center text-base shrink-0 shadow-xs';
           bIcon.textContent = '👀';
         }
-        if (bTitle) bTitle.textContent = '¡Bienvenido a JÓVENES EN ACCIÓN! (Modo Consulta)';
+        if (bTitle) bTitle.textContent = 'Estás en Modo Lectura · JÓVENES EN ACCIÓN';
         if (bDesc) bDesc.textContent = 'Estás en modo lectura: puedes buscar tu nombre, ver tu grupo, horario y asistencias. Inicia sesión para editar.';
         if (bBtn) {
           bBtn.textContent = '🔐 Iniciar sesión Admin';
@@ -1279,16 +1442,15 @@
 
       if (VALID_USERS.has(u) && VALID_PASSWORDS.has(p)) {
         state.isAdmin = true;
-        state.adminUser = uEl.value.trim();
+        state.adminUser = 'Alejandro';
         try {
-          localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify({ isAdmin: true, adminUser: state.adminUser }));
+          localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify({ isAdmin: true, adminUser: 'Alejandro' }));
         } catch {}
         if (pEl) pEl.value = '';
         if (errEl) errEl.classList.add('hidden');
-        closeWelcomeModal();
         updateAuthUI();
         renderAll();
-        showToast(`✨ ¡Bienvenido, ${titleCase(state.adminUser)}! Edición desbloqueada`);
+        playCinematicWelcome('admin');
       } else {
         if (errEl) errEl.classList.remove('hidden');
       }
@@ -2884,10 +3046,9 @@
     if (btnGuest) {
       btnGuest.addEventListener('click', () => {
         state.isAdmin = false;
-        closeWelcomeModal();
         updateAuthUI();
         renderAll();
-        showToast('👀 Bienvenido en Modo Consulta (solo lectura)');
+        playCinematicWelcome('guest');
       });
     }
 
