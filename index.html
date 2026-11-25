@@ -2302,9 +2302,18 @@
                             class="h-8 px-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-extrabold inline-flex items-center gap-1 cursor-pointer">
                       <span>Abrir grupo →</span>
                     </button>
+                    <button type="button"
+                            data-ficha-btn="${p.uid}"
+                            onclick="window.__toggleFicha(${p.uid})"
+                            class="h-8 px-3 rounded-xl bg-white hover:bg-slate-100 border border-slate-200/90 text-slate-700 text-xs font-extrabold inline-flex items-center gap-1.5 transition-all cursor-pointer shadow-xs">
+                      <span data-ficha-btn-text="${p.uid}">${state.openFichaPanels.has(p.uid) ? 'Ver menos' : 'Ver más'}</span>
+                      <span data-ficha-btn-arrow="${p.uid}" class="text-[10px] transition-transform duration-200 ${state.openFichaPanels.has(p.uid) ? 'rotate-180' : ''}">▾</span>
+                    </button>
                   </div>
                 </div>
-                ${buildFichaDetalleHtml(p)}
+                <div data-ficha-drawer="${p.uid}" class="${state.openFichaPanels.has(p.uid) ? '' : 'hidden'} transition-all duration-200">
+                  ${state.openFichaPanels.has(p.uid) ? buildFichaDetalleHtml(p) : ''}
+                </div>
                 ${!isUn ? `
                   <div data-att-drawer="${p.uid}" class="${isAttOpen ? '' : 'hidden'}">
                     ${isAttOpen ? buildPersonCalendarInnerHtml(p, set, count, pct) : ''}
@@ -2758,6 +2767,12 @@
           el.classList.add('hidden');
           el.innerHTML = '';
         }
+      });
+      document.querySelectorAll(`[data-ficha-btn-text="${id}"]`).forEach(txt => {
+        txt.textContent = willOpen ? 'Ver menos' : 'Ver más';
+      });
+      document.querySelectorAll(`[data-ficha-btn-arrow="${id}"]`).forEach(arr => {
+        arr.classList.toggle('rotate-180', willOpen);
       });
     };
 
