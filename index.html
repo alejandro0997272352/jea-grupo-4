@@ -2,9 +2,9 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
   <meta name="theme-color" content="#060a13" />
-  <title>JÓVENES EN ACCIÓN — Grupos y Asistencias Noviembre (Lun–Vie) | MIT</title>
+  <title>JÓVENES EN ACCIÓN — Grupos y Asistencias Nov–Dic | MIT</title>
 
   <!-- Google Fonts: Plus Jakarta Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -39,90 +39,77 @@
       background-color: #eef2f6;
       color: #0f172a;
       -webkit-tap-highlight-color: transparent;
+      overflow-x: hidden;
     }
     .tabular-nums { font-variant-numeric: tabular-nums; }
 
     .bg-dot-pattern {
-      background-image: radial-gradient(rgba(15, 23, 42, 0.065) 1px, transparent 1px);
+      background-image: radial-gradient(rgba(15, 23, 42, 0.06) 1px, transparent 1px);
       background-size: 22px 22px;
     }
 
-    @keyframes float {
-      0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
-      33% { transform: translate3d(26px, -22px, 0) scale(1.05); }
-      66% { transform: translate3d(-20px, 16px, 0) scale(0.96); }
-    }
-    .orb-1 { animation: float 16s ease-in-out infinite; }
-    .orb-2 { animation: float 21s ease-in-out infinite reverse; }
-    .orb-3 { animation: float 18s ease-in-out 2s infinite; }
-
+    /* En PC usamos blur completo; en móvil optimizamos GPU para 60fps sin lag */
     .liquid-glass {
       position: relative;
-      background: rgba(255, 255, 255, 0.76);
-      backdrop-filter: blur(20px) saturate(180%);
-      -webkit-backdrop-filter: blur(20px) saturate(180%);
-      border: 1px solid rgba(255, 255, 255, 0.9);
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(255, 255, 255, 0.95);
       box-shadow:
         inset 0 1px 1px rgba(255, 255, 255, 0.95),
-        0 10px 30px -10px rgba(15, 23, 42, 0.08);
+        0 8px 24px -8px rgba(15, 23, 42, 0.07);
     }
-
     .liquid-glass-amber {
       position: relative;
-      background: linear-gradient(135deg, rgba(254, 243, 199, 0.78) 0%, rgba(255, 251, 235, 0.70) 100%);
-      backdrop-filter: blur(20px) saturate(180%);
-      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      background: linear-gradient(135deg, rgba(254, 243, 199, 0.88) 0%, rgba(255, 251, 235, 0.85) 100%);
       border: 1px solid rgba(251, 191, 36, 0.55);
       box-shadow:
         inset 0 1px 1px rgba(255, 255, 255, 0.9),
-        0 10px 30px -10px rgba(217, 119, 6, 0.12);
+        0 8px 24px -8px rgba(217, 119, 6, 0.11);
     }
-
-    .liquid-popover {
-      background: rgba(255, 255, 255, 0.96);
-      backdrop-filter: blur(24px) saturate(200%);
-      -webkit-backdrop-filter: blur(24px) saturate(200%);
-      border: 1px solid rgba(255, 255, 255, 1);
-      box-shadow:
-        inset 0 1px 1px rgba(255, 255, 255, 1),
-        0 20px 45px -12px rgba(15, 23, 42, 0.22),
-        0 4px 12px -2px rgba(15, 23, 42, 0.08);
+    @media (min-width: 768px) {
+      .liquid-glass {
+        background: rgba(255, 255, 255, 0.76);
+        backdrop-filter: blur(18px) saturate(180%);
+        -webkit-backdrop-filter: blur(18px) saturate(180%);
+      }
+      .liquid-glass-amber {
+        background: linear-gradient(135deg, rgba(254, 243, 199, 0.78) 0%, rgba(255, 251, 235, 0.72) 100%);
+        backdrop-filter: blur(18px) saturate(180%);
+        -webkit-backdrop-filter: blur(18px) saturate(180%);
+      }
     }
 
     .dark-liquid-header {
       background: linear-gradient(135deg, #060a13 0%, #0b1325 55%, #0f172a 100%);
     }
 
-    @keyframes popIn {
-      from { opacity: 0; transform: scale(0.96) translateY(-3px); }
-      to { opacity: 1; transform: scale(1) translateY(0); }
-    }
-    .pop-in {
-      animation: popIn 0.16s cubic-bezier(0.22, 1, 0.36, 1) both;
-    }
-
-    /* Animación elegante cuando se pone un Visto (✓) */
-    @keyframes vistoBounce {
-      0% { transform: scale(0.82); }
-      55% { transform: scale(1.08); }
-      100% { transform: scale(1); }
-    }
+    /* Casillas de Visto (✓) en el calendario Lunes–Viernes */
     .visto-active {
       background: linear-gradient(135deg, #10b981 0%, #059669 100%);
       color: #ffffff;
-      border-color: rgba(5, 150, 105, 0.4);
-      box-shadow: 0 3px 10px -2px rgba(16, 185, 129, 0.42), inset 0 1px 0 rgba(255, 255, 255, 0.35);
-      animation: vistoBounce 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+      border-color: rgba(5, 150, 105, 0.45);
+      box-shadow: 0 2px 8px -1px rgba(16, 185, 129, 0.38);
     }
     .visto-pending {
-      background: rgba(255, 255, 255, 0.9);
-      color: #64748b;
-      border-color: rgba(226, 232, 240, 0.95);
+      background: #ffffff;
+      color: #475569;
+      border-color: #e2e8f0;
     }
     .visto-pending:hover {
       background: #f0fdf4;
       color: #059669;
       border-color: #86efac;
+    }
+
+    /* Calendario de 5 columnas (Lunes a Viernes) adaptable a cualquier celular */
+    .cal-grid-5 {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 0.35rem;
+    }
+    @media (min-width: 640px) {
+      .cal-grid-5 {
+        gap: 0.5rem;
+      }
     }
 
     .no-scrollbar::-webkit-scrollbar { display: none; }
@@ -136,20 +123,12 @@
       font-weight: 700;
     }
 
-    /* Calendario de Noviembre (5 columnas: Lunes a Viernes, sin fines de semana) */
-    .att-grid-80 {
-      display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
-      gap: 0.45rem;
-    }
-
-    /* Slider esmeralda para vistos */
     input[type="range"].visto-slider {
       -webkit-appearance: none;
       appearance: none;
       height: 7px;
       border-radius: 999px;
-      background: #e2e8f0;
+      background: #cbd5e1;
       outline: none;
     }
     input[type="range"].visto-slider::-webkit-slider-thumb {
@@ -160,12 +139,8 @@
       border-radius: 50%;
       background: #059669;
       border: 2.5px solid #ffffff;
-      box-shadow: 0 2px 8px rgba(5, 150, 105, 0.4);
+      box-shadow: 0 2px 6px rgba(5, 150, 105, 0.4);
       cursor: pointer;
-      transition: transform 0.12s ease;
-    }
-    input[type="range"].visto-slider::-webkit-slider-thumb:hover {
-      transform: scale(1.12);
     }
 
     @media print {
@@ -173,7 +148,6 @@
       body { background: #fff !important; }
       .liquid-glass, .liquid-glass-amber {
         background: #fff !important;
-        backdrop-filter: none !important;
         border: 1px solid #cbd5e1 !important;
         box-shadow: none !important;
       }
@@ -182,29 +156,22 @@
     }
   </style>
 </head>
-<body class="min-h-screen flex flex-col overflow-x-hidden antialiased bg-dot-pattern selection:bg-blue-500/20 selection:text-slate-900">
+<body class="min-h-screen flex flex-col antialiased bg-dot-pattern selection:bg-blue-500/20 selection:text-slate-900">
 
-  <!-- Fondo Fluido con Orbes de Luz Difuminada -->
-  <div class="fixed inset-0 pointer-events-none overflow-hidden -z-10" aria-hidden="true">
-    <div class="orb-1 absolute -top-28 -left-24 w-96 h-96 rounded-full bg-blue-600/15 blur-3xl"></div>
-    <div class="orb-2 absolute top-1/4 -right-28 w-[28rem] h-[28rem] rounded-full bg-cyan-400/15 blur-3xl"></div>
-    <div class="orb-3 absolute -bottom-28 left-1/3 w-96 h-96 rounded-full bg-blue-500/10 blur-3xl"></div>
+  <!-- Luces ambientales estáticas ligeras (sin animaciones pesadas para no ralentizar celulares) -->
+  <div class="fixed inset-0 pointer-events-none overflow-hidden -z-10 hidden md:block" aria-hidden="true">
+    <div class="absolute -top-28 -left-24 w-96 h-96 rounded-full bg-blue-600/10 blur-3xl"></div>
+    <div class="absolute top-1/3 -right-28 w-96 h-96 rounded-full bg-cyan-400/10 blur-3xl"></div>
   </div>
 
-  <!-- 1. Encabezado Institucional Compacto (Dark Liquid Glass) -->
+  <!-- 1. Encabezado Institucional Compacto -->
   <header class="dark-liquid-header text-white relative overflow-hidden border-b border-white/10">
-    <div class="orb-1 absolute -top-24 left-1/4 w-96 h-48 rounded-full bg-blue-600/25 blur-3xl pointer-events-none"></div>
-    <div class="orb-2 absolute -bottom-20 right-12 w-80 h-44 rounded-full bg-cyan-400/20 blur-3xl pointer-events-none"></div>
-
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 pt-5 pb-14 sm:pt-7 sm:pb-16 relative z-10">
-      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <div class="space-y-2 min-w-0">
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 text-[11px] sm:text-xs font-semibold text-slate-200 tracking-wide">
-            <span class="relative flex h-2 w-2">
-              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
-              <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-400"></span>
-            </span>
-            <span>Ministerio de Infraestructura y Transporte</span>
+    <div class="max-w-4xl mx-auto px-3.5 sm:px-6 pt-4 pb-12 sm:pt-7 sm:pb-16 relative z-10">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3.5">
+        <div class="space-y-1.5 min-w-0">
+          <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-white/10 border border-white/20 text-[11px] font-semibold text-slate-200 tracking-wide max-w-full">
+            <span class="w-2 h-2 rounded-full bg-cyan-400 shrink-0"></span>
+            <span class="truncate">Ministerio de Infraestructura y Transporte</span>
           </div>
 
           <div>
@@ -212,25 +179,25 @@
               JÓVENES EN ACCIÓN
             </h1>
             <p class="text-slate-300/85 text-xs sm:text-sm font-medium mt-0.5">
-              Sistema de Consulta Rápida, Distribución de Grupos y Asistencias Noviembre (Lun–Vie)
+              Grupos y Asistencias de Noviembre y Diciembre (Lunes a Viernes)
             </p>
           </div>
         </div>
 
-        <!-- Botones superiores tipo cápsula de cristal -->
-        <div class="flex flex-wrap items-center gap-2 no-print">
+        <!-- Botones superiores desplazables en móvil sin desbordar -->
+        <div class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-0.5 no-print">
           <button id="btnExportExcel" type="button"
-                  class="min-h-[38px] px-3.5 py-1.5 rounded-full bg-white/10 hover:bg-white/20 active:scale-95 backdrop-blur-xl border border-white/25 text-white text-xs font-semibold transition-all cursor-pointer inline-flex items-center gap-1.5">
+                  class="shrink-0 min-h-[38px] px-3.5 py-1.5 rounded-full bg-white/12 hover:bg-white/20 active:scale-95 border border-white/25 text-white text-xs font-semibold transition cursor-pointer inline-flex items-center gap-1.5">
             <i data-lucide="download" class="w-3.5 h-3.5 text-cyan-300"></i>
             <span>Descargar Excel</span>
           </button>
           <button id="btnPrint" type="button"
-                  class="min-h-[38px] px-3.5 py-1.5 rounded-full bg-white/10 hover:bg-white/20 active:scale-95 backdrop-blur-xl border border-white/25 text-white text-xs font-semibold transition-all cursor-pointer inline-flex items-center gap-1.5">
+                  class="shrink-0 min-h-[38px] px-3.5 py-1.5 rounded-full bg-white/12 hover:bg-white/20 active:scale-95 border border-white/25 text-white text-xs font-semibold transition cursor-pointer inline-flex items-center gap-1.5">
             <i data-lucide="printer" class="w-3.5 h-3.5 text-slate-200"></i>
             <span>Imprimir</span>
           </button>
           <button id="btnToggleUpload" type="button"
-                  class="min-h-[38px] px-3.5 py-1.5 rounded-full bg-white/10 hover:bg-white/20 active:scale-95 backdrop-blur-xl border border-white/25 text-white text-xs font-semibold transition-all cursor-pointer inline-flex items-center gap-1.5">
+                  class="shrink-0 min-h-[38px] px-3.5 py-1.5 rounded-full bg-white/12 hover:bg-white/20 active:scale-95 border border-white/25 text-white text-xs font-semibold transition cursor-pointer inline-flex items-center gap-1.5">
             <i data-lucide="file-spreadsheet" class="w-3.5 h-3.5 text-amber-300"></i>
             <span>Cambiar Excel</span>
           </button>
@@ -239,41 +206,41 @@
     </div>
   </header>
 
-  <!-- Panel de Resumen Limpio (Max-w-4xl centrado) -->
-  <section aria-label="Resumen general" class="max-w-4xl w-full mx-auto px-4 sm:px-6 -mt-9 sm:-mt-10 relative z-20">
-    <div class="liquid-glass rounded-3xl p-4 sm:p-5">
-      <div class="grid grid-cols-4 gap-2.5 sm:gap-5 items-center">
+  <!-- Panel de Resumen (2x2 en celular para que todas las celdas encajen amplias, 4 columnas en PC) -->
+  <section aria-label="Resumen general" class="max-w-4xl w-full mx-auto px-3.5 sm:px-6 -mt-8 sm:-mt-10 relative z-20">
+    <div class="liquid-glass rounded-3xl p-3.5 sm:p-5">
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-5 items-center">
         <!-- Total -->
-        <div class="min-w-0">
-          <p class="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-slate-500 truncate">Total</p>
-          <p id="metricTotal" class="font-display text-xl sm:text-3xl font-extrabold tracking-tight text-slate-900 tabular-nums mt-0.5 leading-none">0</p>
-          <p class="text-[10px] sm:text-[11px] text-slate-500 mt-1 truncate">integrantes</p>
+        <div class="p-2.5 sm:p-0 rounded-2xl bg-white/60 sm:bg-transparent border border-slate-200/60 sm:border-0 min-w-0">
+          <p class="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-slate-500">Total</p>
+          <p id="metricTotal" class="font-display text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 tabular-nums mt-0.5 leading-none">0</p>
+          <p class="text-[11px] text-slate-500 mt-1 truncate">integrantes</p>
         </div>
 
         <!-- Con grupo -->
-        <div class="min-w-0 pl-2.5 sm:pl-5 border-l border-slate-200/80">
-          <p class="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-slate-700 truncate">Con grupo</p>
-          <p id="metricGrouped" class="font-display text-xl sm:text-3xl font-extrabold tracking-tight text-slate-900 tabular-nums mt-0.5 leading-none">0</p>
-          <p id="metricGroupCountLabel" class="text-[10px] sm:text-[11px] text-slate-500 mt-1 truncate">0 grupos</p>
+        <div class="p-2.5 sm:p-0 sm:pl-5 rounded-2xl bg-white/60 sm:bg-transparent border border-slate-200/60 sm:border-0 sm:border-l sm:border-slate-200/80 min-w-0">
+          <p class="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-slate-700">Con grupo</p>
+          <p id="metricGrouped" class="font-display text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 tabular-nums mt-0.5 leading-none">0</p>
+          <p id="metricGroupCountLabel" class="text-[11px] text-slate-500 mt-1 truncate">0 grupos</p>
         </div>
 
         <!-- Sin grupo -->
-        <div class="min-w-0 pl-2.5 sm:pl-5 border-l border-slate-200/80">
-          <p class="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-amber-700 truncate">Sin grupo</p>
-          <p id="metricUnassigned" class="font-display text-xl sm:text-3xl font-extrabold tracking-tight text-amber-600 tabular-nums mt-0.5 leading-none">0</p>
-          <p class="text-[10px] sm:text-[11px] text-amber-700/80 mt-1 truncate">integrantes</p>
+        <div class="p-2.5 sm:p-0 sm:pl-5 rounded-2xl bg-amber-50/60 sm:bg-transparent border border-amber-200/60 sm:border-0 sm:border-l sm:border-slate-200/80 min-w-0">
+          <p class="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-amber-700">Sin grupo</p>
+          <p id="metricUnassigned" class="font-display text-2xl sm:text-3xl font-extrabold tracking-tight text-amber-600 tabular-nums mt-0.5 leading-none">0</p>
+          <p class="text-[11px] text-amber-700/80 mt-1 truncate">integrantes</p>
         </div>
 
-        <!-- Promedio Asistencias (sobre 80) -->
-        <div class="min-w-0 pl-2.5 sm:pl-5 border-l border-slate-200/80">
-          <p class="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-emerald-700 truncate">Asistencias</p>
-          <p id="metricAttendanceAvg" class="font-display text-xl sm:text-3xl font-extrabold tracking-tight text-emerald-700 tabular-nums mt-0.5 leading-none">0%</p>
-          <p id="metricAttendanceSub" class="text-[10px] sm:text-[11px] text-slate-500 mt-1 truncate">0 / 21 días</p>
+        <!-- Promedio Asistencias (Nov + Dic = 44 días hábiles) -->
+        <div class="p-2.5 sm:p-0 sm:pl-5 rounded-2xl bg-emerald-50/60 sm:bg-transparent border border-emerald-200/60 sm:border-0 sm:border-l sm:border-slate-200/80 min-w-0">
+          <p class="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-emerald-700">Asistencias</p>
+          <p id="metricAttendanceAvg" class="font-display text-2xl sm:text-3xl font-extrabold tracking-tight text-emerald-700 tabular-nums mt-0.5 leading-none">0%</p>
+          <p id="metricAttendanceSub" class="text-[11px] text-slate-500 mt-1 truncate">0 / 44 días Nov–Dic</p>
         </div>
       </div>
 
       <!-- Barra de progreso minimalista redondeada -->
-      <div class="mt-3.5 pt-3 border-t border-white/80 flex items-center gap-3">
+      <div class="mt-3 pt-2.5 border-t border-slate-200/70 flex items-center gap-3">
         <div class="flex-1 h-2 rounded-full bg-slate-200/80 overflow-hidden">
           <div id="cleanProgressBar" class="h-full rounded-full bg-slate-900 transition-all duration-500 ease-out" style="width: 0%"></div>
         </div>
@@ -283,61 +250,58 @@
   </section>
 
   <!-- Buscador Rápido Tipo "Spotlight" (Sticky Mobile-First) -->
-  <div class="sticky top-2 z-30 mt-3.5 px-4 sm:px-6 max-w-4xl w-full mx-auto no-print">
-    <div class="h-14 rounded-2xl px-4 backdrop-blur-2xl bg-white/85 border border-white/95 shadow-lg flex items-center gap-3 transition-all focus-within:ring-4 focus-within:ring-blue-500/20 focus-within:border-blue-400">
-      <i data-lucide="search" class="w-5 h-5 text-slate-400 shrink-0"></i>
+  <div class="sticky top-2 z-30 mt-3 px-3.5 sm:px-6 max-w-4xl w-full mx-auto no-print">
+    <div class="h-12 sm:h-14 rounded-2xl px-3.5 sm:px-4 backdrop-blur-md bg-white/95 border border-slate-200/90 shadow-md flex items-center gap-2.5 transition-all focus-within:ring-4 focus-within:ring-blue-500/20 focus-within:border-blue-500">
+      <i data-lucide="search" class="w-4 h-4 sm:w-5 sm:h-5 text-slate-400 shrink-0"></i>
       <input
         id="searchInput"
         type="search"
         enterkeyhint="search"
         autocomplete="off"
-        placeholder="Buscar integrante por nombre, apellido o cédula…"
+        placeholder="Buscar por nombre, apellido o cédula…"
         class="w-full h-full bg-transparent text-base font-medium text-slate-900 placeholder:text-slate-400 outline-none [&::-webkit-search-cancel-button]:hidden"
       />
       <button id="btnClearSearch" type="button" aria-label="Limpiar búsqueda"
-              class="hidden w-9 h-9 rounded-xl bg-slate-200/70 hover:bg-slate-300/70 active:scale-95 text-slate-600 items-center justify-center transition cursor-pointer shrink-0">
-        <i data-lucide="x" class="w-4 h-4"></i>
+              class="hidden w-8 h-8 rounded-xl bg-slate-200/70 hover:bg-slate-300/70 active:scale-95 text-slate-600 items-center justify-center transition cursor-pointer shrink-0">
+        ✕
       </button>
     </div>
   </div>
 
-  <!-- Contenido Principal (Centrado en max-w-4xl) -->
-  <main class="flex-1 max-w-4xl w-full mx-auto px-4 sm:px-6 pt-4 pb-16 space-y-5">
+  <!-- Contenido Principal -->
+  <main class="flex-1 max-w-4xl w-full mx-auto px-3.5 sm:px-6 pt-3.5 pb-16 space-y-4">
 
     <!-- Selector de Modo Principal + Botón "+ Nuevo integrante" -->
-    <section class="flex items-center justify-between gap-2.5 flex-wrap no-print">
-      <div class="inline-flex p-1 rounded-2xl liquid-glass">
+    <section class="flex items-center justify-between gap-2 flex-wrap no-print">
+      <div class="inline-flex p-1 rounded-2xl liquid-glass max-w-full overflow-x-auto no-scrollbar">
         <button id="tabModeGroups" type="button"
-                class="min-h-[40px] px-4 py-1.5 rounded-xl text-xs sm:text-sm font-extrabold transition-colors cursor-pointer inline-flex items-center gap-2 bg-slate-900 text-white shadow-sm">
-          <i data-lucide="layers" class="w-4 h-4"></i>
+                class="min-h-[38px] px-3.5 py-1.5 rounded-xl text-xs font-extrabold transition-colors cursor-pointer inline-flex items-center gap-1.5 bg-slate-900 text-white shadow-sm whitespace-nowrap">
+          <i data-lucide="layers" class="w-3.5 h-3.5"></i>
           <span>Grupos (A–Z)</span>
         </button>
         <button id="tabModeAttendance" type="button"
-                class="min-h-[40px] px-4 py-1.5 rounded-xl text-xs sm:text-sm font-extrabold transition-colors cursor-pointer inline-flex items-center gap-2 text-slate-700 hover:text-slate-900">
-          <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600"></i>
-          <span>Asistencias Noviembre (Lun–Vie)</span>
+                class="min-h-[38px] px-3.5 py-1.5 rounded-xl text-xs font-extrabold transition-colors cursor-pointer inline-flex items-center gap-1.5 text-slate-700 hover:text-slate-900 whitespace-nowrap">
+          <i data-lucide="calendar-check-2" class="w-3.5 h-3.5 text-emerald-600"></i>
+          <span>Asistencias Nov–Dic</span>
         </button>
       </div>
 
       <button id="btnToggleNewMember" type="button"
-              class="min-h-[40px] px-4 py-1.5 rounded-2xl bg-slate-900 hover:bg-slate-800 active:scale-95 text-white text-xs sm:text-sm font-extrabold shadow-sm transition cursor-pointer inline-flex items-center gap-1.5">
-        <i data-lucide="user-plus" class="w-4 h-4 text-cyan-300"></i>
+              class="min-h-[38px] px-3.5 py-1.5 rounded-2xl bg-slate-900 hover:bg-slate-800 active:scale-95 text-white text-xs font-extrabold shadow-sm transition cursor-pointer inline-flex items-center gap-1.5">
+        <i data-lucide="user-plus" class="w-3.5 h-3.5 text-cyan-300"></i>
         <span>+ Nuevo integrante</span>
       </button>
     </section>
 
-    <!-- Panel Liquid Glass para Agregar Nuevo Integrante Manualmente (#4) -->
-    <section id="newMemberPanel" class="hidden liquid-glass rounded-3xl p-5 space-y-4 no-print pop-in">
+    <!-- Panel para Agregar Nuevo Integrante Manualmente -->
+    <section id="newMemberPanel" class="hidden liquid-glass rounded-3xl p-4 sm:p-5 space-y-3.5 no-print">
       <div class="flex items-center justify-between gap-2">
         <div>
-          <h2 class="font-display text-base sm:text-lg font-extrabold text-slate-900 flex items-center gap-2">
-            <i data-lucide="user-plus" class="w-5 h-5 text-blue-700"></i>
-            <span>Registrar Nuevo Integrante</span>
-          </h2>
-          <p class="text-xs text-slate-500">Se agregará automáticamente en orden alfabético (A–Z) y quedará guardado en este dispositivo.</p>
+          <h2 class="font-display text-sm sm:text-base font-extrabold text-slate-900">Registrar Nuevo Integrante</h2>
+          <p class="text-xs text-slate-500">Se ordenará automáticamente de la A a la Z.</p>
         </div>
         <button id="btnCloseNewMember" type="button"
-                class="w-8 h-8 rounded-xl bg-white/80 hover:bg-white text-slate-500 flex items-center justify-center cursor-pointer">
+                class="w-8 h-8 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center cursor-pointer">
           ✕
         </button>
       </div>
@@ -346,12 +310,12 @@
         <div>
           <label class="block text-xs font-extrabold text-slate-700 mb-1">Apellidos y Nombres *</label>
           <input id="newMemberName" type="text" placeholder="Ej. Perez Pasto Juan"
-                 class="w-full h-11 px-3.5 rounded-2xl bg-white/90 border border-slate-200 focus:border-slate-900 text-sm font-semibold text-slate-900 outline-none" />
+                 class="w-full h-11 px-3.5 rounded-2xl bg-white border border-slate-200 focus:border-slate-900 text-base font-semibold text-slate-900 outline-none" />
         </div>
         <div>
           <label class="block text-xs font-extrabold text-slate-700 mb-1">Cédula (C.I.)</label>
           <input id="newMemberId" type="text" inputmode="numeric" placeholder="Ej. 0250148475"
-                 class="w-full h-11 px-3.5 rounded-2xl bg-white/90 border border-slate-200 focus:border-slate-900 text-sm font-semibold text-slate-900 tabular-nums outline-none" />
+                 class="w-full h-11 px-3.5 rounded-2xl bg-white border border-slate-200 focus:border-slate-900 text-base font-semibold text-slate-900 tabular-nums outline-none" />
         </div>
         <div>
           <label class="block text-xs font-extrabold text-slate-700 mb-1">Grupo inicial</label>
@@ -359,9 +323,9 @@
         </div>
       </div>
 
-      <div class="flex justify-end gap-2 pt-1">
+      <div class="flex justify-end pt-1">
         <button id="btnSaveNewMember" type="button"
-                class="min-h-[42px] px-5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs sm:text-sm font-extrabold shadow-sm transition cursor-pointer inline-flex items-center gap-1.5">
+                class="min-h-[42px] w-full sm:w-auto px-5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs sm:text-sm font-extrabold shadow-sm transition cursor-pointer inline-flex items-center justify-center gap-1.5">
           <span>✓ Guardar integrante</span>
         </button>
       </div>
@@ -371,164 +335,183 @@
     <section id="featuredResultContainer" class="hidden" aria-live="polite"></section>
 
     <!-- Panel de Carga de Excel (Colapsable) -->
-    <section id="uploadPanel" class="hidden liquid-glass rounded-3xl p-5 sm:p-6 space-y-4 no-print">
+    <section id="uploadPanel" class="hidden liquid-glass rounded-3xl p-4 sm:p-6 space-y-4 no-print">
       <div class="flex items-start justify-between gap-3">
         <div>
-          <h2 class="font-display text-base sm:text-lg font-extrabold tracking-tight text-slate-900 flex items-center gap-2">
-            <i data-lucide="upload-cloud" class="w-5 h-5 text-slate-800"></i>
-            <span>Cargar archivo Excel o CSV</span>
-          </h2>
+          <h2 class="font-display text-base font-extrabold tracking-tight text-slate-900">Cargar archivo Excel o CSV</h2>
           <p class="text-xs text-slate-500 mt-0.5">
             Fuente actual: <strong id="activeFileLabel" class="text-slate-700">—</strong>
           </p>
         </div>
         <button id="btnCloseUpload" type="button" aria-label="Cerrar panel"
-                class="w-9 h-9 rounded-xl bg-white/70 hover:bg-white text-slate-500 hover:text-slate-800 flex items-center justify-center transition cursor-pointer">
-          <i data-lucide="x" class="w-5 h-5"></i>
+                class="w-8 h-8 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center cursor-pointer">
+          ✕
         </button>
       </div>
 
       <div id="dropZone"
-           class="border-2 border-dashed border-slate-300 hover:border-slate-700 hover:bg-white/60 rounded-2xl p-6 text-center transition cursor-pointer">
+           class="border-2 border-dashed border-slate-300 hover:border-slate-700 hover:bg-white/60 rounded-2xl p-5 text-center transition cursor-pointer">
         <input id="fileInput" type="file" accept=".xlsx,.xls,.csv" class="hidden" />
-        <div class="w-11 h-11 mx-auto rounded-2xl bg-slate-900/5 text-slate-800 flex items-center justify-center">
-          <i data-lucide="file-up" class="w-5 h-5"></i>
-        </div>
-        <p class="mt-2.5 text-sm font-semibold text-slate-800">Arrastra tu archivo Excel aquí o selecciónalo</p>
-        <p class="text-xs text-slate-500 mt-0.5">Compatible con .xlsx, .xls y .csv · Guardado automático en este dispositivo</p>
+        <p class="text-sm font-semibold text-slate-800">Arrastra tu archivo Excel aquí o selecciónalo</p>
+        <p class="text-xs text-slate-500 mt-0.5">Compatible con .xlsx, .xls y .csv</p>
 
-        <div class="mt-4 flex flex-col sm:flex-row justify-center gap-2.5">
+        <div class="mt-3.5 flex flex-col sm:flex-row justify-center gap-2">
           <button id="btnSelectFile" type="button"
-                  class="min-h-[44px] px-5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs sm:text-sm font-semibold shadow-sm inline-flex items-center justify-center gap-2 transition cursor-pointer">
-            <i data-lucide="folder-open" class="w-4 h-4"></i>
+                  class="min-h-[42px] px-4 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold shadow-sm inline-flex items-center justify-center gap-2 cursor-pointer">
             <span>Seleccionar Excel</span>
           </button>
           <button id="btnDemoData" type="button"
-                  class="min-h-[44px] px-4 rounded-xl bg-white/85 hover:bg-white text-slate-800 border border-slate-300 text-xs sm:text-sm font-semibold inline-flex items-center justify-center gap-2 transition cursor-pointer">
-            <i data-lucide="flask-conical" class="w-4 h-4 text-slate-700"></i>
+                  class="min-h-[42px] px-4 rounded-xl bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 text-xs font-semibold inline-flex items-center justify-center gap-2 cursor-pointer">
             <span>Cargar datos de prueba</span>
           </button>
           <button id="btnRestoreOriginal" type="button"
-                  class="min-h-[44px] px-4 rounded-xl bg-white/85 hover:bg-white text-slate-700 border border-slate-300 text-xs sm:text-sm font-semibold inline-flex items-center justify-center gap-2 transition cursor-pointer">
-            <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+                  class="min-h-[42px] px-4 rounded-xl bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 text-xs font-semibold inline-flex items-center justify-center gap-2 cursor-pointer">
             <span>Restaurar Excel oficial</span>
           </button>
         </div>
       </div>
 
-      <!-- Mapeo manual de columnas con estilo Liquid Glass -->
-      <div id="columnMapper" class="hidden p-4 rounded-2xl bg-white/85 border border-white space-y-3">
+      <div id="columnMapper" class="hidden p-4 rounded-2xl bg-white border border-slate-200 space-y-3">
         <p class="text-xs font-bold text-slate-700">Elige las columnas correspondientes de tu archivo:</p>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="customMapperContainer"></div>
         <button id="btnApplyMapping" type="button"
-                class="min-h-[42px] px-5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs sm:text-sm font-bold transition cursor-pointer">
+                class="min-h-[42px] px-5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold transition cursor-pointer">
           Aplicar columnas seleccionadas
         </button>
       </div>
     </section>
 
-    <!-- Carrusel Superior "Ir a un grupo" (Enfoque Exclusivo) y Filtros -->
-    <section class="space-y-2.5 no-print">
+    <!-- Carrusel Superior "Ir a un grupo" y Filtros -->
+    <section class="space-y-2 no-print">
       <div class="flex items-center justify-between gap-2">
-        <span class="text-xs font-bold uppercase tracking-wider text-slate-500">Ir a un grupo (Vista enfocada)</span>
+        <span class="text-[11px] font-bold uppercase tracking-wider text-slate-500">Ir a un grupo</span>
         <div id="generalAccordionControls" class="flex items-center gap-1">
           <button id="btnExpandAll" type="button"
-                  class="min-h-[32px] px-2.5 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-white/70 transition cursor-pointer inline-flex items-center gap-1">
-            <i data-lucide="chevrons-up-down" class="w-3.5 h-3.5"></i>
-            <span>Abrir todos</span>
+                  class="min-h-[30px] px-2.5 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-white/70 transition cursor-pointer">
+            Abrir todos
           </button>
           <button id="btnCollapseAll" type="button"
-                  class="min-h-[32px] px-2.5 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-white/70 transition cursor-pointer inline-flex items-center gap-1">
-            <i data-lucide="chevrons-down-up" class="w-3.5 h-3.5"></i>
-            <span>Cerrar todos</span>
+                  class="min-h-[30px] px-2.5 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-white/70 transition cursor-pointer">
+            Cerrar todos
           </button>
         </div>
       </div>
 
-      <!-- Fila única deslizable de grupos -->
-      <div id="quickNav" class="flex items-center gap-2 overflow-x-auto no-scrollbar -mx-4 px-4 sm:mx-0 sm:px-0 py-1"></div>
-
-      <!-- Filtros generales: Todos / Con grupo / Sin grupo -->
-      <div id="filterPills" class="flex items-center gap-2 overflow-x-auto no-scrollbar -mx-4 px-4 sm:mx-0 sm:px-0 pt-0.5" role="tablist"></div>
+      <div id="quickNav" class="flex items-center gap-2 overflow-x-auto no-scrollbar -mx-3.5 px-3.5 sm:mx-0 sm:px-0 py-0.5"></div>
+      <div id="filterPills" class="flex items-center gap-1.5 overflow-x-auto no-scrollbar -mx-3.5 px-3.5 sm:mx-0 sm:px-0 pt-0.5" role="tablist"></div>
     </section>
 
-    <!-- Barra de Control Rápido de Jornada (Visible en modo Control de Asistencias 80) -->
-    <section id="attendanceToolbar" class="hidden liquid-glass rounded-3xl p-4 sm:p-5 space-y-3.5 no-print">
+    <!-- Barra de Control Rápido de Jornada (Noviembre y Diciembre, Lunes a Viernes) -->
+    <section id="attendanceToolbar" class="hidden liquid-glass rounded-3xl p-3.5 sm:p-5 space-y-3 no-print">
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h2 class="font-display text-base sm:text-lg font-extrabold tracking-tight text-slate-900 flex items-center gap-2">
-            <span class="w-7 h-7 rounded-xl bg-emerald-500 text-white flex items-center justify-center text-sm font-black shadow-sm">✓</span>
-            <span>Calendario de Asistencias — Noviembre (Lunes a Viernes)</span>
+          <h2 class="font-display text-sm sm:text-base font-extrabold tracking-tight text-slate-900 flex items-center gap-2">
+            <span class="w-6 h-6 rounded-lg bg-emerald-500 text-white flex items-center justify-center text-xs font-black">✓</span>
+            <span>Asistencias Noviembre y Diciembre (Lun–Vie)</span>
           </h2>
           <p class="text-xs text-slate-500 mt-0.5">
-            Solo días entre semana de <strong>Noviembre (Lunes a Viernes, 21 días)</strong> · Sin fines de semana.
+            21 días hábiles en Noviembre + 23 en Diciembre (44 días en total, sin fines de semana).
           </p>
         </div>
 
         <div class="flex flex-wrap items-center gap-2">
-          <div class="inline-flex items-center p-1 rounded-2xl bg-white/90 border border-white shadow-sm">
-            <button id="btnPrevSession" type="button" title="Sesión anterior"
-                    class="w-8 h-8 rounded-xl hover:bg-slate-100 active:scale-95 text-slate-700 flex items-center justify-center transition cursor-pointer">
-              <i data-lucide="chevron-left" class="w-4 h-4"></i>
+          <div class="inline-flex items-center p-1 rounded-2xl bg-white border border-slate-200/90 shadow-sm">
+            <button id="btnPrevSession" type="button" title="Día anterior"
+                    class="w-8 h-8 rounded-xl hover:bg-slate-100 active:scale-95 text-slate-700 font-bold flex items-center justify-center cursor-pointer">
+              ‹
             </button>
             <button id="btnToggleSessionPicker" type="button"
-                    class="px-3 py-1 rounded-xl hover:bg-slate-100 text-xs font-extrabold text-slate-900 tabular-nums inline-flex items-center gap-1.5 transition cursor-pointer">
+                    class="px-2.5 py-1 rounded-xl hover:bg-slate-100 text-xs font-extrabold text-slate-900 tabular-nums inline-flex items-center gap-1.5 cursor-pointer">
               <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-              <span id="activeSessionLabel">Jornada #1 / 80</span>
-              <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-slate-400"></i>
+              <span id="activeSessionLabel">Lun 02 Nov</span>
+              <span class="text-slate-400 text-[10px]">▾</span>
             </button>
-            <button id="btnNextSession" type="button" title="Siguiente sesión"
-                    class="w-8 h-8 rounded-xl hover:bg-slate-100 active:scale-95 text-slate-700 flex items-center justify-center transition cursor-pointer">
-              <i data-lucide="chevron-right" class="w-4 h-4"></i>
+            <button id="btnNextSession" type="button" title="Siguiente día"
+                    class="w-8 h-8 rounded-xl hover:bg-slate-100 active:scale-95 text-slate-700 font-bold flex items-center justify-center cursor-pointer">
+              ›
             </button>
           </div>
 
-
-
           <button id="btnMarkSessionAllVisible" type="button"
-                  class="min-h-[38px] px-3.5 py-1.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white text-xs font-extrabold transition cursor-pointer inline-flex items-center gap-1.5 shadow-sm shadow-emerald-600/20">
+                  class="min-h-[36px] px-3.5 py-1.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white text-xs font-extrabold transition cursor-pointer inline-flex items-center gap-1.5 shadow-sm">
             <span>✓</span>
-            <span id="btnMarkSessionLabel">Poner visto #1 a visibles</span>
+            <span id="btnMarkSessionLabel">Poner visto (Lun 02 Nov) a visibles</span>
           </button>
         </div>
       </div>
 
-      <!-- Cuadrícula desplegable custom para elegir cualquiera de las 80 jornadas -->
-      <div id="sessionPickerGrid" class="hidden pt-3 border-t border-white/80 space-y-2">
+      <!-- Selector desplegable de día activo (Noviembre / Diciembre) -->
+      <div id="sessionPickerGrid" class="hidden pt-3 border-t border-slate-200/80 space-y-3">
         <div class="flex items-center justify-between">
-          <span class="text-[11px] font-bold uppercase tracking-wider text-slate-500">Elige el día hábil de Noviembre (Lunes a Viernes):</span>
-          <button id="btnCloseSessionPicker" type="button" class="text-xs font-bold text-slate-500 hover:text-slate-800 cursor-pointer">Cerrar</button>
+          <span class="text-[11px] font-bold uppercase tracking-wider text-slate-500">Elige el día hábil activo (Lun–Vie):</span>
+          <button id="btnCloseSessionPicker" type="button" class="text-xs font-bold text-slate-500 hover:text-slate-800 cursor-pointer">Cerrar ✕</button>
         </div>
-        <div id="sessionPickerButtons" class="att-grid-80"></div>
+        <div id="sessionPickerButtons" class="space-y-3"></div>
       </div>
     </section>
 
     <!-- Barra superior de retorno cuando hay un grupo en Vista Enfocada -->
-    <div id="focusedBanner" class="hidden items-center justify-between gap-3 px-4 py-2.5 rounded-2xl liquid-glass no-print">
+    <div id="focusedBanner" class="hidden items-center justify-between gap-2 px-3.5 py-2.5 rounded-2xl liquid-glass no-print">
       <button id="btnBackToAll" type="button"
-              class="min-h-[38px] px-3.5 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs sm:text-sm font-bold inline-flex items-center gap-2 transition cursor-pointer shadow-sm">
-        <i data-lucide="arrow-left" class="w-4 h-4"></i>
+              class="min-h-[36px] px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold inline-flex items-center gap-1.5 transition cursor-pointer shadow-sm">
         <span>← Ver todos los grupos</span>
       </button>
       <span id="focusedBannerLabel" class="text-xs font-bold text-slate-600 truncate">Vista enfocada</span>
     </div>
 
-    <!-- Contenedor Principal de Grupos / Asistencias (1 sola columna vertical ordenada A-Z) -->
-    <section id="groupsStack" class="space-y-3.5"></section>
+    <!-- Contenedor Principal de Grupos (1 sola columna vertical ordenada A-Z) -->
+    <section id="groupsStack" class="space-y-3"></section>
 
   </main>
 
-  <footer class="border-t border-white/80 bg-white/50 backdrop-blur-md py-5 mt-auto">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-1.5 text-xs text-slate-500 text-center sm:text-left">
+  <footer class="border-t border-slate-200/80 bg-white/70 py-4 mt-auto">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-1 text-xs text-slate-500 text-center sm:text-left">
       <span><strong class="text-slate-800">JÓVENES EN ACCIÓN</strong> · Ministerio de Infraestructura y Transporte</span>
-      <span>Control de 80 vistos de asistencia · Guardado local y exportación a Excel</span>
+      <span>Calendario Noviembre y Diciembre (Lun–Vie) · Guardado local</span>
     </div>
   </footer>
 
-  <!-- Toast Flotante Liquid Glass -->
+  <!-- Modal / Bottom-Sheet Único para Asignar o Mover de Grupo (Rápido y 100% adaptado a celular) -->
+  <div id="globalAssignModal" class="fixed inset-0 z-50 hidden items-end sm:items-center justify-center bg-slate-900/40 backdrop-blur-xs p-0 sm:p-4 no-print">
+    <div onclick="event.stopPropagation()"
+         class="w-full sm:max-w-sm bg-white rounded-t-3xl sm:rounded-3xl border border-slate-200 shadow-2xl p-4 sm:p-5 space-y-3.5 max-h-[85vh] overflow-y-auto">
+      <div class="flex items-center justify-between gap-2 pb-2 border-b border-slate-100">
+        <div class="min-w-0">
+          <p class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400">Asignar o cambiar grupo</p>
+          <p id="assignModalPersonName" class="text-sm font-extrabold text-slate-900 truncate">—</p>
+        </div>
+        <button type="button" onclick="window.__closeAssignMenu()"
+                class="w-8 h-8 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center font-bold cursor-pointer shrink-0">
+          ✕
+        </button>
+      </div>
+
+      <div id="assignModalGroupsGrid" class="grid grid-cols-2 gap-2"></div>
+
+      <div id="assignModalUnassignWrap" class="hidden"></div>
+
+      <div class="pt-2 border-t border-slate-100">
+        <label class="block text-[10px] font-extrabold uppercase tracking-wider text-slate-400 mb-1.5">
+          O crear nuevo grupo
+        </label>
+        <div class="flex items-center gap-2">
+          <input id="assignModalNewGroupInput"
+                 type="text"
+                 placeholder="Ej. Grupo 7"
+                 class="w-full h-10 px-3 rounded-xl bg-slate-100 focus:bg-white border border-slate-200 focus:border-slate-900 text-sm font-bold text-slate-800 outline-none" />
+          <button id="assignModalCreateBtn" type="button"
+                  class="h-10 px-4 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-extrabold shrink-0 cursor-pointer">
+            Crear
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Flotante -->
   <div id="toast"
-       class="fixed bottom-6 left-4 right-4 sm:left-auto sm:right-6 sm:max-w-md z-50 hidden items-center gap-3 px-4 py-3.5 rounded-2xl bg-slate-900/90 backdrop-blur-2xl border border-white/20 text-white text-sm font-semibold shadow-2xl transition-all">
-    <span class="w-7 h-7 rounded-xl bg-emerald-400/20 border border-emerald-300/30 flex items-center justify-center shrink-0 text-emerald-300 font-black">
+       class="fixed bottom-4 left-3.5 right-3.5 sm:left-auto sm:right-6 sm:max-w-md z-50 hidden items-center gap-2.5 px-4 py-3 rounded-2xl bg-slate-900 text-white text-xs sm:text-sm font-semibold shadow-xl">
+    <span class="w-6 h-6 rounded-lg bg-emerald-500/20 border border-emerald-400/30 flex items-center justify-center shrink-0 text-emerald-300 font-black">
       ✓
     </span>
     <span id="toastMsg" class="leading-snug"></span>
@@ -539,35 +522,65 @@
     'use strict';
 
     const STORAGE_KEY = 'jea_mit_liquid_focused_v6';
-    const ATT_STORAGE_KEY = 'jea_mit_attendances_nov_v2';
-    const NOV_WEEKDAYS = [
-      { idx: 1,  day: 2,  dow: 'Lun', short: 'Lun 02', label: 'Lun 02 Nov', excel: 'Lun 02/11' },
-      { idx: 2,  day: 3,  dow: 'Mar', short: 'Mar 03', label: 'Mar 03 Nov', excel: 'Mar 03/11' },
-      { idx: 3,  day: 4,  dow: 'Mié', short: 'Mié 04', label: 'Mié 04 Nov', excel: 'Mié 04/11' },
-      { idx: 4,  day: 5,  dow: 'Jue', short: 'Jue 05', label: 'Jue 05 Nov', excel: 'Jue 05/11' },
-      { idx: 5,  day: 6,  dow: 'Vie', short: 'Vie 06', label: 'Vie 06 Nov', excel: 'Vie 06/11' },
-      { idx: 6,  day: 9,  dow: 'Lun', short: 'Lun 09', label: 'Lun 09 Nov', excel: 'Lun 09/11' },
-      { idx: 7,  day: 10, dow: 'Mar', short: 'Mar 10', label: 'Mar 10 Nov', excel: 'Mar 10/11' },
-      { idx: 8,  day: 11, dow: 'Mié', short: 'Mié 11', label: 'Mié 11 Nov', excel: 'Mié 11/11' },
-      { idx: 9,  day: 12, dow: 'Jue', short: 'Jue 12', label: 'Jue 12 Nov', excel: 'Jue 12/11' },
-      { idx: 10, day: 13, dow: 'Vie', short: 'Vie 13', label: 'Vie 13 Nov', excel: 'Vie 13/11' },
-      { idx: 11, day: 16, dow: 'Lun', short: 'Lun 16', label: 'Lun 16 Nov', excel: 'Lun 16/11' },
-      { idx: 12, day: 17, dow: 'Mar', short: 'Mar 17', label: 'Mar 17 Nov', excel: 'Mar 17/11' },
-      { idx: 13, day: 18, dow: 'Mié', short: 'Mié 18', label: 'Mié 18 Nov', excel: 'Mié 18/11' },
-      { idx: 14, day: 19, dow: 'Jue', short: 'Jue 19', label: 'Jue 19 Nov', excel: 'Jue 19/11' },
-      { idx: 15, day: 20, dow: 'Vie', short: 'Vie 20', label: 'Vie 20 Nov', excel: 'Vie 20/11' },
-      { idx: 16, day: 23, dow: 'Lun', short: 'Lun 23', label: 'Lun 23 Nov', excel: 'Lun 23/11' },
-      { idx: 17, day: 24, dow: 'Mar', short: 'Mar 24', label: 'Mar 24 Nov', excel: 'Mar 24/11' },
-      { idx: 18, day: 25, dow: 'Mié', short: 'Mié 25', label: 'Mié 25 Nov', excel: 'Mié 25/11' },
-      { idx: 19, day: 26, dow: 'Jue', short: 'Jue 26', label: 'Jue 26 Nov', excel: 'Jue 26/11' },
-      { idx: 20, day: 27, dow: 'Vie', short: 'Vie 27', label: 'Vie 27 Nov', excel: 'Vie 27/11' },
-      { idx: 21, day: 30, dow: 'Lun', short: 'Lun 30', label: 'Lun 30 Nov', excel: 'Lun 30/11' }
-    ];
-    const TOTAL_SESSIONS = NOV_WEEKDAYS.length; // 21 días hábiles de Noviembre
-    const getNovDay = (idx) => NOV_WEEKDAYS[idx - 1] || NOV_WEEKDAYS[0];
+    const ATT_STORAGE_KEY = 'jea_mit_attendances_nov_dic_v3';
     const UNASSIGNED = 'Sin grupo';
     const ORIGINAL_NAME = 'JEA GRUPO 4.xls OFFICIAL EXCEL.xls';
     const INITIAL_EXCEL_ROWS = [{"name": "ACAN PALAG ERICK ABRAHAM", "id": "0605336775", "groupRaw": "Grupo 6"}, {"name": "AGUA FERNANDES BRYAN STALYN", "id": "0250064177", "groupRaw": ""}, {"name": "AGUALONGO ESTRADA NAJERLY FERNANDA", "id": "0250203577", "groupRaw": ""}, {"name": "AGUAS ZAMBRANO EMERSON SAMUEL", "id": "1729915510", "groupRaw": ""}, {"name": "AGUILAR BAYAS WILSON ENRIQUE", "id": "0202464160", "groupRaw": "Grupo 5"}, {"name": "AGUILAR GALLO OSCAR MAURICIO", "id": "0250305927", "groupRaw": ""}, {"name": "AGUIRRE ESPIN FANNY MAGALY", "id": "0250030780", "groupRaw": "Grupo 4"}, {"name": "ALBAN MENDOZA GEOCONDA LORENA", "id": "1250553201", "groupRaw": ""}, {"name": "ALBARACIN MOLINA ALISSON NOELIA", "id": "1755448550", "groupRaw": "Grupo 2"}, {"name": "AMANGANDI SIMALIZA TANYA PAMELA", "id": "0202701785", "groupRaw": "Grupo 3"}, {"name": "ANANCOLLA PILLA MANUELA DEL ROCIO", "id": "1805672506", "groupRaw": "Grupo 5"}, {"name": "ANDACHI OROZCO SHEYLA NICOLE", "id": "0250256427", "groupRaw": ""}, {"name": "ANDRADE PACHERRIS KEVIN ANDRES", "id": "1250181607", "groupRaw": "Grupo 6"}, {"name": "ANGULO SOLANO RONNY SEBASTIAN", "id": "1208450328", "groupRaw": ""}, {"name": "AREVALO PACHALA ALEXANDER RAUL", "id": "0250231032", "groupRaw": ""}, {"name": "AREVALO TENELEMA WASHINGTON JOSUE", "id": "0202513073", "groupRaw": "Grupo 4"}, {"name": "ASITUMBAY MANOBANDA CRISTHIAN OSWALDO", "id": "0250072329", "groupRaw": "Grupo 1"}, {"name": "ATACHE TAPUY DANA VERENICE", "id": "1500848252", "groupRaw": "Grupo 2"}, {"name": "BARRAGAN NARANJO MARILYN PAULETTE", "id": "0250066016", "groupRaw": "Grupo 2"}, {"name": "BARRAGAN POVEDA LORENA MARIUXY", "id": "0250148475", "groupRaw": ""}, {"name": "BARRAGAN VASCONES WIDINSON ISRAEL", "id": "0250252988", "groupRaw": "Grupo 2"}, {"name": "BARRAGAN ZURITA ARIANA SOFIA", "id": "1727734871", "groupRaw": ""}, {"name": "BAYAS BAYAS LISETH CAROLINA", "id": "0250282100", "groupRaw": "Grupo 3"}, {"name": "BAYAS QUINGAGUANO CAROLINA JENNIFER", "id": "0250355484", "groupRaw": "Grupo 1"}, {"name": "BONILLA ARGUELLO MELANY CRISTINA", "id": "0250040078", "groupRaw": ""}, {"name": "BRONCANO LLUMIGUANO JEAMPIER ALEXANDER", "id": "0250144409", "groupRaw": "Grupo 1"}, {"name": "CAIZA CASTILLO NATALY MISHELL", "id": "0605828599", "groupRaw": "Grupo 3"}, {"name": "CANDO TENEMAZA JEFERSON ALEXANDER", "id": "0604879734", "groupRaw": ""}, {"name": "CASPI HURTADO MAYERLY ABIGAIL", "id": "0202398079", "groupRaw": ""}, {"name": "CASTILLO CADENA YARLI YANI", "id": "2101319636", "groupRaw": "Grupo 6"}, {"name": "CASTRO MORA EDUARDO DOMINGO", "id": "1727117325", "groupRaw": ""}, {"name": "CAYAMBE LATA OMAR JAVIER", "id": "0605522283", "groupRaw": "Grupo 6"}, {"name": "CEFLA YAMASCA DANIELA LISBETH", "id": "1757210909", "groupRaw": "Grupo 4"}, {"name": "CHACHA AGUALONGO DARWIN SEBASTIAN", "id": "1754927844", "groupRaw": "Grupo 5"}, {"name": "CHACHA CHIMBO LEONEL FABRICIO", "id": "0250178530", "groupRaw": "Grupo 5"}, {"name": "CHACHA GAVILAN JESSICA PIEDAD", "id": "0202666723", "groupRaw": "Grupo 4"}, {"name": "CHACHA GAVILAN WILLIAN FABIAN", "id": "0202684882", "groupRaw": "Grupo 6"}, {"name": "CHACHA PATIN INES NATALY", "id": "0250115565", "groupRaw": ""}, {"name": "CHACON HERRERA NOE SEBASTIAN", "id": "0504870320", "groupRaw": ""}, {"name": "CHAMORRO AGUILAR EVELYN KARINA", "id": "0250068939", "groupRaw": ""}, {"name": "CHARCO PACA DINA LIZBETH", "id": "0605996420", "groupRaw": "Grupo 6"}, {"name": "CHAVEZ AGUACHELA EMELY JAMILETH", "id": "0250062031", "groupRaw": "Grupo 4"}, {"name": "CHELA CHIMBO JAIME GUSTAVO", "id": "0202667010", "groupRaw": "Grupo 3"}, {"name": "CHIMBO CHIMBORAZO JENYFFER VANESA", "id": "0202655783", "groupRaw": "Grupo 2"}, {"name": "CHIMBO PASTO RAUL OSWALDO", "id": "0202579256", "groupRaw": "Grupo 3"}, {"name": "CHIMBO PATIN JESSENIA MARILU", "id": "0250281367", "groupRaw": "Grupo 3"}, {"name": "CHIMBOLEMA AGUALSACA MARIO DAVID", "id": "0250308517", "groupRaw": "Grupo 3"}, {"name": "CHIMBOLEMA MUYULEMA MONICA MARGOTH", "id": "0250302353", "groupRaw": ""}, {"name": "CHIMBORAZO GUTIERREZ WELINGTON JHOEL", "id": "0250155413", "groupRaw": ""}, {"name": "CHIMBORAZO PUNINA ZOILA MARIELA", "id": "0250365103", "groupRaw": "Grupo 4"}, {"name": "CHIMBORAZO QUISHPE HENRY RAMIRO", "id": "0503926800", "groupRaw": "Grupo 2"}, {"name": "CHULCO LLUMITAXI ERIKA JIMENA", "id": "0250162781", "groupRaw": "Grupo 2"}, {"name": "COLES PATIN CRISTHIAN WILFRIDO", "id": "0250313772", "groupRaw": ""}, {"name": "CONDEMAITA PACHUCHO KEVIN ARIEL", "id": "0202700241", "groupRaw": "Grupo 6"}, {"name": "CORAIZACA AMANGANDI ADAMARIS NOEMI", "id": "1752542900", "groupRaw": "Grupo 6"}, {"name": "CORDOVILLA CAMPOVERDE XIOMARA ESTEFANIA", "id": "0250358116", "groupRaw": ""}, {"name": "CURAY IZA ALISON NICOLE", "id": "1805768890", "groupRaw": ""}, {"name": "ENCALADA GUAMAN JOSE ANDRES", "id": "0202472270", "groupRaw": "Grupo 1"}, {"name": "FIGUEROA MACIAS AXEL DYLAN", "id": "0952371367", "groupRaw": ""}, {"name": "FOGACHO GUINGLA ELVA DE LOURDDES", "id": "0202404505", "groupRaw": "Grupo 5"}, {"name": "FOGACHO GUINGLA MIRIAM ALEXANDRA", "id": "0202405494", "groupRaw": ""}, {"name": "FOGACHO GUINGLA NELSON MAURICIO", "id": "0202404497", "groupRaw": "Grupo 5"}, {"name": "GAGLAY CHARIGUAMAN EDDY ARIEL", "id": "0250058666", "groupRaw": ""}, {"name": "GAGLAY GAGLAY LENIN DANIEL", "id": "0202667903", "groupRaw": ""}, {"name": "GAIBOR GUEVARA LIZETH KATHERINE", "id": "0202432696", "groupRaw": ""}, {"name": "GAIBOR NARANJO RICHARD ALEXANDER", "id": "1752651420", "groupRaw": ""}, {"name": "GARCES FONSECA DAYANA MISCHELL", "id": "0250285434", "groupRaw": ""}, {"name": "GARCIA CRUZ JULY TATIANA", "id": "2300136559", "groupRaw": ""}, {"name": "GAVILANEZ CHILENO CRISTHIAN MAURICIO", "id": "0202465688", "groupRaw": ""}, {"name": "GIRALDO REYES MATIAS DANIEL", "id": "1251258057", "groupRaw": "Grupo 1"}, {"name": "GUACHI GUANIN OLGA JACQUELINE", "id": "1850677491", "groupRaw": ""}, {"name": "GUAMAN CHIMBORAZO MARIO JESUS", "id": "0250087871", "groupRaw": "Grupo 6"}, {"name": "GUAMAN CHORA MAYRA CRISTINA", "id": "0250096401", "groupRaw": "Grupo 4"}, {"name": "GUAMAN SALTOS FIORELA JAMILEX", "id": "0250303179", "groupRaw": "Grupo 5"}, {"name": "GUAMAN SALTOS LUIS ARMANDO", "id": "0250307485", "groupRaw": ""}, {"name": "GUAMBUGUETE GUAMBUGUETE JUAN BLADIMIR", "id": "1751335249", "groupRaw": ""}, {"name": "GUANIN ESPIN DIANA GISSEL", "id": "1850507300", "groupRaw": ""}, {"name": "GUAQUIPANA PATIN DIOCELINA MARIBEL", "id": "0250042017", "groupRaw": ""}, {"name": "INTRIAGO CASTRO MELL MARILIN", "id": "1754933156", "groupRaw": ""}, {"name": "JAMA YAMUCA LINDSAY YUMSUN", "id": "1208047967", "groupRaw": "Grupo 1"}, {"name": "LARA PLAZA MISHELLE ESTHEFANIA", "id": "0250143500", "groupRaw": "Grupo 3"}, {"name": "LARA VASCONEZ IRMA EUGENIA", "id": "0202474748", "groupRaw": "Grupo 5"}, {"name": "LEMA TIBANLOMBO LIZANDRO ALCEU", "id": "0202685079", "groupRaw": "Grupo 1"}, {"name": "LLUMITAXI QUINATOA KAROLINA SAMANTHA", "id": "0250283223", "groupRaw": "Grupo 3"}, {"name": "LOPEZ TORRES DIANA ELIZABETH", "id": "0250173150", "groupRaw": "Grupo 2"}, {"name": "LUMBI SANTILLAN CRISTHIAN ADRIAN", "id": "0202686010", "groupRaw": "Grupo 4"}, {"name": "MALAN YANEZ ERIK ALEXANDER", "id": "0250198017", "groupRaw": "Grupo 6"}, {"name": "MALIZA CALUÑA ERIK ISMAEL", "id": "0250004256", "groupRaw": "Grupo 3"}, {"name": "MALIZA CALUÑA ISAAC ALEJANDRO", "id": "0250157252", "groupRaw": "Grupo 3"}, {"name": "MANOBANDA CANDO JONNATHAN RIQUELME", "id": "0250344868", "groupRaw": ""}, {"name": "MANOBANDA QUINALOA NATHALI TATIANA", "id": "0202664009", "groupRaw": ""}, {"name": "MANOBANDA VILLALVA ANA GRACIELA", "id": "0250341336", "groupRaw": ""}, {"name": "MARIN QUINTANILLA CARLOS MESIAS", "id": "1851031599", "groupRaw": "Grupo 6"}, {"name": "MARTINEZ CHICO LUIS MIGUEL", "id": "0202291209", "groupRaw": "Grupo 2"}, {"name": "MASABANDA PAREDES MARIA EMILIA", "id": "1805063706", "groupRaw": "Grupo 1"}, {"name": "MELO NARANJO NEYSER PABEL", "id": "1805450333", "groupRaw": "Grupo 3"}, {"name": "MONTOYA AGUILAR EDWIN FREDDY", "id": "0250001401", "groupRaw": ""}, {"name": "MOPOSITA CHELA MAURICIO DANIEL", "id": "0250260254", "groupRaw": "Grupo 5"}, {"name": "MOPOSITA TARIS LUIS MEDARDO", "id": "0202292371", "groupRaw": "Grupo 6"}, {"name": "MOREIRA GUARANGA CHRIS MAIBET", "id": "2351099573", "groupRaw": "Grupo 6"}, {"name": "MOYA ESPIN ANDERSON LENIN", "id": "0250229887", "groupRaw": ""}, {"name": "MUESES SILVA FERNANDA CAMILA", "id": "1756150395", "groupRaw": "Grupo 6"}, {"name": "MULLO CHIMBO SARA INES", "id": "0250294386", "groupRaw": ""}, {"name": "NUÑEZ AGUIAR MISHEL ESTEFANIA", "id": "0202420899", "groupRaw": "Grupo 6"}, {"name": "OCHOA ROSERO EVELIN MADELEINE", "id": "2101072557", "groupRaw": ""}, {"name": "ORDOÑEZ CORONEL JESSICA DE LOS ANGELES", "id": "1106244823", "groupRaw": ""}, {"name": "ORTA CADENA CHRISTOPHER JOEL", "id": "2250040165", "groupRaw": "Grupo 6"}, {"name": "ORTIZ AUCATOMA ALEX ISAAC", "id": "0250054616", "groupRaw": "Grupo 6"}, {"name": "OYAGUE MONAR KATIUSCA ELIZABETH", "id": "0202493540", "groupRaw": ""}, {"name": "PACA OCHOG DEISY ALICIA", "id": "0605036607", "groupRaw": ""}, {"name": "PACHA REMACHE JONATHAN ROBERTO", "id": "0202670949", "groupRaw": "Grupo 5"}, {"name": "PARRAGA BARZALLO ANTHONY FRANCISCO", "id": "0706755733", "groupRaw": ""}, {"name": "PASTO PATIN JUAN DAVID", "id": "0202699575", "groupRaw": "Grupo 5"}, {"name": "PATI UNKUCH MAYORIN JULIANA", "id": "1400990683", "groupRaw": ""}, {"name": "PATIN ESTRELLA CLELIA ROMELIA", "id": "0250012788", "groupRaw": ""}, {"name": "PATIN GUARANDA PEDRO ENRIQUE", "id": "0250245685", "groupRaw": ""}, {"name": "PATIN PASTO MARIA ESTHELA", "id": "0250257367", "groupRaw": "Grupo 5"}, {"name": "PEREZ PASTO ANDREA KAROLINA", "id": "0250160744", "groupRaw": "Grupo 6"}, {"name": "PEREZ PASTO JENIFER STEFANIA", "id": "0250180908", "groupRaw": "Grupo 6"}, {"name": "POMA PASTO ANDDY JHOSUE", "id": "0202706081", "groupRaw": "Grupo 1"}, {"name": "PONCE CHILENO DANY WIDISON", "id": "0202669586", "groupRaw": "Marcado como \"no grupo\""}, {"name": "PUMA LAZO GALO ISMAEL", "id": "0250228517", "groupRaw": ""}, {"name": "PUNGAÑA LLUMITAXI ROLANDO REMIGIO", "id": "0202362133", "groupRaw": "Grupo 5"}, {"name": "PUNINA ESPIN MARIA DE LOS ANGELES", "id": "0250069093", "groupRaw": ""}, {"name": "QUINATOA HURTADO ERICK RENATO", "id": "0202702999", "groupRaw": "Grupo 1"}, {"name": "QUINATOA QUINATOA GABRIEL ORLANDO", "id": "1850417484", "groupRaw": "Grupo 6"}, {"name": "RAMIREZ CAMBO JEFFERSON DANIEL", "id": "0250325321", "groupRaw": ""}, {"name": "RAMIREZ POMA THALIA CRISTEL", "id": "0202495198", "groupRaw": ""}, {"name": "RAMOS JIMENEZ MERCEDES GUADALUPE", "id": "1850457357", "groupRaw": "Grupo 6"}, {"name": "REA GAVILAN VILMA JANNETH", "id": "0202665477", "groupRaw": "Grupo 6"}, {"name": "REA LUMBI NEYSSER FABIAN", "id": "0250140779", "groupRaw": "Grupo 6"}, {"name": "REA POMA CRISTHIAN FERNANDO", "id": "0250055084", "groupRaw": ""}, {"name": "REA PUNINA MISHEL MICAELA", "id": "0202365953", "groupRaw": ""}, {"name": "REA REA LORENA ESTEFANIA", "id": "0250229721", "groupRaw": "Grupo 6"}, {"name": "REA SANTILLAN STALYN MAURICIO", "id": "0202688420", "groupRaw": "Grupo 4"}, {"name": "RECALDE IMBAQUINGO BYRON JAVIER", "id": "1550191579", "groupRaw": ""}, {"name": "ROCHINA REA OLIVER ALEXANDER", "id": "2150214662", "groupRaw": "Grupo 1"}, {"name": "RUIZ PADILLA MARLON EDUARDO", "id": "0202341434", "groupRaw": "Grupo 3"}, {"name": "RUMITAXI GAVILAN ELISA LISSETH", "id": "0250148715", "groupRaw": "Grupo 3"}, {"name": "SANCHEZ LLANOS MELANY FERNANDA", "id": "1752973121", "groupRaw": ""}, {"name": "SEGOVIA RUBIO TATIANA PAULINA", "id": "0504139718", "groupRaw": "Grupo 1"}, {"name": "SISA HURTADO CARLOS ALEJANDRO", "id": "0250143153", "groupRaw": ""}, {"name": "SISA LUMBI LEYDI BELEN", "id": "0202174413", "groupRaw": "Grupo 6"}, {"name": "SISA MICHUY STALYN MATEO", "id": "0202523957", "groupRaw": ""}, {"name": "SISA REA FANNY NATALY", "id": "0202678330", "groupRaw": "Grupo 3"}, {"name": "SISA SANTILLAN ALEXANDER XAVIER", "id": "0250311636", "groupRaw": "Grupo 5"}, {"name": "SOLANO GARCIA KEVIN DAVID", "id": "0250145919", "groupRaw": ""}, {"name": "SOTO JARA IVY JACKYE", "id": "0958008815", "groupRaw": "Grupo 4"}, {"name": "SUAREZ GUALINGA FRIXON JAIR", "id": "1650152604", "groupRaw": "Grupo 1"}, {"name": "TANDAPILCO MATAVACA EDGAR ROLANDO", "id": "0202370250", "groupRaw": "Grupo 1"}, {"name": "TAPUY ALVARADO VALERY DAMARIS", "id": "1550255754", "groupRaw": "Grupo 2"}, {"name": "TAPUY TAPUY JORGE SALVADOR", "id": "1501194706", "groupRaw": "Grupo 6"}, {"name": "TARIS MUGUICHA ANDREA PAULETH", "id": "0250261138", "groupRaw": "Grupo 4"}, {"name": "TENELEMA AREVALO NIDIA ELIZABETH", "id": "0250099959", "groupRaw": ""}, {"name": "TENELEMA TENELEMA JEFFERSON DARIO", "id": "0250085255", "groupRaw": "Marcado como \"no grupo\""}, {"name": "TOAPANTA GARCIA SHIRLEY ANAI", "id": "0250149846", "groupRaw": ""}, {"name": "TUALOMBO TARIS SEGUNDO MANUEL", "id": "0202495297", "groupRaw": ""}, {"name": "VALLE SOLARTE FRANCIS CAMILA", "id": "0250128741", "groupRaw": "Grupo 2"}, {"name": "VALVERDE VALVERDE JORGE ALEXANDER", "id": "0250147956", "groupRaw": "Grupo 1"}, {"name": "VALVERDE VALVERDE LUIS EDUARDO", "id": "0202662185", "groupRaw": "Grupo 1"}, {"name": "VELOZ SILVA JESSICA ROXANA", "id": "0202525242", "groupRaw": "Grupo 4"}, {"name": "VELOZ SOLIS JOSELYN MABEL", "id": "0250147337", "groupRaw": "Grupo 2"}, {"name": "YAGUACHE CASTILLO LESLIE DANIELA", "id": "0504074352", "groupRaw": "Grupo 6"}, {"name": "YAUQUI USHCA ALEX REMIGIO", "id": "0250187291", "groupRaw": "Grupo 6"}, {"name": "YUMBAY REMACHE ANDY FABRICIO", "id": "0250352499", "groupRaw": "Grupo 4"}, {"name": "YUMBAY REMACHE EDISON WILFRIDO", "id": "0250326923", "groupRaw": "Grupo 1"}, {"name": "ZARUMA NINABANDA CRISTHOFER JHAIR", "id": "0202337226", "groupRaw": "Grupo 1"}, {"name": "ZARUMA NINABANDA MARJORIE ANABEL", "id": "0250015815", "groupRaw": "Grupo 1"}];
+
+    // 21 días entre semana de Noviembre + 23 días entre semana de Diciembre = 44 días hábiles (Lunes a Viernes, sin fines de semana)
+    const WORKDAYS = [
+      // NOVIEMBRE (21 días hábiles · Lun 02 Nov empieza en Lunes -> offset 0)
+      { idx: 1,  month: 'nov', monthName: 'Noviembre', day: 2,  dow: 'Lun', short: 'Lun 02 Nov', excel: 'Lun 02/11' },
+      { idx: 2,  month: 'nov', monthName: 'Noviembre', day: 3,  dow: 'Mar', short: 'Mar 03 Nov', excel: 'Mar 03/11' },
+      { idx: 3,  month: 'nov', monthName: 'Noviembre', day: 4,  dow: 'Mié', short: 'Mié 04 Nov', excel: 'Mié 04/11' },
+      { idx: 4,  month: 'nov', monthName: 'Noviembre', day: 5,  dow: 'Jue', short: 'Jue 05 Nov', excel: 'Jue 05/11' },
+      { idx: 5,  month: 'nov', monthName: 'Noviembre', day: 6,  dow: 'Vie', short: 'Vie 06 Nov', excel: 'Vie 06/11' },
+      { idx: 6,  month: 'nov', monthName: 'Noviembre', day: 9,  dow: 'Lun', short: 'Lun 09 Nov', excel: 'Lun 09/11' },
+      { idx: 7,  month: 'nov', monthName: 'Noviembre', day: 10, dow: 'Mar', short: 'Mar 10 Nov', excel: 'Mar 10/11' },
+      { idx: 8,  month: 'nov', monthName: 'Noviembre', day: 11, dow: 'Mié', short: 'Mié 11 Nov', excel: 'Mié 11/11' },
+      { idx: 9,  month: 'nov', monthName: 'Noviembre', day: 12, dow: 'Jue', short: 'Jue 12 Nov', excel: 'Jue 12/11' },
+      { idx: 10, month: 'nov', monthName: 'Noviembre', day: 13, dow: 'Vie', short: 'Vie 13 Nov', excel: 'Vie 13/11' },
+      { idx: 11, month: 'nov', monthName: 'Noviembre', day: 16, dow: 'Lun', short: 'Lun 16 Nov', excel: 'Lun 16/11' },
+      { idx: 12, month: 'nov', monthName: 'Noviembre', day: 17, dow: 'Mar', short: 'Mar 17 Nov', excel: 'Mar 17/11' },
+      { idx: 13, month: 'nov', monthName: 'Noviembre', day: 18, dow: 'Mié', short: 'Mié 18 Nov', excel: 'Mié 18/11' },
+      { idx: 14, month: 'nov', monthName: 'Noviembre', day: 19, dow: 'Jue', short: 'Jue 19 Nov', excel: 'Jue 19/11' },
+      { idx: 15, month: 'nov', monthName: 'Noviembre', day: 20, dow: 'Vie', short: 'Vie 20 Nov', excel: 'Vie 20/11' },
+      { idx: 16, month: 'nov', monthName: 'Noviembre', day: 23, dow: 'Lun', short: 'Lun 23 Nov', excel: 'Lun 23/11' },
+      { idx: 17, month: 'nov', monthName: 'Noviembre', day: 24, dow: 'Mar', short: 'Mar 24 Nov', excel: 'Mar 24/11' },
+      { idx: 18, month: 'nov', monthName: 'Noviembre', day: 25, dow: 'Mié', short: 'Mié 25 Nov', excel: 'Mié 25/11' },
+      { idx: 19, month: 'nov', monthName: 'Noviembre', day: 26, dow: 'Jue', short: 'Jue 26 Nov', excel: 'Jue 26/11' },
+      { idx: 20, month: 'nov', monthName: 'Noviembre', day: 27, dow: 'Vie', short: 'Vie 27 Nov', excel: 'Vie 27/11' },
+      { idx: 21, month: 'nov', monthName: 'Noviembre', day: 30, dow: 'Lun', short: 'Lun 30 Nov', excel: 'Lun 30/11' },
+
+      // DICIEMBRE (23 días hábiles · Mar 01 Dic empieza en Martes -> offset 1)
+      { idx: 22, month: 'dic', monthName: 'Diciembre', day: 1,  dow: 'Mar', short: 'Mar 01 Dic', excel: 'Mar 01/12' },
+      { idx: 23, month: 'dic', monthName: 'Diciembre', day: 2,  dow: 'Mié', short: 'Mié 02 Dic', excel: 'Mié 02/12' },
+      { idx: 24, month: 'dic', monthName: 'Diciembre', day: 3,  dow: 'Jue', short: 'Jue 03 Dic', excel: 'Jue 03/12' },
+      { idx: 25, month: 'dic', monthName: 'Diciembre', day: 4,  dow: 'Vie', short: 'Vie 04 Dic', excel: 'Vie 04/12' },
+      { idx: 26, month: 'dic', monthName: 'Diciembre', day: 7,  dow: 'Lun', short: 'Lun 07 Dic', excel: 'Lun 07/12' },
+      { idx: 27, month: 'dic', monthName: 'Diciembre', day: 8,  dow: 'Mar', short: 'Mar 08 Dic', excel: 'Mar 08/12' },
+      { idx: 28, month: 'dic', monthName: 'Diciembre', day: 9,  dow: 'Mié', short: 'Mié 09 Dic', excel: 'Mié 09/12' },
+      { idx: 29, month: 'dic', monthName: 'Diciembre', day: 10, dow: 'Jue', short: 'Jue 10 Dic', excel: 'Jue 10/12' },
+      { idx: 30, month: 'dic', monthName: 'Diciembre', day: 11, dow: 'Vie', short: 'Vie 11 Dic', excel: 'Vie 11/12' },
+      { idx: 31, month: 'dic', monthName: 'Diciembre', day: 14, dow: 'Lun', short: 'Lun 14 Dic', excel: 'Lun 14/12' },
+      { idx: 32, month: 'dic', monthName: 'Diciembre', day: 15, dow: 'Mar', short: 'Mar 15 Dic', excel: 'Mar 15/12' },
+      { idx: 33, month: 'dic', monthName: 'Diciembre', day: 16, dow: 'Mié', short: 'Mié 16 Dic', excel: 'Mié 16/12' },
+      { idx: 34, month: 'dic', monthName: 'Diciembre', day: 17, dow: 'Jue', short: 'Jue 17 Dic', excel: 'Jue 17/12' },
+      { idx: 35, month: 'dic', monthName: 'Diciembre', day: 18, dow: 'Vie', short: 'Vie 18 Dic', excel: 'Vie 18/12' },
+      { idx: 36, month: 'dic', monthName: 'Diciembre', day: 21, dow: 'Lun', short: 'Lun 21 Dic', excel: 'Lun 21/12' },
+      { idx: 37, month: 'dic', monthName: 'Diciembre', day: 22, dow: 'Mar', short: 'Mar 22 Dic', excel: 'Mar 22/12' },
+      { idx: 38, month: 'dic', monthName: 'Diciembre', day: 23, dow: 'Mié', short: 'Mié 23 Dic', excel: 'Mié 23/12' },
+      { idx: 39, month: 'dic', monthName: 'Diciembre', day: 24, dow: 'Jue', short: 'Jue 24 Dic', excel: 'Jue 24/12' },
+      { idx: 40, month: 'dic', monthName: 'Diciembre', day: 25, dow: 'Vie', short: 'Vie 25 Dic', excel: 'Vie 25/12' },
+      { idx: 41, month: 'dic', monthName: 'Diciembre', day: 28, dow: 'Lun', short: 'Lun 28 Dic', excel: 'Lun 28/12' },
+      { idx: 42, month: 'dic', monthName: 'Diciembre', day: 29, dow: 'Mar', short: 'Mar 29 Dic', excel: 'Mar 29/12' },
+      { idx: 43, month: 'dic', monthName: 'Diciembre', day: 30, dow: 'Mié', short: 'Mié 30 Dic', excel: 'Mié 30/12' },
+      { idx: 44, month: 'dic', monthName: 'Diciembre', day: 31, dow: 'Jue', short: 'Jue 31 Dic', excel: 'Jue 31/12' }
+    ];
+    const TOTAL_SESSIONS = WORKDAYS.length; // 44 días hábiles
+    const NOV_DAYS = WORKDAYS.filter(w => w.month === 'nov');
+    const DIC_DAYS = WORKDAYS.filter(w => w.month === 'dic');
+    const getWorkday = (idx) => WORKDAYS[idx - 1] || WORKDAYS[0];
 
     const DEMO_ROWS = [
       { name: 'María José Mendoza', id: '0250148475', groupRaw: 'Grupo 1' },
@@ -581,40 +594,30 @@
       { name: 'Camila Andrea Salazar', id: '1805672506', groupRaw: 'Ninguno' }
     ];
 
-    const DATES_STORAGE_KEY = 'jea_mit_session_dates_v1';
-    const todayIso = () => new Date().toISOString().slice(0, 10);
-    const formatShortDate = (iso) => {
-      if (!iso) return '';
-      const parts = String(iso).split('-');
-      return parts.length === 3 ? `${parts[2]}/${parts[1]}` : iso;
-    };
-
-    // Semáforo de cumplimiento de 80 asistencias (#2)
     function getSemaforoInfo(count, pct) {
       if (count === 0) {
-        return { label: 'Sin vistos', barCls: 'bg-slate-300', badgeCls: 'bg-slate-100 text-slate-600 border-slate-200', dotCls: 'bg-slate-400' };
+        return { label: 'Sin vistos', barCls: 'bg-slate-300', badgeCls: 'bg-slate-100 text-slate-600 border-slate-200' };
       }
       if (pct >= 75) {
-        return { label: 'Óptimo', barCls: 'bg-emerald-500', badgeCls: 'bg-emerald-50 text-emerald-800 border-emerald-300', dotCls: 'bg-emerald-500' };
+        return { label: 'Óptimo', barCls: 'bg-emerald-500', badgeCls: 'bg-emerald-50 text-emerald-800 border-emerald-300' };
       }
       if (pct >= 50) {
-        return { label: 'Seguimiento', barCls: 'bg-amber-500', badgeCls: 'bg-amber-50 text-amber-800 border-amber-300', dotCls: 'bg-amber-500' };
+        return { label: 'Seguimiento', barCls: 'bg-amber-500', badgeCls: 'bg-amber-50 text-amber-800 border-amber-300' };
       }
-      return { label: 'Riesgo (<50%)', barCls: 'bg-rose-500', badgeCls: 'bg-rose-50 text-rose-800 border-rose-300', dotCls: 'bg-rose-500' };
+      return { label: 'Riesgo (<50%)', barCls: 'bg-rose-500', badgeCls: 'bg-rose-50 text-rose-800 border-rose-300' };
     }
 
     const state = {
       participants: [],
       attendances: {},
-      sessionDates: {},     // { [sessionNum]: 'YYYY-MM-DD' }
       newMemberGroup: 'Grupo 1',
       openAttPanels: new Set(),
-      openAssignMenuUid: null,
+      assignModalUid: null,
       sessionPickerOpen: false,
       activeSession: 1,
       mode: 'groups',
       sourceName: '',
-      filter: 'all',        // 'all' | 'grouped' | 'unassigned' | 'low_att'
+      filter: 'all',
       focusedGroup: null,
       search: '',
       expanded: new Set(),
@@ -661,14 +664,17 @@
       focusedBannerLabel: $('focusedBannerLabel'),
       btnBackToAll: $('btnBackToAll'),
       groupsStack: $('groupsStack'),
+      globalAssignModal: $('globalAssignModal'),
+      assignModalPersonName: $('assignModalPersonName'),
+      assignModalGroupsGrid: $('assignModalGroupsGrid'),
+      assignModalUnassignWrap: $('assignModalUnassignWrap'),
+      assignModalNewGroupInput: $('assignModalNewGroupInput'),
+      assignModalCreateBtn: $('assignModalCreateBtn'),
       toast: $('toast'),
       toastMsg: $('toastMsg')
     };
 
-    // ---------- Utilidades ----------
-    const refreshIcons = (root = document) => {
-      if (window.lucide) window.lucide.createIcons({ root });
-    };
+    const refreshIcons = () => { if (window.lucide) window.lucide.createIcons(); };
     const norm = (s) => String(s ?? '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/\s+/g, ' ').trim();
     const esc = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
     const jsArg = (s) => esc(JSON.stringify(String(s)));
@@ -708,7 +714,6 @@
     function saveAttendances() {
       try {
         localStorage.setItem(ATT_STORAGE_KEY, JSON.stringify(state.attendances));
-        localStorage.setItem(DATES_STORAGE_KEY, JSON.stringify(state.sessionDates));
       } catch (e) {
         console.warn(e);
       }
@@ -721,21 +726,9 @@
           const parsed = JSON.parse(raw);
           if (parsed && typeof parsed === 'object') state.attendances = parsed;
         }
-        const rawDates = localStorage.getItem(DATES_STORAGE_KEY);
-        if (rawDates) {
-          const parsedDates = JSON.parse(rawDates);
-          if (parsedDates && typeof parsedDates === 'object') state.sessionDates = parsedDates;
-        }
       } catch (e) {
         console.warn(e);
       }
-    }
-
-    function ensureSessionDate(s) {
-      if (!state.sessionDates[s]) {
-        state.sessionDates[s] = todayIso();
-      }
-      return state.sessionDates[s];
     }
 
     const UNASSIGNED_WORDS = ['', 'sin grupo', 'no grupo', 'n/a', 'na', 'ninguno', 'ninguna', '-', '--', 'null', 'undefined', 'no', 'pendiente', 'sin asignar', 'sin grupo asignado'];
@@ -750,18 +743,6 @@
       return titleCase(cleaned);
     }
 
-    function animateCounter(el, targetValue, suffix = '', duration = 500) {
-      const start = performance.now();
-      const to = Number(targetValue) || 0;
-      function tick(now) {
-        const elapsed = Math.min((now - start) / duration, 1);
-        const eased = 1 - Math.pow(1 - elapsed, 3);
-        el.textContent = Math.round(to * eased) + suffix;
-        if (elapsed < 1) requestAnimationFrame(tick);
-      }
-      requestAnimationFrame(tick);
-    }
-
     function showToast(msg) {
       els.toastMsg.textContent = msg;
       els.toast.classList.remove('hidden');
@@ -769,7 +750,7 @@
       clearTimeout(showToast.timer);
       showToast.timer = setTimeout(() => {
         els.toast.classList.replace('flex', 'hidden');
-      }, 2400);
+      }, 2300);
     }
 
     async function copyToClipboard(text) {
@@ -807,7 +788,7 @@
     }
 
     // ---------- Gestión de Datos ----------
-    function applyRows(rows, sourceName, persist = true, animate = true) {
+    function applyRows(rows, sourceName, persist = true) {
       const cleaned = rows
         .filter(r => String(r.name ?? '').trim() !== '')
         .map(r => ({
@@ -829,48 +810,70 @@
       state.focusedGroup = null;
       state.expanded.clear();
       state.openAttPanels.clear();
-      state.openAssignMenuUid = null;
+      state.assignModalUid = null;
 
       if (persist) saveState();
-      renderAll(animate);
+      renderAll();
+    }
+
+    function buildMonthPickerBlockHtml(title, daysList, offsetCols) {
+      let spacers = '';
+      for (let i = 0; i < offsetCols; i++) {
+        spacers += `<div class="h-10"></div>`;
+      }
+      const btns = daysList.map(w => {
+        const active = w.idx === state.activeSession;
+        return `
+          <button type="button" onclick="window.__selectActiveSession(${w.idx})"
+                  class="h-10 rounded-xl text-[11px] font-extrabold tabular-nums transition cursor-pointer flex flex-col items-center justify-center leading-tight ${
+                    active
+                      ? 'bg-emerald-600 text-white shadow-sm'
+                      : 'bg-white hover:bg-slate-100 text-slate-700 border border-slate-200'
+                  }">
+            <span class="text-[9px] opacity-75">${w.dow}</span>
+            <span>${w.day} ${w.month === 'nov' ? 'Nov' : 'Dic'}</span>
+          </button>
+        `;
+      }).join('');
+
+      return `
+        <div class="space-y-1.5">
+          <p class="text-xs font-extrabold text-slate-700">${title}</p>
+          <div class="grid grid-cols-5 gap-1 text-center text-[9px] font-extrabold uppercase text-slate-400">
+            <span>Lun</span><span>Mar</span><span>Mié</span><span>Jue</span><span>Vie</span>
+          </div>
+          <div class="cal-grid-5">${spacers}${btns}</div>
+        </div>
+      `;
     }
 
     function updateSessionUI() {
-      const d = getNovDay(state.activeSession);
-      els.activeSessionLabel.textContent = `${d.label}`;
+      const d = getWorkday(state.activeSession);
+      els.activeSessionLabel.textContent = d.short;
       els.btnMarkSessionLabel.textContent = `Poner visto (${d.short}) a visibles`;
-      let btns = '';
-      for (const w of NOV_WEEKDAYS) {
-        const active = w.idx === state.activeSession;
-        btns += `
-          <button type="button" onclick="window.__selectActiveSession(${w.idx})"
-                  class="h-10 rounded-xl text-xs font-extrabold tabular-nums transition cursor-pointer flex flex-col items-center justify-center leading-tight ${
-                    active
-                      ? 'bg-emerald-600 text-white shadow-sm'
-                      : 'bg-white/90 hover:bg-slate-200/80 text-slate-700 border border-slate-200'
-                  }">
-            <span class="text-[10px] opacity-75">${w.dow}</span>
-            <span>${w.day} Nov</span>
-          </button>
+      if (state.sessionPickerOpen) {
+        els.sessionPickerButtons.innerHTML = `
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            ${buildMonthPickerBlockHtml('📅 Noviembre (21 días hábiles)', NOV_DAYS, 0)}
+            ${buildMonthPickerBlockHtml('📅 Diciembre (23 días hábiles)', DIC_DAYS, 1)}
+          </div>
         `;
       }
-      els.sessionPickerButtons.innerHTML = btns;
       els.sessionPickerGrid.classList.toggle('hidden', !state.sessionPickerOpen);
     }
 
     function loadInitial() {
       loadAttendances();
-      updateSessionUI();
       try {
         const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
         if (saved && Array.isArray(saved.rows) && saved.rows.length) {
-          applyRows(saved.rows, saved.sourceName || ORIGINAL_NAME, false, true);
+          applyRows(saved.rows, saved.sourceName || ORIGINAL_NAME, false);
           return;
         }
       } catch (e) {
         console.warn(e);
       }
-      applyRows(INITIAL_EXCEL_ROWS, ORIGINAL_NAME, false, true);
+      applyRows(INITIAL_EXCEL_ROWS, ORIGINAL_NAME, false);
     }
 
     function buildMap() {
@@ -926,11 +929,11 @@
       }).join('');
 
       els.customMapperContainer.innerHTML = `
-        <div class="p-3 rounded-xl bg-white/70 border border-slate-200/80 space-y-2">
+        <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
           <span class="block text-xs font-extrabold text-slate-700">Columna de Nombre:</span>
           <div class="flex flex-wrap gap-1.5">${renderColPills('name', state.mappedNameCol)}</div>
         </div>
-        <div class="p-3 rounded-xl bg-white/70 border border-slate-200/80 space-y-2">
+        <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
           <span class="block text-xs font-extrabold text-slate-700">Columna de Grupo:</span>
           <div class="flex flex-wrap gap-1.5">${renderColPills('group', state.mappedGroupCol)}</div>
         </div>
@@ -968,7 +971,7 @@
           state.mappedGroupCol = groupCol || headers[headers.length - 1];
 
           if (nameCol && groupCol) {
-            applyRows(rows.map(r => ({ name: r[nameCol], id: idCol ? r[idCol] : '', groupRaw: r[groupCol] })), file.name, true, true);
+            applyRows(rows.map(r => ({ name: r[nameCol], id: idCol ? r[idCol] : '', groupRaw: r[groupCol] })), file.name, true);
             els.mapper.classList.add('hidden');
             els.upload.classList.add('hidden');
             showToast(`Archivo cargado: ${file.name}`);
@@ -999,19 +1002,19 @@
           'Identificacion': p.id || '',
           'Nombres': p.name.toUpperCase(),
           'Grupos': p.group === UNASSIGNED ? '' : p.group.replace(/^Grupo\s+/i, ''),
-          'Vistos_Asistencia': `${count}/${TOTAL_SESSIONS}`,
+          'Vistos_Nov_Dic': `${count}/${TOTAL_SESSIONS}`,
           'Porcentaje_Asistencia': `${pct}%`
         };
-        for (const w of NOV_WEEKDAYS) {
+        for (const w of WORKDAYS) {
           row[w.excel] = set.has(w.idx) ? '✓' : '';
         }
         return row;
       });
       const ws = XLSX.utils.json_to_sheet(exportRows);
       const wb = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(wb, ws, 'Asistencias_y_Grupos');
-      XLSX.writeFile(wb, 'JOVENES_EN_ACCION_NOVIEMBRE_ASISTENCIAS.xlsx');
-      showToast('Excel con grupos y 80 vistos descargado');
+      XLSX.utils.book_append_sheet(wb, ws, 'Asistencias_Nov_Dic');
+      XLSX.writeFile(wb, 'JOVENES_EN_ACCION_ASISTENCIAS_NOV_DIC.xlsx');
+      showToast('Excel de Noviembre y Diciembre descargado');
     }
 
     // ---------- KPIs y Actualización Parcial sin Parpadeo ----------
@@ -1020,7 +1023,7 @@
       const totalPeople = groupedPeople.length;
       if (!totalPeople) {
         els.attAvg.textContent = '0%';
-        els.attSub.textContent = '0 / 21 días';
+        els.attSub.textContent = `0 / ${TOTAL_SESSIONS} días Nov–Dic`;
         return;
       }
       let totalMarks = 0;
@@ -1030,10 +1033,9 @@
       const avgCount = (totalMarks / totalPeople).toFixed(1).replace(/\.0$/, '');
       const avgPct = Math.round((totalMarks / (totalPeople * TOTAL_SESSIONS)) * 100);
       els.attAvg.textContent = `${avgPct}%`;
-      els.attSub.textContent = `${avgCount} / ${TOTAL_SESSIONS} días Nov.`;
+      els.attSub.textContent = `${avgCount} / ${TOTAL_SESSIONS} días Nov–Dic`;
     }
 
-    // Actualiza en el DOM únicamente la fila y hoja de 80 vistos del integrante modificado (CERO parpadeo)
     function updateParticipantAttendanceDOM(uid) {
       const p = state.participants.find(x => x.uid === Number(uid));
       if (!p) return;
@@ -1041,14 +1043,12 @@
       const count = set.size;
       const pct = Math.round((count / TOTAL_SESSIONS) * 100);
       const isOpen = state.openAttPanels.has(p.uid);
+      const sem = getSemaforoInfo(count, pct);
 
-      // Actualizar todos los widgets de controles de ese integrante (en su grupo y en el buscador si está activo)
       document.querySelectorAll(`[data-att-controls="${p.uid}"]`).forEach(el => {
         el.innerHTML = buildAttendanceControlsInnerHtml(p, set, count, pct, isOpen);
       });
 
-      const sem = getSemaforoInfo(count, pct);
-      // Actualizar minibar y badge de semáforo debajo del nombre
       document.querySelectorAll(`[data-att-minibar="${p.uid}"]`).forEach(bar => {
         bar.style.width = `${pct}%`;
         bar.className = `h-full rounded-full ${sem.barCls} transition-all duration-300`;
@@ -1058,20 +1058,20 @@
         badge.textContent = sem.label;
       });
 
-      // Actualizar el panel desplegable de 80 vistos si está abierto
       document.querySelectorAll(`[data-att-drawer="${p.uid}"]`).forEach(drawer => {
         if (isOpen) {
           drawer.classList.remove('hidden');
-          drawer.innerHTML = buildPerson80GridInnerHtml(p, set, count, pct);
+          drawer.innerHTML = buildPersonCalendarInnerHtml(p, set, count, pct);
         } else {
           drawer.classList.add('hidden');
+          drawer.innerHTML = '';
         }
       });
 
       updateAttendanceKPIs();
     }
 
-    function renderAll(animate = false) {
+    function renderAll() {
       const map = buildMap();
       const names = getGroupNames(map);
       const unassignedList = map.get(UNASSIGNED) || [];
@@ -1079,18 +1079,10 @@
       const grouped = total - unassignedList.length;
       const pct = total ? Math.round((grouped / total) * 100) : 0;
 
-      if (animate) {
-        animateCounter(els.total, total);
-        animateCounter(els.grouped, grouped);
-        animateCounter(els.unassigned, unassignedList.length);
-        animateCounter(els.progressLabel, pct, '%');
-      } else {
-        els.total.textContent = total;
-        els.grouped.textContent = grouped;
-        els.unassigned.textContent = unassignedList.length;
-        els.progressLabel.textContent = pct + '%';
-      }
-
+      els.total.textContent = total;
+      els.grouped.textContent = grouped;
+      els.unassigned.textContent = unassignedList.length;
+      els.progressLabel.textContent = pct + '%';
       els.groupCount.textContent = `en ${names.length} grupo${names.length === 1 ? '' : 's'}`;
       els.progressBar.style.width = `${pct}%`;
 
@@ -1098,10 +1090,10 @@
       updateSessionUI();
 
       const isAttMode = state.mode === 'attendance';
-      els.tabModeGroups.className = `min-h-[40px] px-4 py-1.5 rounded-xl text-xs sm:text-sm font-extrabold transition-colors cursor-pointer inline-flex items-center gap-2 ${
+      els.tabModeGroups.className = `min-h-[38px] px-3.5 py-1.5 rounded-xl text-xs font-extrabold transition-colors cursor-pointer inline-flex items-center gap-1.5 whitespace-nowrap ${
         !isAttMode ? 'bg-slate-900 text-white shadow-sm' : 'text-slate-700 hover:text-slate-900'
       }`;
-      els.tabModeAttendance.className = `min-h-[40px] px-4 py-1.5 rounded-xl text-xs sm:text-sm font-extrabold transition-colors cursor-pointer inline-flex items-center gap-2 ${
+      els.tabModeAttendance.className = `min-h-[38px] px-3.5 py-1.5 rounded-xl text-xs font-extrabold transition-colors cursor-pointer inline-flex items-center gap-1.5 whitespace-nowrap ${
         isAttMode ? 'bg-slate-900 text-white shadow-sm' : 'text-slate-700 hover:text-slate-900'
       }`;
       els.attendanceToolbar.classList.toggle('hidden', !isAttMode);
@@ -1121,10 +1113,10 @@
 
         return `
           <button type="button" onclick="window.__focusGroup(${jsArg(g)})"
-                  class="shrink-0 min-h-[44px] pl-2 pr-3.5 py-1.5 rounded-2xl inline-flex items-center gap-2.5 transition-all cursor-pointer ${
+                  class="shrink-0 min-h-[42px] pl-2 pr-3 py-1.5 rounded-2xl inline-flex items-center gap-2 transition cursor-pointer ${
                     isFocused
-                      ? 'bg-slate-900 text-white shadow-md scale-[1.02]'
-                      : 'liquid-glass text-slate-800 hover:bg-white/90'
+                      ? 'bg-slate-900 text-white shadow-md'
+                      : 'liquid-glass text-slate-800 hover:bg-white'
                   }">
             <span class="w-7 h-7 rounded-xl ${
               isFocused ? 'bg-white/20 text-white' : 'bg-slate-900 text-white'
@@ -1133,7 +1125,7 @@
             </span>
             <span class="text-left leading-tight">
               <span class="block text-xs font-bold whitespace-nowrap">${esc(g)}</span>
-              <span class="block text-[11px] font-medium ${isFocused ? 'text-slate-300' : 'text-slate-500'} tabular-nums">${count} integrantes</span>
+              <span class="block text-[10px] font-medium ${isFocused ? 'text-slate-300' : 'text-slate-500'} tabular-nums">${count} int.</span>
             </span>
           </button>
         `;
@@ -1142,17 +1134,17 @@
       const isUnassignedFocused = state.focusedGroup === UNASSIGNED;
       const unassignedPill = unCount ? `
         <button type="button" onclick="window.__focusGroup(${jsArg(UNASSIGNED)})"
-                class="shrink-0 min-h-[44px] pl-2 pr-3.5 py-1.5 rounded-2xl inline-flex items-center gap-2.5 transition-all cursor-pointer ${
+                class="shrink-0 min-h-[42px] pl-2 pr-3 py-1.5 rounded-2xl inline-flex items-center gap-2 transition cursor-pointer ${
                   isUnassignedFocused
-                    ? 'bg-amber-500 text-white shadow-md scale-[1.02]'
-                    : 'liquid-glass-amber text-amber-950 hover:bg-amber-500/20'
+                    ? 'bg-amber-500 text-white shadow-md'
+                    : 'liquid-glass-amber text-amber-950'
                 }">
           <span class="w-7 h-7 rounded-xl ${
             isUnassignedFocused ? 'bg-white/25 text-white' : 'bg-amber-500 text-white'
           } text-xs font-extrabold flex items-center justify-center">!</span>
           <span class="text-left leading-tight">
             <span class="block text-xs font-bold whitespace-nowrap">Sin grupo</span>
-            <span class="block text-[11px] font-medium ${isUnassignedFocused ? 'text-amber-50' : 'text-amber-900/80'} tabular-nums">${unCount} integrantes</span>
+            <span class="block text-[10px] font-medium ${isUnassignedFocused ? 'text-amber-50' : 'text-amber-900/80'} tabular-nums">${unCount} int.</span>
           </span>
         </button>
       ` : '';
@@ -1170,19 +1162,19 @@
         ['all', 'Todos', total],
         ['grouped', 'Con grupo', grouped],
         ['unassigned', 'Sin grupo', unassigned],
-        ['low_att', '⚠️ Baja asistencia (<50%)', lowAttCount]
+        ['low_att', '⚠️ Baja asistencia', lowAttCount]
       ];
       els.pills.innerHTML = defs.map(([id, label, count]) => {
         const active = !state.focusedGroup && state.filter === id;
         return `
           <button type="button" data-filter="${id}"
-                  class="shrink-0 min-h-[38px] px-4 rounded-full text-xs font-bold whitespace-nowrap inline-flex items-center gap-2 transition-all cursor-pointer ${
+                  class="shrink-0 min-h-[36px] px-3.5 rounded-full text-xs font-bold whitespace-nowrap inline-flex items-center gap-1.5 transition cursor-pointer ${
                     active
                       ? 'bg-slate-900 text-white shadow-sm'
-                      : 'liquid-glass text-slate-700 hover:bg-white/90'
+                      : 'liquid-glass text-slate-700 hover:bg-white'
                   }">
             <span>${label}</span>
-            <span class="text-[11px] tabular-nums px-2 py-0.5 rounded-full ${
+            <span class="text-[11px] tabular-nums px-1.5 py-0.5 rounded-full ${
               active ? 'bg-white/20 text-white' : 'bg-slate-900/10 text-slate-700'
             }">${count}</span>
           </button>
@@ -1190,246 +1182,188 @@
       }).join('');
     }
 
-    // ---------- Selector Custom Liquid Glass para "Asignar grupo" / "Mover" ----------
-    function buildCustomAssignWidgetHtml(p, groupNames, map) {
+    // Botón ligero para abrir el Modal único de Asignar/Mover grupo (0 nodos ocultos repetidos = rápido en celular)
+    function buildAssignButtonHtml(p) {
       const isUnassigned = p.group === UNASSIGNED;
-
       return `
-        <div class="relative inline-block" data-assign-wrap="${p.uid}">
-          <button type="button"
-                  onclick="window.__toggleAssignMenu(event, this)"
-                  class="min-h-[36px] px-3.5 py-1.5 rounded-2xl text-xs font-extrabold inline-flex items-center gap-1.5 transition-colors cursor-pointer shadow-sm ${
-                    isUnassigned
-                      ? 'bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white shadow-amber-500/20'
-                      : 'bg-white/90 hover:bg-white border border-slate-200/90 text-slate-700 hover:text-slate-900'
-                  }">
-            <i data-lucide="${isUnassigned ? 'user-plus' : 'arrow-left-right'}" class="w-3.5 h-3.5"></i>
-            <span>${isUnassigned ? 'Asignar grupo' : 'Mover'}</span>
-            <i data-lucide="chevron-down" class="assign-chevron w-3.5 h-3.5 opacity-80 transition-transform duration-200"></i>
-          </button>
-
-          <div onclick="event.stopPropagation()"
-               class="assign-popover hidden liquid-popover pop-in mt-2 sm:absolute sm:right-0 sm:top-full z-40 w-72 sm:w-80 rounded-3xl p-3.5 space-y-3 text-left">
-            <div class="flex items-center justify-between gap-2 pb-2 border-b border-slate-200/70">
-              <div class="min-w-0">
-                <p class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400">Asignar integrante</p>
-                <p class="text-xs font-bold text-slate-800 truncate">${esc(p.name)}</p>
-              </div>
-              <button type="button" onclick="window.__closeAssignMenu()"
-                      class="w-7 h-7 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center transition cursor-pointer">
-                ✕
-              </button>
-            </div>
-
-            <div class="grid grid-cols-2 gap-1.5">
-              ${groupNames.map(g => {
-                const count = (map.get(g) || []).length;
-                const num = g.replace(/^Grupo\s*/i, '') || g[0];
-                const isCurrent = p.group === g;
-                return `
-                  <button type="button"
-                          onclick="window.__assignMember(${p.uid}, ${jsArg(g)})"
-                          class="p-2 rounded-2xl border text-left flex items-center gap-2.5 transition-colors cursor-pointer ${
-                            isCurrent
-                              ? 'bg-slate-900 text-white border-slate-900 shadow-sm'
-                              : 'bg-slate-50/90 hover:bg-slate-900 hover:text-white border-slate-200/80 text-slate-800 group'
-                          }">
-                    <span class="w-7 h-7 rounded-xl ${
-                      isCurrent ? 'bg-white/20 text-white' : 'bg-slate-900 text-white group-hover:bg-white/20'
-                    } text-xs font-extrabold tabular-nums flex items-center justify-center shrink-0">
-                      ${esc(num)}
-                    </span>
-                    <div class="min-w-0 flex-1">
-                      <p class="text-xs font-extrabold truncate">${esc(g)}</p>
-                      <p class="text-[10px] opacity-75 tabular-nums">${count} int.</p>
-                    </div>
-                  </button>
-                `;
-              }).join('')}
-            </div>
-
-            ${!isUnassigned ? `
-              <button type="button"
-                      onclick="window.__assignMember(${p.uid}, ${jsArg(UNASSIGNED)})"
-                      class="w-full py-2 px-3 rounded-xl bg-amber-50 hover:bg-amber-100 border border-amber-300/80 text-amber-900 text-xs font-extrabold flex items-center justify-center gap-1.5 transition cursor-pointer">
-                <span>Quitar de ${esc(p.group)} (Enviar a Sin grupo)</span>
-              </button>
-            ` : ''}
-
-            <div class="pt-2 border-t border-slate-200/70">
-              <label class="block text-[10px] font-extrabold uppercase tracking-wider text-slate-400 mb-1.5">
-                O crear nuevo grupo
-              </label>
-              <div class="flex items-center gap-1.5">
-                <input id="newGroupInput-${p.uid}"
-                       type="text"
-                       placeholder="Ej. Grupo ${groupNames.length + 1}"
-                       value="Grupo ${groupNames.length + 1}"
-                       onkeydown="if(event.key==='Enter') window.__createNewGroupForMember(${p.uid})"
-                       class="w-full h-9 px-3 rounded-xl bg-slate-100/90 focus:bg-white border border-slate-200/90 focus:border-slate-900 text-xs font-bold text-slate-800 outline-none" />
-                <button type="button"
-                        onclick="window.__createNewGroupForMember(${p.uid})"
-                        class="h-9 px-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-extrabold shrink-0 transition cursor-pointer">
-                  Crear
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
+        <button type="button"
+                onclick="window.__openAssignModal(${p.uid})"
+                class="h-8 px-3 rounded-xl text-xs font-extrabold inline-flex items-center gap-1.5 transition cursor-pointer shadow-xs ${
+                  isUnassigned
+                    ? 'bg-amber-500 hover:bg-amber-600 active:scale-95 text-white'
+                    : 'bg-white hover:bg-slate-100 border border-slate-200/90 text-slate-700'
+                }">
+          <span>${isUnassigned ? '+ Asignar grupo' : 'Mover'}</span>
+          <span class="text-[10px] opacity-75">▾</span>
+        </button>
       `;
     }
 
-    // ---------- Calendario Elegante de Noviembre (Lunes a Viernes · 21 días hábiles) ----------
-    function buildPerson80GridInnerHtml(p, set, count, pct) {
-      let boxesHtml = '';
-      for (const w of NOV_WEEKDAYS) {
+    // ---------- Calendario de Noviembre y Diciembre (Lunes a Viernes · 44 días hábiles) ----------
+    function buildMonthCalendarGridHtml(uid, title, daysList, offsetCols, set) {
+      const monthCount = daysList.filter(d => set.has(d.idx)).length;
+      let cellsHtml = '';
+      for (let i = 0; i < offsetCols; i++) {
+        cellsHtml += `<div class="h-11 rounded-xl bg-slate-100/50 border border-dashed border-slate-200/60"></div>`;
+      }
+      for (const w of daysList) {
         const checked = set.has(w.idx);
-        const isCurrentSession = w.idx === state.activeSession;
-        boxesHtml += `
+        const isCurrent = w.idx === state.activeSession;
+        const mShort = w.month === 'nov' ? 'Nov' : 'Dic';
+        cellsHtml += `
           <button type="button"
-                  onclick="window.__toggleSingleAtt(${p.uid}, ${w.idx})"
-                  title="${w.label} (${checked ? 'Asistió ✓' : 'Pendiente'})"
-                  class="h-12 rounded-xl border text-xs font-extrabold tabular-nums transition-all cursor-pointer flex flex-col items-center justify-center leading-tight select-none ${
+                  onclick="window.__toggleSingleAtt(${uid}, ${w.idx})"
+                  title="${w.short} (${checked ? 'Asistió ✓' : 'Pendiente'})"
+                  class="h-11 rounded-xl border px-1 py-1 text-[11px] font-extrabold tabular-nums transition cursor-pointer flex flex-col items-center justify-center leading-tight select-none min-w-0 ${
                     checked ? 'visto-active' : 'visto-pending'
-                  } ${isCurrentSession ? 'ring-2 ring-blue-500 ring-offset-1' : ''}">
-            <span class="text-[10px] font-bold uppercase tracking-wider ${checked ? 'text-emerald-100' : 'text-slate-400'}">${w.dow}</span>
-            <span class="flex items-center gap-1 mt-0.5">
-              <span class="text-xs font-black">${checked ? '✓' : '○'}</span>
-              <span class="text-xs font-extrabold">${w.day} Nov</span>
+                  } ${isCurrent ? 'ring-2 ring-blue-500' : ''}">
+            <span class="text-[9px] font-bold uppercase tracking-tight ${checked ? 'text-emerald-100' : 'text-slate-400'}">${w.dow}</span>
+            <span class="flex items-center justify-center gap-0.5 mt-0.5 truncate w-full">
+              <span class="text-[10px] font-black">${checked ? '✓' : '○'}</span>
+              <span class="text-[11px] font-extrabold">${w.day}</span>
+              <span class="hidden sm:inline text-[9px] opacity-80">${mShort}</span>
             </span>
           </button>
         `;
       }
 
       return `
-        <div class="mt-3.5 pt-3.5 border-t border-slate-200/80 space-y-3.5 no-print">
-          <!-- Cabecera de progreso de Vistos con barra esmeralda y acciones rápidas -->
-          <div class="p-3.5 rounded-2xl bg-gradient-to-br from-emerald-50/80 via-white to-slate-50 border border-emerald-200/70 space-y-3">
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-              <div class="flex items-center gap-2.5">
-                <span class="w-8 h-8 rounded-xl bg-emerald-600 text-white font-black text-sm flex items-center justify-center shadow-sm shadow-emerald-600/25">
-                  ✓
-                </span>
-                <div>
-                  <p class="text-xs font-extrabold text-slate-900 tabular-nums">
-                    ${count} de ${TOTAL_SESSIONS} vistos completados (${pct}%)
-                  </p>
-                  <p class="text-[11px] text-slate-500 tabular-nums">
-                    ${TOTAL_SESSIONS - count} jornadas pendientes por marcar
-                  </p>
-                </div>
-              </div>
-
-              <!-- Botones rápidos de vistos por bloques -->
-              <div class="flex flex-wrap items-center gap-1.5">
-                <button type="button" onclick="window.__stepAtt(${p.uid}, 5)"
-                        class="h-8 px-2.5 rounded-xl bg-emerald-100/80 hover:bg-emerald-200/80 text-emerald-900 text-[11px] font-extrabold transition cursor-pointer">
-                  +1 Semana (5d)
-                </button>
-                <button type="button" onclick="window.__stepAtt(${p.uid}, 10)"
-                        class="h-8 px-2.5 rounded-xl bg-emerald-100/80 hover:bg-emerald-200/80 text-emerald-900 text-[11px] font-extrabold transition cursor-pointer">
-                  +10 vistos
-                </button>
-                <button type="button" onclick="window.__fillAllAtt(${p.uid}, true)"
-                        class="h-8 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-[11px] font-extrabold transition cursor-pointer shadow-sm">
-                  ✓ Todo Noviembre (21d)
-                </button>
-                <button type="button" onclick="window.__fillAllAtt(${p.uid}, false)"
-                        class="h-8 px-2.5 rounded-xl bg-white hover:bg-rose-50 border border-slate-200 text-rose-700 text-[11px] font-extrabold transition cursor-pointer">
-                  Reiniciar
-                </button>
-              </div>
-            </div>
-
-            <!-- Barra de progreso esmeralda + Slider rápido -->
-            <div class="flex flex-col sm:flex-row sm:items-center gap-3 pt-1">
-              <div class="flex-1 flex items-center gap-2.5">
-                <span class="text-[11px] font-bold text-slate-500 whitespace-nowrap">Deslizar vistos:</span>
-                <input id="attRange-${p.uid}"
-                       type="range"
-                       min="0"
-                       max="${TOTAL_SESSIONS}"
-                       value="${count}"
-                       oninput="document.getElementById('attNum-${p.uid}').value = this.value"
-                       onchange="window.__applyQuickAttCount(${p.uid})"
-                       class="visto-slider w-full" />
-              </div>
-              <div class="flex items-center gap-1.5 shrink-0">
-                <input id="attNum-${p.uid}"
-                       type="number"
-                       min="0"
-                       max="${TOTAL_SESSIONS}"
-                       value="${count}"
-                       onkeydown="if(event.key==='Enter') window.__applyQuickAttCount(${p.uid})"
-                       class="w-14 h-8 rounded-xl bg-white border border-slate-300 text-center text-xs font-extrabold text-slate-900 tabular-nums outline-none focus:border-emerald-600" />
-                <button type="button"
-                        onclick="window.__applyQuickAttCount(${p.uid})"
-                        class="h-8 px-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-extrabold transition cursor-pointer">
-                  Fijar
-                </button>
-              </div>
-            </div>
+        <div class="p-3 rounded-2xl bg-white/90 border border-slate-200/80 space-y-2">
+          <div class="flex items-center justify-between gap-2">
+            <span class="text-xs font-extrabold text-slate-800">${title}</span>
+            <span class="text-[11px] font-extrabold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full tabular-nums">
+              ✓ ${monthCount} / ${daysList.length} días
+            </span>
           </div>
-
-          <!-- Encabezado de columnas Lunes a Viernes (Sin fines de semana) -->
-          <div class="grid grid-cols-5 gap-1.5 text-center text-[10px] font-extrabold uppercase tracking-wider text-slate-400 px-0.5">
-            <span>Lunes</span>
-            <span>Martes</span>
-            <span>Miércoles</span>
-            <span>Jueves</span>
-            <span>Viernes</span>
+          <div class="grid grid-cols-5 gap-1 text-center text-[9px] sm:text-[10px] font-extrabold uppercase tracking-wider text-slate-400">
+            <span>Lun</span>
+            <span>Mar</span>
+            <span>Mié</span>
+            <span>Jue</span>
+            <span>Vie</span>
           </div>
-          <!-- Cuadrícula de los 21 días entre semana de Noviembre -->
-          <div class="att-grid-80">
-            ${boxesHtml}
+          <div class="cal-grid-5">
+            ${cellsHtml}
           </div>
         </div>
       `;
     }
 
-    // Controles compactos y elegantes de Vistos en la fila de cada integrante
+    function buildPersonCalendarInnerHtml(p, set, count, pct) {
+      return `
+        <div class="mt-3 pt-3 border-t border-slate-200/80 space-y-3 no-print">
+          <!-- Cabecera de progreso y botones rápidos por mes -->
+          <div class="p-3 rounded-2xl bg-gradient-to-br from-emerald-50/80 via-white to-slate-50 border border-emerald-200/70 space-y-2.5">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <div class="flex items-center gap-2">
+                <span class="w-7 h-7 rounded-xl bg-emerald-600 text-white font-black text-xs flex items-center justify-center shrink-0">✓</span>
+                <div>
+                  <p class="text-xs font-extrabold text-slate-900 tabular-nums">
+                    ${count} de ${TOTAL_SESSIONS} días asistidos (${pct}%)
+                  </p>
+                  <p class="text-[10px] text-slate-500">Noviembre (21d) + Diciembre (23d) · Solo Lunes a Viernes</p>
+                </div>
+              </div>
+
+              <div class="flex flex-wrap items-center gap-1.5">
+                <button type="button" onclick="window.__stepAtt(${p.uid}, 5)"
+                        class="h-7 px-2.5 rounded-xl bg-emerald-100 hover:bg-emerald-200 text-emerald-900 text-[11px] font-extrabold transition cursor-pointer">
+                  +1 Sem (5d)
+                </button>
+                <button type="button" onclick="window.__markMonthAtt(${p.uid}, 'nov')"
+                        class="h-7 px-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-[11px] font-extrabold transition cursor-pointer">
+                  ✓ Todo Nov (21)
+                </button>
+                <button type="button" onclick="window.__markMonthAtt(${p.uid}, 'dic')"
+                        class="h-7 px-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-[11px] font-extrabold transition cursor-pointer">
+                  ✓ Todo Dic (23)
+                </button>
+                <button type="button" onclick="window.__fillAllAtt(${p.uid}, true)"
+                        class="h-7 px-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-[11px] font-extrabold transition cursor-pointer">
+                  ✓ Nov+Dic (44)
+                </button>
+                <button type="button" onclick="window.__fillAllAtt(${p.uid}, false)"
+                        class="h-7 px-2.5 rounded-xl bg-white hover:bg-rose-50 border border-slate-200 text-rose-700 text-[11px] font-extrabold transition cursor-pointer">
+                  Reiniciar
+                </button>
+              </div>
+            </div>
+
+            <!-- Control deslizante rápido (0 a 44 días) -->
+            <div class="flex items-center gap-2 pt-0.5">
+              <span class="text-[11px] font-bold text-slate-500 whitespace-nowrap">Rápido:</span>
+              <input id="attRange-${p.uid}"
+                     type="range"
+                     min="0"
+                     max="${TOTAL_SESSIONS}"
+                     value="${count}"
+                     oninput="document.getElementById('attNum-${p.uid}').value = this.value"
+                     onchange="window.__applyQuickAttCount(${p.uid})"
+                     class="visto-slider flex-1 min-w-0" />
+              <input id="attNum-${p.uid}"
+                     type="number"
+                     min="0"
+                     max="${TOTAL_SESSIONS}"
+                     value="${count}"
+                     onkeydown="if(event.key==='Enter') window.__applyQuickAttCount(${p.uid})"
+                     class="w-12 h-7 rounded-lg bg-white border border-slate-300 text-center text-xs font-extrabold text-slate-900 tabular-nums outline-none" />
+              <button type="button"
+                      onclick="window.__applyQuickAttCount(${p.uid})"
+                      class="h-7 px-2.5 rounded-lg bg-slate-900 text-white text-[11px] font-extrabold cursor-pointer shrink-0">
+                Fijar
+              </button>
+            </div>
+          </div>
+
+          <!-- Dos bloques de calendario: Noviembre y Diciembre -->
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-3">
+            ${buildMonthCalendarGridHtml(p.uid, '📅 Noviembre (Lunes a Viernes)', NOV_DAYS, 0, set)}
+            ${buildMonthCalendarGridHtml(p.uid, '📅 Diciembre (Lunes a Viernes)', DIC_DAYS, 1, set)}
+          </div>
+        </div>
+      `;
+    }
+
     function buildAttendanceControlsInnerHtml(p, set, count, pct, isOpen) {
       const hasCount = count > 0;
       const isComplete = count === TOTAL_SESSIONS;
 
       return `
-        <!-- Botón rápido para poner el siguiente Visto (✓) con un solo clic -->
         <button type="button"
                 onclick="window.__stepAtt(${p.uid}, 1)"
                 title="Poner siguiente visto de asistencia"
-                class="h-8 px-3 rounded-xl ${
+                class="h-8 px-2.5 sm:px-3 rounded-xl ${
                   isComplete
                     ? 'bg-emerald-100 text-emerald-800 border border-emerald-300'
-                    : 'bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white shadow-sm shadow-emerald-600/20'
-                } text-xs font-extrabold inline-flex items-center gap-1.5 transition cursor-pointer">
-          <span class="font-black text-sm leading-none">✓</span>
-          <span>${isComplete ? 'Completado' : '+ Visto'}</span>
+                    : 'bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white shadow-xs'
+                } text-xs font-extrabold inline-flex items-center gap-1 transition cursor-pointer">
+          <span class="font-black text-xs leading-none">✓</span>
+          <span>${isComplete ? '44/44' : '+ Visto'}</span>
         </button>
 
         ${hasCount ? `
           <button type="button"
                   onclick="window.__stepAtt(${p.uid}, -1)"
                   title="Quitar último visto"
-                  class="w-8 h-8 rounded-xl bg-white hover:bg-rose-50 active:scale-95 border border-slate-200/90 text-slate-500 hover:text-rose-600 font-extrabold text-xs flex items-center justify-center transition cursor-pointer">
+                  class="w-8 h-8 rounded-xl bg-white hover:bg-rose-50 active:scale-95 border border-slate-200 text-slate-600 hover:text-rose-600 font-extrabold text-xs flex items-center justify-center transition cursor-pointer">
             −
           </button>
         ` : ''}
 
-        <!-- Cápsula que muestra los vistos acumulados y despliega la hoja de 80 vistos -->
         <button type="button"
                 onclick="window.__toggleAttPanel(${p.uid})"
-                title="Abrir hoja de 80 vistos"
-                class="h-8 px-3 rounded-xl border text-xs font-extrabold tabular-nums inline-flex items-center gap-1.5 transition cursor-pointer ${
+                title="Abrir calendario de Noviembre y Diciembre"
+                class="h-8 px-2.5 sm:px-3 rounded-xl border text-xs font-extrabold tabular-nums inline-flex items-center gap-1 transition cursor-pointer ${
                   isOpen
-                    ? 'bg-slate-900 text-white border-slate-900 shadow-sm'
+                    ? 'bg-slate-900 text-white border-slate-900'
                     : hasCount
-                      ? 'bg-emerald-50/90 hover:bg-emerald-100/80 text-emerald-900 border-emerald-300/90'
-                      : 'bg-white/90 hover:bg-white text-slate-700 border-slate-200/90'
+                      ? 'bg-emerald-50 text-emerald-900 border-emerald-300'
+                      : 'bg-white text-slate-700 border-slate-200'
                 }">
           <span class="${hasCount ? 'text-emerald-600' : 'text-slate-400'} ${isOpen ? '!text-emerald-400' : ''} font-black">✓</span>
           <span>${count}/${TOTAL_SESSIONS}</span>
           <span class="text-[10px] opacity-75">(${pct}%)</span>
-          <span class="text-[10px] ml-0.5 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}">▾</span>
+          <span class="text-[10px] transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}">▾</span>
         </button>
       `;
     }
@@ -1440,7 +1374,7 @@
       const pct = Math.round((count / TOTAL_SESSIONS) * 100);
       const isOpen = state.openAttPanels.has(p.uid);
       return `
-        <div data-att-controls="${p.uid}" class="inline-flex flex-wrap items-center gap-1.5 shrink-0 no-print">
+        <div data-att-controls="${p.uid}" class="inline-flex flex-wrap items-center gap-1.5 no-print">
           ${buildAttendanceControlsInnerHtml(p, set, count, pct, isOpen)}
         </div>
       `;
@@ -1465,13 +1399,11 @@
 
       if (!matches.length) {
         els.featured.innerHTML = `
-          <div class="liquid-glass rounded-3xl p-5 flex items-center gap-3.5">
-            <div class="w-11 h-11 rounded-2xl bg-slate-900/5 text-slate-500 flex items-center justify-center shrink-0">
-              <i data-lucide="search-x" class="w-5 h-5"></i>
-            </div>
+          <div class="liquid-glass rounded-3xl p-4 flex items-center gap-3">
+            <div class="w-10 h-10 rounded-2xl bg-slate-900/5 text-slate-500 flex items-center justify-center shrink-0">✕</div>
             <div>
-              <p class="font-bold text-slate-900 text-sm sm:text-base">No se encontraron integrantes</p>
-              <p class="text-xs sm:text-sm text-slate-500">Ningún registro coincide con “${esc(state.search)}”.</p>
+              <p class="font-bold text-slate-900 text-sm">No se encontraron integrantes</p>
+              <p class="text-xs text-slate-500">Ningún registro coincide con “${esc(state.search)}”.</p>
             </div>
           </div>
         `;
@@ -1480,75 +1412,67 @@
 
       const top = matches.slice(0, 4);
       els.featured.innerHTML = `
-        <div class="space-y-3">
+        <div class="space-y-2.5">
           <p class="text-xs font-bold uppercase tracking-wider text-slate-500 px-1 tabular-nums">
             ${matches.length} integrante${matches.length === 1 ? '' : 's'} encontrado${matches.length === 1 ? '' : 's'}
           </p>
           ${top.map(p => {
             const isUn = p.group === UNASSIGNED;
-            const mates = (map.get(p.group) || []).filter(m => m.uid !== p.uid);
             const isAttOpen = state.openAttPanels.has(p.uid);
             const set = getAttSet(p);
             const count = set.size;
             const pct = Math.round((count / TOTAL_SESSIONS) * 100);
+            const sem = getSemaforoInfo(count, pct);
             return `
-              <article class="${isUn ? 'liquid-glass-amber' : 'liquid-glass'} rounded-3xl p-4 sm:p-5">
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                  <div class="space-y-2 min-w-0 flex-1">
-                    <div class="flex flex-wrap items-center gap-2">
+              <article class="${isUn ? 'liquid-glass-amber' : 'liquid-glass'} rounded-3xl p-3.5 sm:p-5">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                  <div class="space-y-1.5 min-w-0 flex-1">
+                    <div class="flex flex-wrap items-center gap-1.5">
                       ${isUn
-                        ? `<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/20 border border-amber-500/40 text-amber-950 text-xs font-extrabold">
-                             ⚠️ Sin grupo asignado
+                        ? `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-amber-500/20 border border-amber-500/40 text-amber-950 text-xs font-extrabold">
+                             ⚠️ Sin grupo
                            </span>`
-                        : `<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-900 text-white text-xs font-extrabold shadow-sm">
-                             <i data-lucide="users" class="w-3.5 h-3.5 text-cyan-300"></i>
+                        : `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-slate-900 text-white text-xs font-extrabold">
                              <span>${esc(p.group)}</span>
                            </span>`
                       }
                       ${p.id ? `
                         <button type="button" onclick="window.__copyCedula(${jsArg(p.id)}, ${jsArg(p.name)})"
-                                class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/85 hover:bg-white border border-slate-300/80 text-xs font-semibold text-slate-700 tabular-nums transition cursor-pointer">
+                                class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-white border border-slate-300 text-xs font-semibold text-slate-700 tabular-nums cursor-pointer">
                           <span>C.I. ${highlight(p.id, q)}</span>
-                          <i data-lucide="copy" class="w-3 h-3 text-slate-500"></i>
-                          <span class="text-[11px] text-blue-700 font-bold">Copiar cédula</span>
+                          <span class="text-[11px] text-blue-700 font-bold">Copiar</span>
                         </button>
                       ` : ''}
                     </div>
 
-                    <h3 class="font-display text-lg sm:text-xl font-extrabold tracking-tight text-slate-900 break-words">
+                    <h3 class="font-display text-base sm:text-xl font-extrabold tracking-tight text-slate-900 break-words">
                       ${highlight(p.name, q)}
                     </h3>
 
                     ${!isUn ? `
-                      <div class="w-full max-w-xs h-1.5 rounded-full bg-slate-200/80 overflow-hidden">
-                        <div data-att-minibar="${p.uid}" class="h-full rounded-full bg-emerald-500 transition-all duration-300" style="width: ${pct}%"></div>
+                      <div class="flex items-center gap-2 pt-0.5">
+                        <div class="w-28 h-1.5 rounded-full bg-slate-200 overflow-hidden">
+                          <div data-att-minibar="${p.uid}" class="h-full rounded-full ${sem.barCls}" style="width: ${pct}%"></div>
+                        </div>
+                        <span data-att-sembadge="${p.uid}" class="text-[10px] font-extrabold px-2 py-0.5 rounded-full border ${sem.badgeCls}">
+                          ${sem.label}
+                        </span>
                       </div>
-                    ` : ''}
-
-                    ${!isUn && mates.length ? `
-                      <p class="text-xs text-slate-600">
-                        Comparte grupo con <strong class="text-slate-800 tabular-nums">${mates.length} integrantes</strong> más.
-                      </p>
                     ` : ''}
                   </div>
 
-                  <div class="flex flex-wrap items-center gap-2 shrink-0">
+                  <div class="flex flex-wrap items-center gap-1.5 shrink-0">
                     ${!isUn ? buildAttendanceControlsHtml(p) : ''}
-                    ${buildCustomAssignWidgetHtml(p, names, map)}
+                    ${buildAssignButtonHtml(p)}
                     <button type="button" onclick="window.__focusGroup(${jsArg(p.group)})"
-                            class="min-h-[36px] px-3.5 py-1.5 rounded-2xl ${
-                              isUn
-                                ? 'bg-amber-900/90 hover:bg-amber-950 text-white'
-                                : 'bg-slate-900 hover:bg-slate-800 text-white'
-                            } text-xs font-extrabold shadow-sm inline-flex items-center justify-center gap-1.5 transition cursor-pointer">
-                      <span>Abrir grupo</span>
-                      <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                            class="h-8 px-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-extrabold inline-flex items-center gap-1 cursor-pointer">
+                      <span>Abrir grupo →</span>
                     </button>
                   </div>
                 </div>
                 ${!isUn ? `
                   <div data-att-drawer="${p.uid}" class="${isAttOpen ? '' : 'hidden'}">
-                    ${isAttOpen ? buildPerson80GridInnerHtml(p, set, count, pct) : ''}
+                    ${isAttOpen ? buildPersonCalendarInnerHtml(p, set, count, pct) : ''}
                   </div>
                 ` : ''}
               </article>
@@ -1558,7 +1482,65 @@
       `;
     }
 
-    function buildGroupCardHtml(groupName, members, allGroupNames, map, isOpen, isFocused, q) {
+    // Construye las filas de un grupo únicamente cuando el grupo está abierto (Lazy rendering = 0 lag en celulares)
+    function buildGroupMembersRowsHtml(groupName, members, q) {
+      const isUnassigned = groupName === UNASSIGNED;
+      return members.map((m, i) => {
+        const isAttOpen = state.openAttPanels.has(m.uid);
+        const set = getAttSet(m);
+        const count = set.size;
+        const pct = Math.round((count / TOTAL_SESSIONS) * 100);
+        const sem = getSemaforoInfo(count, pct);
+
+        return `
+          <li class="rounded-2xl bg-white/95 border ${
+            isUnassigned ? 'border-amber-300/75' : 'border-slate-200/80'
+          } p-3 sm:px-4 sm:py-3 shadow-xs">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+              <!-- Fila superior en móvil: número, avatar, nombre completo y cédula -->
+              <div class="flex items-start sm:items-center gap-2.5 min-w-0 flex-1">
+                <span class="w-5 pt-1 sm:pt-0 text-right text-xs font-extrabold ${
+                  isUnassigned ? 'text-amber-700/80' : 'text-slate-400'
+                } tabular-nums shrink-0">${i + 1}</span>
+                <span class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl ${
+                  isUnassigned ? 'bg-amber-500/15 text-amber-900' : 'bg-slate-900/10 text-slate-800'
+                } text-xs font-extrabold flex items-center justify-center shrink-0">
+                  ${esc(initials(m.name))}
+                </span>
+                <div class="min-w-0 flex-1">
+                  <p class="text-sm font-bold text-slate-900 leading-snug break-words">${highlight(m.name, q)}</p>
+                  <div class="flex flex-wrap items-center gap-2 mt-1">
+                    ${m.id ? `<span class="text-[11px] font-medium text-slate-500 tabular-nums">C.I. ${highlight(m.id, q)}</span>` : ''}
+                    ${!isUnassigned ? `
+                      <div class="w-20 sm:w-28 h-1.5 rounded-full bg-slate-200 overflow-hidden">
+                        <div data-att-minibar="${m.uid}" class="h-full rounded-full ${sem.barCls}" style="width: ${pct}%"></div>
+                      </div>
+                      <span data-att-sembadge="${m.uid}" class="text-[10px] font-extrabold px-2 py-0.5 rounded-full border ${sem.badgeCls}">
+                        ${sem.label}
+                      </span>
+                    ` : ''}
+                  </div>
+                </div>
+              </div>
+
+              <!-- Fila inferior en móvil (alineada y sin desbordar): Vistos + Mover/Asignar -->
+              <div class="flex flex-wrap items-center justify-between sm:justify-end gap-1.5 pt-2 sm:pt-0 border-t border-slate-100 sm:border-0 shrink-0">
+                ${!isUnassigned ? buildAttendanceControlsHtml(m) : ''}
+                ${buildAssignButtonHtml(m)}
+              </div>
+            </div>
+
+            ${!isUnassigned ? `
+              <div data-att-drawer="${m.uid}" class="${isAttOpen ? '' : 'hidden'}">
+                ${isAttOpen ? buildPersonCalendarInnerHtml(m, set, count, pct) : ''}
+              </div>
+            ` : ''}
+          </li>
+        `;
+      }).join('');
+    }
+
+    function buildGroupCardHtml(groupName, members, isOpen, isFocused, q) {
       const isUnassigned = groupName === UNASSIGNED;
       const numMatch = groupName.match(/(\d+)$/);
       const badgeText = isUnassigned ? '!' : (numMatch ? numMatch[1] : groupName.charAt(0));
@@ -1567,16 +1549,16 @@
       return `
         <article id="${cardId}"
                  data-group-card="${esc(groupName)}"
-                 class="${isUnassigned ? 'liquid-glass-amber' : 'liquid-glass'} rounded-3xl overflow-visible transition-shadow">
+                 class="${isUnassigned ? 'liquid-glass-amber' : 'liquid-glass'} rounded-3xl overflow-hidden">
           <!-- Encabezado de Tarjeta -->
-          <div class="flex items-center justify-between gap-2 px-4 sm:px-6 py-4">
+          <div class="flex items-center justify-between gap-2 px-3.5 sm:px-6 py-3.5 sm:py-4">
             <button type="button"
                     onclick="${isFocused ? `window.__clearFocus()` : `window.__toggleAccordion(${jsArg(groupName)})`}"
                     aria-expanded="${isOpen}"
-                    class="flex-1 min-w-0 min-h-[44px] flex items-center gap-3.5 text-left cursor-pointer">
-              <span class="w-11 h-11 rounded-2xl ${
+                    class="flex-1 min-w-0 min-h-[44px] flex items-center gap-3 text-left cursor-pointer">
+              <span class="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl ${
                 isUnassigned ? 'bg-amber-500 text-white' : 'bg-slate-900 text-white'
-              } font-display font-extrabold text-base tabular-nums flex items-center justify-center shrink-0 shadow-sm">
+              } font-display font-extrabold text-sm sm:text-base tabular-nums flex items-center justify-center shrink-0 shadow-xs">
                 ${esc(badgeText)}
               </span>
               <span class="min-w-0">
@@ -1585,108 +1567,56 @@
                 } truncate">
                   ${isUnassigned ? 'Sin grupo' : esc(groupName)}
                 </span>
-                <span class="block text-xs font-medium ${
+                <span class="block text-[11px] sm:text-xs font-medium ${
                   isUnassigned ? 'text-amber-900/80' : 'text-slate-500'
-                } tabular-nums">
-                  ${members.length} integrantes · Orden alfabético A–Z
+                } tabular-nums truncate">
+                  ${members.length} integrantes · Orden A–Z
                 </span>
               </span>
             </button>
 
-            <div class="flex items-center gap-2 shrink-0 no-print">
+            <div class="flex items-center gap-1.5 shrink-0 no-print">
               ${!isUnassigned ? `
                 <button type="button" onclick="window.__markGroupSession(${jsArg(groupName)})"
-                        title="Poner visto en Jornada #${state.activeSession} a todo ${esc(groupName)}"
-                        class="hidden sm:inline-flex min-h-[38px] px-3 py-1.5 rounded-2xl bg-emerald-50 hover:bg-emerald-100 border border-emerald-300/80 text-xs font-extrabold text-emerald-900 items-center gap-1.5 transition cursor-pointer shadow-sm">
+                        title="Poner visto (${getWorkday(state.activeSession).short}) a todo ${esc(groupName)}"
+                        class="hidden md:inline-flex min-h-[36px] px-3 py-1.5 rounded-2xl bg-emerald-50 hover:bg-emerald-100 border border-emerald-300/80 text-xs font-extrabold text-emerald-900 items-center gap-1 transition cursor-pointer">
                   <span class="text-emerald-600 font-black">✓</span>
-                  <span>Visto (${getNovDay(state.activeSession).short})</span>
+                  <span>Visto (${getWorkday(state.activeSession).short})</span>
                 </button>
                 <button type="button" onclick="window.__printGroupSheet(${jsArg(groupName)})"
                         title="Imprimir Acta y Hoja de Firmas de ${esc(groupName)}"
-                        class="min-h-[38px] px-3 py-1.5 rounded-2xl bg-white/85 hover:bg-white border border-slate-200/90 text-xs font-extrabold text-slate-700 hover:text-slate-900 inline-flex items-center gap-1.5 transition cursor-pointer shadow-sm">
-                  <i data-lucide="file-Spreadsheet" class="w-3.5 h-3.5 text-blue-700"></i>
-                  <span class="hidden sm:inline">Hoja de firmas</span>
-                  <span class="sm:hidden">Firmas</span>
+                        class="min-h-[36px] px-2.5 sm:px-3 py-1.5 rounded-2xl bg-white hover:bg-slate-50 border border-slate-200/90 text-xs font-extrabold text-slate-700 inline-flex items-center gap-1 transition cursor-pointer">
+                  <span>🖨️</span>
+                  <span class="hidden sm:inline">Firmas</span>
                 </button>
               ` : ''}
 
               <button type="button" onclick="window.__copyGroup(${jsArg(groupName)})"
-                      class="min-h-[38px] px-3.5 py-1.5 rounded-2xl bg-white/85 hover:bg-white border ${
+                      class="min-h-[36px] px-2.5 sm:px-3 py-1.5 rounded-2xl bg-white hover:bg-slate-50 border ${
                         isUnassigned ? 'border-amber-400/60 text-amber-950' : 'border-slate-200/90 text-slate-800'
-                      } text-xs font-extrabold inline-flex items-center gap-1.5 transition cursor-pointer shadow-sm">
-                <i data-lucide="copy" class="w-3.5 h-3.5"></i>
-                <span>Copiar lista</span>
+                      } text-xs font-extrabold inline-flex items-center gap-1 transition cursor-pointer">
+                <span>📋</span>
+                <span class="hidden xs:inline sm:inline">Copiar</span>
               </button>
 
               ${!isFocused ? `
                 <button type="button" onclick="window.__toggleAccordion(${jsArg(groupName)})"
                         aria-label="Abrir o cerrar ${esc(groupName)}"
-                        class="w-9 h-9 rounded-2xl bg-white/70 hover:bg-white flex items-center justify-center ${
+                        class="w-8 h-8 sm:w-9 sm:h-9 rounded-2xl bg-white/80 hover:bg-white flex items-center justify-center ${
                           isUnassigned ? 'text-amber-900' : 'text-slate-600'
                         } transition cursor-pointer">
-                  <i data-lucide="chevron-down" data-group-chevron="${esc(groupName)}" class="w-4 h-4 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}"></i>
+                  <span data-group-chevron="${esc(groupName)}" class="text-xs font-bold transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}">▾</span>
                 </button>
               ` : ''}
             </div>
           </div>
 
-          <!-- Lista vertical ordenada alfabéticamente de arriba hacia abajo (A-Z) -->
+          <!-- Lista vertical ordenada A-Z (Se renderiza bajo demanda al abrir para máxima velocidad en celular) -->
           <ul data-group-list="${esc(groupName)}"
-              class="${isOpen ? 'grid' : 'hidden'} print-open grid-cols-1 gap-2.5 p-3.5 sm:p-5 border-t ${
+              class="${isOpen ? 'grid' : 'hidden'} print-open grid-cols-1 gap-2 p-3 sm:p-5 border-t ${
             isUnassigned ? 'border-amber-400/40 bg-white/45' : 'border-white/80 bg-white/40'
-          } rounded-b-3xl">
-            ${members.map((m, i) => {
-              const isAttOpen = state.openAttPanels.has(m.uid);
-              const set = getAttSet(m);
-              const count = set.size;
-              const pct = Math.round((count / TOTAL_SESSIONS) * 100);
-              return `
-                <li class="rounded-2xl bg-white/92 border ${
-                  isUnassigned ? 'border-amber-300/75' : 'border-white'
-                } px-3.5 py-3 shadow-sm transition-shadow hover:shadow-md">
-                  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                    <div class="flex items-center gap-3 min-w-0 flex-1">
-                      <span class="w-5 text-right text-xs font-extrabold ${
-                        isUnassigned ? 'text-amber-700/80' : 'text-slate-400'
-                      } tabular-nums shrink-0">${i + 1}</span>
-                      <span class="w-9 h-9 rounded-2xl ${
-                        isUnassigned ? 'bg-amber-500/15 text-amber-900' : 'bg-slate-900/10 text-slate-800'
-                      } text-xs font-extrabold flex items-center justify-center shrink-0">
-                        ${esc(initials(m.name))}
-                      </span>
-                      <div class="min-w-0 flex-1">
-                        <p class="text-sm font-bold text-slate-900 leading-snug break-words">${highlight(m.name, q)}</p>
-                        <div class="flex items-center gap-2.5 mt-1">
-                          ${m.id ? `<span class="text-[11px] font-medium text-slate-500 tabular-nums">C.I. ${highlight(m.id, q)}</span>` : ''}
-                          ${!isUnassigned ? (() => {
-                            const sem = getSemaforoInfo(count, pct);
-                            return `
-                              <div class="w-20 sm:w-28 h-1.5 rounded-full bg-slate-200/80 overflow-hidden">
-                                <div data-att-minibar="${m.uid}" class="h-full rounded-full ${sem.barCls} transition-all duration-300" style="width: ${pct}%"></div>
-                              </div>
-                              <span data-att-sembadge="${m.uid}" class="text-[10px] font-extrabold px-2 py-0.5 rounded-full border ${sem.badgeCls}">
-                                ${sem.label}
-                              </span>
-                            `;
-                          })() : ''}
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="flex flex-wrap items-center gap-2 pl-8 sm:pl-0 shrink-0">
-                      ${!isUnassigned ? buildAttendanceControlsHtml(m) : ''}
-                      ${buildCustomAssignWidgetHtml(m, allGroupNames, map)}
-                    </div>
-                  </div>
-
-                  ${!isUnassigned ? `
-                    <div data-att-drawer="${m.uid}" class="${isAttOpen ? '' : 'hidden'}">
-                      ${isAttOpen ? buildPerson80GridInnerHtml(m, set, count, pct) : ''}
-                    </div>
-                  ` : ''}
-                </li>
-              `;
-            }).join('')}
+          }">
+            ${isOpen ? buildGroupMembersRowsHtml(groupName, members, q) : ''}
           </ul>
         </article>
       `;
@@ -1704,7 +1634,7 @@
         const members = map.get(g) || [];
         els.focusedBannerLabel.textContent = `Vista enfocada · ${g} (${members.length} integrantes)`;
 
-        els.groupsStack.innerHTML = buildGroupCardHtml(g, members, names, map, true, true, q);
+        els.groupsStack.innerHTML = buildGroupCardHtml(g, members, true, true, q);
         return;
       }
 
@@ -1717,7 +1647,7 @@
         names.forEach(g => {
           const members = (map.get(g) || []).filter(m => Math.round((getAttSet(m).size / TOTAL_SESSIONS) * 100) < 50);
           if (members.length > 0) {
-            cards.push(buildGroupCardHtml(g, members, names, map, true, false, q));
+            cards.push(buildGroupCardHtml(g, members, true, false, q));
           }
         });
       } else {
@@ -1725,12 +1655,12 @@
           names.forEach(g => {
             const members = map.get(g) || [];
             const isOpen = state.expanded.has(g);
-            cards.push(buildGroupCardHtml(g, members, names, map, isOpen, false, q));
+            cards.push(buildGroupCardHtml(g, members, isOpen, false, q));
           });
         }
         if (state.filter !== 'grouped' && unassignedList.length > 0) {
           const isOpen = state.expanded.has(UNASSIGNED);
-          cards.push(buildGroupCardHtml(UNASSIGNED, unassignedList, names, map, isOpen, false, q));
+          cards.push(buildGroupCardHtml(UNASSIGNED, unassignedList, isOpen, false, q));
         }
       }
 
@@ -1745,57 +1675,88 @@
       }
     }
 
-    // ---------- Acciones del Selector Custom Liquid Glass de Asignación de Grupo (Sin re-render ni parpadeo) ----------
+    // ---------- Modal / Bottom-Sheet Único para Asignar o Mover de Grupo ----------
+    window.__openAssignModal = (uid) => {
+      const person = state.participants.find(p => p.uid === Number(uid));
+      if (!person) return;
+      state.assignModalUid = person.uid;
+      const map = buildMap();
+      const groupNames = getGroupNames(map);
+      const isUnassigned = person.group === UNASSIGNED;
+
+      els.assignModalPersonName.textContent = person.name;
+      els.assignModalNewGroupInput.value = `Grupo ${groupNames.length + 1}`;
+
+      els.assignModalGroupsGrid.innerHTML = groupNames.map(g => {
+        const count = (map.get(g) || []).length;
+        const num = g.replace(/^Grupo\s*/i, '') || g[0];
+        const isCurrent = person.group === g;
+        return `
+          <button type="button"
+                  onclick="window.__assignMember(${person.uid}, ${jsArg(g)})"
+                  class="p-2.5 rounded-2xl border text-left flex items-center gap-2.5 transition cursor-pointer ${
+                    isCurrent
+                      ? 'bg-slate-900 text-white border-slate-900 shadow-sm'
+                      : 'bg-slate-50 hover:bg-slate-900 hover:text-white border-slate-200 text-slate-800 group'
+                  }">
+            <span class="w-8 h-8 rounded-xl ${
+              isCurrent ? 'bg-white/20 text-white' : 'bg-slate-900 text-white group-hover:bg-white/20'
+            } text-xs font-extrabold tabular-nums flex items-center justify-center shrink-0">
+              ${esc(num)}
+            </span>
+            <div class="min-w-0 flex-1">
+              <p class="text-xs font-extrabold truncate">${esc(g)}</p>
+              <p class="text-[10px] opacity-75 tabular-nums">${count} integrantes</p>
+            </div>
+          </button>
+        `;
+      }).join('');
+
+      if (!isUnassigned) {
+        els.assignModalUnassignWrap.classList.remove('hidden');
+        els.assignModalUnassignWrap.innerHTML = `
+          <button type="button"
+                  onclick="window.__assignMember(${person.uid}, ${jsArg(UNASSIGNED)})"
+                  class="w-full py-2.5 px-3 rounded-2xl bg-amber-50 hover:bg-amber-100 border border-amber-300 text-amber-900 text-xs font-extrabold flex items-center justify-center gap-1.5 transition cursor-pointer">
+            <span>Quitar de ${esc(person.group)} (Enviar a Sin grupo)</span>
+          </button>
+        `;
+      } else {
+        els.assignModalUnassignWrap.classList.add('hidden');
+        els.assignModalUnassignWrap.innerHTML = '';
+      }
+
+      els.globalAssignModal.classList.remove('hidden');
+      els.globalAssignModal.classList.add('flex');
+    };
+
     window.__closeAssignMenu = () => {
-      document.querySelectorAll('.assign-popover:not(.hidden)').forEach(pop => {
-        pop.classList.add('hidden');
-        const wrap = pop.closest('[data-assign-wrap]');
-        const chev = wrap ? wrap.querySelector('.assign-chevron') : null;
-        if (chev) chev.classList.remove('rotate-180');
-      });
-      state.openAssignMenuUid = null;
+      els.globalAssignModal.classList.add('hidden');
+      els.globalAssignModal.classList.remove('flex');
+      state.assignModalUid = null;
     };
 
-    window.__toggleAssignMenu = (event, btnEl) => {
-      if (event) event.stopPropagation();
-      const wrap = btnEl.closest('[data-assign-wrap]');
-      if (!wrap) return;
-      const pop = wrap.querySelector('.assign-popover');
-      const chev = wrap.querySelector('.assign-chevron');
-      const wasOpen = !pop.classList.contains('hidden');
-      window.__closeAssignMenu();
-      if (!wasOpen) {
-        pop.classList.remove('hidden');
-        if (chev) chev.classList.add('rotate-180');
-        state.openAssignMenuUid = Number(wrap.dataset.assignWrap);
-      }
-    };
+    els.globalAssignModal.addEventListener('click', () => window.__closeAssignMenu());
 
-    document.addEventListener('click', () => {
-      if (state.openAssignMenuUid !== null) {
-        window.__closeAssignMenu();
-      }
+    els.assignModalCreateBtn.addEventListener('click', () => {
+      if (!state.assignModalUid) return;
+      const val = (els.assignModalNewGroupInput.value || '').trim();
+      if (!val) return;
+      window.__assignMember(state.assignModalUid, classifyGroup(val));
     });
-
-    window.__createNewGroupForMember = (uid) => {
-      const inputEl = document.getElementById(`newGroupInput-${uid}`);
-      if (!inputEl || !inputEl.value.trim()) return;
-      const targetGroup = classifyGroup(inputEl.value.trim());
-      window.__assignMember(uid, targetGroup);
-    };
 
     window.__assignMember = (uid, targetGroup) => {
       if (!targetGroup) return;
       const person = state.participants.find(p => p.uid === Number(uid));
       if (!person) return;
       person.group = targetGroup;
-      state.openAssignMenuUid = null;
+      window.__closeAssignMenu();
       saveState();
-      renderAll(false);
+      renderAll();
       showToast(`${person.name} asignado a ${targetGroup}`);
     };
 
-    // ---------- Acciones de Asistencias (Actualización directa en el DOM, CERO parpadeo) ----------
+    // ---------- Acciones de Asistencias (Noviembre y Diciembre, CERO parpadeo) ----------
     window.__selectActiveSession = (sessionNum) => {
       state.activeSession = Math.max(1, Math.min(TOTAL_SESSIONS, Number(sessionNum) || 1));
       state.sessionPickerOpen = false;
@@ -1822,7 +1783,6 @@
         set.delete(s);
       } else {
         set.add(s);
-        ensureSessionDate(s);
       }
       state.attendances[key] = [...set].sort((a, b) => a - b);
       saveAttendances();
@@ -1840,7 +1800,6 @@
         for (let s = 1; s <= TOTAL_SESSIONS && added < delta; s++) {
           if (!set.has(s)) {
             set.add(s);
-            ensureSessionDate(s);
             added++;
           }
         }
@@ -1856,6 +1815,18 @@
       updateParticipantAttendanceDOM(uid);
     };
 
+    window.__markMonthAtt = (uid, monthKey) => {
+      const person = state.participants.find(p => p.uid === Number(uid));
+      if (!person) return;
+      const set = getAttSet(person);
+      const days = monthKey === 'nov' ? NOV_DAYS : DIC_DAYS;
+      days.forEach(d => set.add(d.idx));
+      state.attendances[personKey(person)] = [...set].sort((a, b) => a - b);
+      saveAttendances();
+      updateParticipantAttendanceDOM(uid);
+      showToast(`✓ ${monthKey === 'nov' ? 'Noviembre (21 días)' : 'Diciembre (23 días)'} marcado para ${person.name}`);
+    };
+
     window.__applyQuickAttCount = (uid) => {
       const person = state.participants.find(p => p.uid === Number(uid));
       if (!person) return;
@@ -1866,7 +1837,7 @@
       state.attendances[personKey(person)] = arr;
       saveAttendances();
       updateParticipantAttendanceDOM(uid);
-      showToast(`✓ ${n}/${TOTAL_SESSIONS} vistos aplicados a ${person.name}`);
+      showToast(`✓ ${n}/${TOTAL_SESSIONS} días aplicados a ${person.name}`);
     };
 
     window.__fillAllAtt = (uid, markAll) => {
@@ -1877,10 +1848,10 @@
         const all = [];
         for (let s = 1; s <= TOTAL_SESSIONS; s++) all.push(s);
         state.attendances[key] = all;
-        showToast(`✓ 21/21 días de Noviembre marcados para ${person.name}`);
+        showToast(`✓ 44/44 días (Noviembre y Diciembre) marcados para ${person.name}`);
       } else {
         state.attendances[key] = [];
-        showToast(`Vistos reiniciados (0/80) para ${person.name}`);
+        showToast(`Asistencias reiniciadas para ${person.name}`);
       }
       saveAttendances();
       updateParticipantAttendanceDOM(uid);
@@ -1897,42 +1868,48 @@
         updateParticipantAttendanceDOM(p.uid);
       });
       saveAttendances();
-      showToast(`✓ Visto (${getNovDay(s).label}) marcado para los ${list.length} integrantes de ${groupName}`);
+      showToast(`✓ Visto (${getWorkday(s).short}) marcado para ${groupName}`);
     };
 
-    // ---------- Acciones de Grupos (Acordeón directo en el DOM sin parpadeo) ----------
+    // ---------- Acordeón con Lazy Render (0 lag en celular) ----------
     window.__focusGroup = (groupName) => {
-      state.openAssignMenuUid = null;
       if (state.focusedGroup === groupName) {
         state.focusedGroup = null;
       } else {
         state.focusedGroup = groupName;
       }
-      renderAll(false);
+      renderAll();
     };
 
     window.__clearFocus = () => {
       state.focusedGroup = null;
-      renderAll(false);
+      renderAll();
     };
 
     window.__toggleAccordion = (groupName) => {
-      const isOpen = state.expanded.has(groupName);
-      if (isOpen) {
+      const wasOpen = state.expanded.has(groupName);
+      if (wasOpen) {
         state.expanded.delete(groupName);
       } else {
         state.expanded.add(groupName);
       }
 
-      // Actualizar directamente la lista y la flecha en el DOM sin reconstruir innerHTML
       const listEl = document.querySelector(`[data-group-list="${CSS.escape(groupName)}"]`);
       const chevEl = document.querySelector(`[data-group-chevron="${CSS.escape(groupName)}"]`);
       if (listEl) {
-        listEl.classList.toggle('hidden', isOpen);
-        listEl.classList.toggle('grid', !isOpen);
+        if (!wasOpen) {
+          const members = buildMap().get(groupName) || [];
+          listEl.innerHTML = buildGroupMembersRowsHtml(groupName, members, norm(state.search));
+          listEl.classList.remove('hidden');
+          listEl.classList.add('grid');
+        } else {
+          listEl.classList.add('hidden');
+          listEl.classList.remove('grid');
+          listEl.innerHTML = '';
+        }
       }
       if (chevEl) {
-        chevEl.classList.toggle('rotate-180', !isOpen);
+        chevEl.classList.toggle('rotate-180', !wasOpen);
       }
     };
 
@@ -1957,196 +1934,15 @@
     function setAllExpanded(open) {
       state.focusedGroup = null;
       state.expanded.clear();
+      const map = buildMap();
       if (open) {
-        const map = buildMap();
         getGroupNames(map).forEach(g => state.expanded.add(g));
         state.expanded.add(UNASSIGNED);
       }
-      document.querySelectorAll('[data-group-list]').forEach(listEl => {
-        listEl.classList.toggle('hidden', !open);
-        listEl.classList.toggle('grid', open);
-      });
-      document.querySelectorAll('[data-group-chevron]').forEach(chevEl => {
-        chevEl.classList.toggle('rotate-180', open);
-      });
+      renderGroupsStack(map, getGroupNames(map), map.get(UNASSIGNED) || []);
     }
 
-    // ---------- Eventos ----------
-    els.tabModeGroups.addEventListener('click', () => {
-      state.mode = 'groups';
-      els.tabModeGroups.className = 'min-h-[40px] px-4 py-1.5 rounded-xl text-xs sm:text-sm font-extrabold transition-colors cursor-pointer inline-flex items-center gap-2 bg-slate-900 text-white shadow-sm';
-      els.tabModeAttendance.className = 'min-h-[40px] px-4 py-1.5 rounded-xl text-xs sm:text-sm font-extrabold transition-colors cursor-pointer inline-flex items-center gap-2 text-slate-700 hover:text-slate-900';
-      els.attendanceToolbar.classList.add('hidden');
-    });
-
-    els.tabModeAttendance.addEventListener('click', () => {
-      state.mode = 'attendance';
-      els.tabModeGroups.className = 'min-h-[40px] px-4 py-1.5 rounded-xl text-xs sm:text-sm font-extrabold transition-colors cursor-pointer inline-flex items-center gap-2 text-slate-700 hover:text-slate-900';
-      els.tabModeAttendance.className = 'min-h-[40px] px-4 py-1.5 rounded-xl text-xs sm:text-sm font-extrabold transition-colors cursor-pointer inline-flex items-center gap-2 bg-slate-900 text-white shadow-sm';
-      els.attendanceToolbar.classList.remove('hidden');
-      if (!state.focusedGroup && state.expanded.size === 0) {
-        const names = getGroupNames(buildMap());
-        if (names.length) window.__toggleAccordion(names[0]);
-      }
-    });
-
-    els.btnPrevSession.addEventListener('click', () => {
-      state.activeSession = state.activeSession > 1 ? state.activeSession - 1 : TOTAL_SESSIONS;
-      updateSessionUI();
-    });
-
-    els.btnNextSession.addEventListener('click', () => {
-      state.activeSession = state.activeSession < TOTAL_SESSIONS ? state.activeSession + 1 : 1;
-      updateSessionUI();
-    });
-
-    els.btnToggleSessionPicker.addEventListener('click', () => {
-      state.sessionPickerOpen = !state.sessionPickerOpen;
-      updateSessionUI();
-    });
-
-    els.btnCloseSessionPicker.addEventListener('click', () => {
-      state.sessionPickerOpen = false;
-      updateSessionUI();
-    });
-
-    els.btnMarkSessionAllVisible.addEventListener('click', () => {
-      const s = state.activeSession;
-      const targetList = state.participants.filter(p => {
-        if (p.group === UNASSIGNED) return false;
-        if (state.focusedGroup) return p.group === state.focusedGroup;
-        return true;
-      });
-      targetList.forEach(p => {
-        const set = getAttSet(p);
-        set.add(s);
-        state.attendances[personKey(p)] = [...set].sort((a, b) => a - b);
-        updateParticipantAttendanceDOM(p.uid);
-      });
-      saveAttendances();
-      showToast(`✓ Visto (${getNovDay(s).label}) puesto a ${targetList.length} integrantes`);
-    });
-
-    let searchTimer;
-    els.search.addEventListener('input', (e) => {
-      state.search = e.target.value;
-      clearTimeout(searchTimer);
-      searchTimer = setTimeout(() => {
-        const map = buildMap();
-        const names = getGroupNames(map);
-        renderFeatured(map, names);
-        renderGroupsStack(map, names, map.get(UNASSIGNED) || []);
-        refreshIcons();
-      }, 60);
-    });
-
-    els.search.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') els.clear.click();
-    });
-
-    els.clear.addEventListener('click', () => {
-      state.search = '';
-      els.search.value = '';
-      els.search.focus();
-      renderAll(false);
-    });
-
-    els.pills.addEventListener('click', (e) => {
-      const btn = e.target.closest('[data-filter]');
-      if (!btn) return;
-      state.focusedGroup = null;
-      state.filter = btn.dataset.filter;
-      renderAll(false);
-    });
-
-    els.btnBackToAll.addEventListener('click', () => {
-      state.focusedGroup = null;
-      renderAll(false);
-    });
-
-    $('btnExpandAll').addEventListener('click', () => setAllExpanded(true));
-    $('btnCollapseAll').addEventListener('click', () => setAllExpanded(false));
-    $('btnPrint').addEventListener('click', () => window.print());
-    $('btnExportExcel').addEventListener('click', exportToExcel);
-
-    $('btnToggleUpload').addEventListener('click', () => {
-      els.upload.classList.toggle('hidden');
-      if (!els.upload.classList.contains('hidden')) {
-        els.upload.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }
-    });
-    $('btnCloseUpload').addEventListener('click', () => els.upload.classList.add('hidden'));
-
-    $('btnSelectFile').addEventListener('click', (e) => {
-      e.stopPropagation();
-      els.file.click();
-    });
-    els.drop.addEventListener('click', () => els.file.click());
-    els.file.addEventListener('change', (e) => {
-      if (e.target.files.length) handleFile(e.target.files[0]);
-      els.file.value = '';
-    });
-
-    els.drop.addEventListener('dragover', (e) => {
-      e.preventDefault();
-      els.drop.classList.add('border-slate-800', 'bg-white/75');
-    });
-    els.drop.addEventListener('dragleave', () => {
-      els.drop.classList.remove('border-slate-800', 'bg-white/75');
-    });
-    els.drop.addEventListener('drop', (e) => {
-      e.preventDefault();
-      els.drop.classList.remove('border-slate-800', 'bg-white/75');
-      if (e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]);
-    });
-
-    $('btnDemoData').addEventListener('click', (e) => {
-      e.stopPropagation();
-      applyRows(DEMO_ROWS, 'Datos de prueba', true, true);
-      els.upload.classList.add('hidden');
-      showToast('Datos de prueba cargados');
-    });
-
-    $('btnRestoreOriginal').addEventListener('click', (e) => {
-      e.stopPropagation();
-      localStorage.removeItem(STORAGE_KEY);
-      applyRows(INITIAL_EXCEL_ROWS, ORIGINAL_NAME, false, true);
-      els.upload.classList.add('hidden');
-      showToast('Excel oficial restaurado');
-    });
-
-    $('btnApplyMapping').addEventListener('click', () => {
-      if (!state.pendingRawSheet) return;
-      const { rows, fileName, idCol } = state.pendingRawSheet;
-      applyRows(
-        rows.map(r => ({
-          name: r[state.mappedNameCol],
-          id: idCol ? r[idCol] : '',
-          groupRaw: r[state.mappedGroupCol]
-        })),
-        fileName,
-        true,
-        true
-      );
-      els.mapper.classList.add('hidden');
-      els.upload.classList.add('hidden');
-      showToast(`Columnas aplicadas: ${fileName}`);
-    });
-
-    // ---------- #3. Cambio de fecha de la jornada activa ----------
-    const sessionDateInput = document.getElementById('sessionDateInput');
-    if (sessionDateInput) {
-      sessionDateInput.addEventListener('change', (e) => {
-        if (e.target.value) {
-          state.sessionDates[state.activeSession] = e.target.value;
-          saveAttendances();
-          updateSessionUI();
-          showToast(`Fecha de Jornada #${state.activeSession} guardada (${formatShortDate(e.target.value)})`);
-        }
-      });
-    }
-
-    // ---------- #4. Registrar Nuevo Integrante Manualmente ----------
+    // ---------- Registrar Nuevo Integrante Manualmente ----------
     function renderNewMemberGroupPills() {
       const box = document.getElementById('newMemberGroupPills');
       if (!box) return;
@@ -2156,8 +1952,8 @@
         const active = state.newMemberGroup === g;
         return `
           <button type="button" onclick="window.__pickNewMemberGroup(${jsArg(g)})"
-                  class="px-3 py-1.5 rounded-xl text-xs font-extrabold transition cursor-pointer ${
-                    active ? 'bg-slate-900 text-white shadow-sm' : 'bg-white hover:bg-slate-100 text-slate-700 border border-slate-200'
+                  class="px-2.5 py-1.5 rounded-xl text-xs font-extrabold transition cursor-pointer ${
+                    active ? 'bg-slate-900 text-white shadow-xs' : 'bg-white hover:bg-slate-100 text-slate-700 border border-slate-200'
                   }">
             ${esc(g)}
           </button>
@@ -2208,11 +2004,11 @@
       $('newMemberId').value = '';
       $('newMemberPanel').classList.add('hidden');
       saveState();
-      renderAll(false);
+      renderAll();
       showToast(`✓ ${newPerson.name} agregado a ${newPerson.group}`);
     });
 
-    // ---------- #5. Imprimir Hoja de Firmas / Acta Formal por Grupo ----------
+    // ---------- Imprimir Hoja de Firmas por Grupo ----------
     window.__printGroupSheet = (groupName) => {
       const list = buildMap().get(groupName) || [];
       const today = new Date().toLocaleDateString('es-EC', { year: 'numeric', month: 'long', day: 'numeric' });
@@ -2261,7 +2057,7 @@
             <div>
               <div class="inst">Ministerio de Infraestructura y Transporte</div>
               <h1>JÓVENES EN ACCIÓN — ${esc(groupName.toUpperCase())}</h1>
-              <div class="sub">Acta Oficial de Control de Asistencia — Noviembre (Lunes a Viernes · 21 Días) y Firmas</div>
+              <div class="sub">Acta Oficial de Control de Asistencia — Noviembre y Diciembre (44 Días Hábiles)</div>
             </div>
             <div class="meta">
               <div><strong>Fecha de emisión:</strong> ${esc(today)}</div>
@@ -2274,7 +2070,7 @@
                 <th style="width:36px;">N°</th>
                 <th>Apellidos y Nombres (Orden A–Z)</th>
                 <th style="width:110px;">Cédula (C.I.)</th>
-                <th style="width:115px;">Noviembre (21d)</th>
+                <th style="width:115px;">Nov–Dic (44d)</th>
                 <th style="width:95px;">Estado</th>
                 <th style="width:190px;">Firma del Integrante</th>
               </tr>
@@ -2290,6 +2086,166 @@
         </html>`);
       win.document.close();
     };
+
+    // ---------- Eventos ----------
+    els.tabModeGroups.addEventListener('click', () => {
+      state.mode = 'groups';
+      els.tabModeGroups.className = 'min-h-[38px] px-3.5 py-1.5 rounded-xl text-xs font-extrabold transition-colors cursor-pointer inline-flex items-center gap-1.5 bg-slate-900 text-white shadow-sm whitespace-nowrap';
+      els.tabModeAttendance.className = 'min-h-[38px] px-3.5 py-1.5 rounded-xl text-xs font-extrabold transition-colors cursor-pointer inline-flex items-center gap-1.5 text-slate-700 hover:text-slate-900 whitespace-nowrap';
+      els.attendanceToolbar.classList.add('hidden');
+    });
+
+    els.tabModeAttendance.addEventListener('click', () => {
+      state.mode = 'attendance';
+      els.tabModeGroups.className = 'min-h-[38px] px-3.5 py-1.5 rounded-xl text-xs font-extrabold transition-colors cursor-pointer inline-flex items-center gap-1.5 text-slate-700 hover:text-slate-900 whitespace-nowrap';
+      els.tabModeAttendance.className = 'min-h-[38px] px-3.5 py-1.5 rounded-xl text-xs font-extrabold transition-colors cursor-pointer inline-flex items-center gap-1.5 bg-slate-900 text-white shadow-sm whitespace-nowrap';
+      els.attendanceToolbar.classList.remove('hidden');
+      if (!state.focusedGroup && state.expanded.size === 0) {
+        const names = getGroupNames(buildMap());
+        if (names.length) window.__toggleAccordion(names[0]);
+      }
+    });
+
+    els.btnPrevSession.addEventListener('click', () => {
+      state.activeSession = state.activeSession > 1 ? state.activeSession - 1 : TOTAL_SESSIONS;
+      updateSessionUI();
+    });
+
+    els.btnNextSession.addEventListener('click', () => {
+      state.activeSession = state.activeSession < TOTAL_SESSIONS ? state.activeSession + 1 : 1;
+      updateSessionUI();
+    });
+
+    els.btnToggleSessionPicker.addEventListener('click', () => {
+      state.sessionPickerOpen = !state.sessionPickerOpen;
+      updateSessionUI();
+    });
+
+    els.btnCloseSessionPicker.addEventListener('click', () => {
+      state.sessionPickerOpen = false;
+      updateSessionUI();
+    });
+
+    els.btnMarkSessionAllVisible.addEventListener('click', () => {
+      const s = state.activeSession;
+      const targetList = state.participants.filter(p => {
+        if (p.group === UNASSIGNED) return false;
+        if (state.focusedGroup) return p.group === state.focusedGroup;
+        return true;
+      });
+      targetList.forEach(p => {
+        const set = getAttSet(p);
+        set.add(s);
+        state.attendances[personKey(p)] = [...set].sort((a, b) => a - b);
+        updateParticipantAttendanceDOM(p.uid);
+      });
+      saveAttendances();
+      showToast(`✓ Visto (${getWorkday(s).short}) puesto a ${targetList.length} integrantes`);
+    });
+
+    let searchTimer;
+    els.search.addEventListener('input', (e) => {
+      state.search = e.target.value;
+      clearTimeout(searchTimer);
+      searchTimer = setTimeout(() => {
+        const map = buildMap();
+        const names = getGroupNames(map);
+        renderFeatured(map, names);
+        renderGroupsStack(map, names, map.get(UNASSIGNED) || []);
+      }, 70);
+    });
+
+    els.search.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') els.clear.click();
+    });
+
+    els.clear.addEventListener('click', () => {
+      state.search = '';
+      els.search.value = '';
+      els.search.focus();
+      renderAll();
+    });
+
+    els.pills.addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-filter]');
+      if (!btn) return;
+      state.focusedGroup = null;
+      state.filter = btn.dataset.filter;
+      renderAll();
+    });
+
+    els.btnBackToAll.addEventListener('click', () => {
+      state.focusedGroup = null;
+      renderAll();
+    });
+
+    $('btnExpandAll').addEventListener('click', () => setAllExpanded(true));
+    $('btnCollapseAll').addEventListener('click', () => setAllExpanded(false));
+    $('btnPrint').addEventListener('click', () => window.print());
+    $('btnExportExcel').addEventListener('click', exportToExcel);
+
+    $('btnToggleUpload').addEventListener('click', () => {
+      els.upload.classList.toggle('hidden');
+      if (!els.upload.classList.contains('hidden')) {
+        els.upload.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    });
+    $('btnCloseUpload').addEventListener('click', () => els.upload.classList.add('hidden'));
+
+    $('btnSelectFile').addEventListener('click', (e) => {
+      e.stopPropagation();
+      els.file.click();
+    });
+    els.drop.addEventListener('click', () => els.file.click());
+    els.file.addEventListener('change', (e) => {
+      if (e.target.files.length) handleFile(e.target.files[0]);
+      els.file.value = '';
+    });
+
+    els.drop.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      els.drop.classList.add('border-slate-800', 'bg-white/75');
+    });
+    els.drop.addEventListener('dragleave', () => {
+      els.drop.classList.remove('border-slate-800', 'bg-white/75');
+    });
+    els.drop.addEventListener('drop', (e) => {
+      e.preventDefault();
+      els.drop.classList.remove('border-slate-800', 'bg-white/75');
+      if (e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]);
+    });
+
+    $('btnDemoData').addEventListener('click', (e) => {
+      e.stopPropagation();
+      applyRows(DEMO_ROWS, 'Datos de prueba', true);
+      els.upload.classList.add('hidden');
+      showToast('Datos de prueba cargados');
+    });
+
+    $('btnRestoreOriginal').addEventListener('click', (e) => {
+      e.stopPropagation();
+      localStorage.removeItem(STORAGE_KEY);
+      applyRows(INITIAL_EXCEL_ROWS, ORIGINAL_NAME, false);
+      els.upload.classList.add('hidden');
+      showToast('Excel oficial restaurado');
+    });
+
+    $('btnApplyMapping').addEventListener('click', () => {
+      if (!state.pendingRawSheet) return;
+      const { rows, fileName, idCol } = state.pendingRawSheet;
+      applyRows(
+        rows.map(r => ({
+          name: r[state.mappedNameCol],
+          id: idCol ? r[idCol] : '',
+          groupRaw: r[state.mappedGroupCol]
+        })),
+        fileName,
+        true
+      );
+      els.mapper.classList.add('hidden');
+      els.upload.classList.add('hidden');
+      showToast(`Columnas aplicadas: ${fileName}`);
+    });
 
     loadInitial();
   })();
