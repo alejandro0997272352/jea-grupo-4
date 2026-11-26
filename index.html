@@ -649,7 +649,7 @@
               <span class="absolute left-3.5 text-slate-400 pointer-events-none">
                 <i data-lucide="user" class="w-4 h-4"></i>
               </span>
-              <input id="loginUsername" type="text" autocomplete="username" placeholder="Alejandro o Lorena"
+              <input id="loginUsername" type="text" autocomplete="username" placeholder="Alejandro, Lorena o Guadalupe"
                      class="w-full h-12 pl-10 pr-4 rounded-2xl bg-slate-50/90 focus:bg-white border border-slate-200/90 focus:border-slate-900 focus:ring-4 focus:ring-slate-900/10 text-base font-semibold text-slate-900 placeholder:text-slate-400 outline-none transition" />
             </div>
           </div>
@@ -940,7 +940,8 @@
     const AUTH_STORAGE_KEY = 'jea_mit_auth_session_v1';
     const ADMIN_ACCOUNTS = {
       'alejandro': { pass: 'jea12282022', displayName: 'Alejandro', welcomeWord: '¡Bienvenido' },
-      'lorena':    { pass: 'jea200311',   displayName: 'Lorena',    welcomeWord: '¡Bienvenida' }
+      'lorena':    { pass: 'jea200311',   displayName: 'Lorena',    welcomeWord: '¡Bienvenida' },
+      'guadalupe': { pass: 'jea',         displayName: 'Guadalupe', welcomeWord: '¡Bienvenida' }
     };
     function getAdminProfile(name) {
       const k = norm(name || 'alejandro');
